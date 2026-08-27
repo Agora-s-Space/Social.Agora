@@ -1,0 +1,3 @@
+# CODEOWNERS é o arquivo que define quem é o dono de cada parte do código, ao fazer um PR que modifica essas partes, o dono deve aprovar o PR antes de ele ser aceito
+# Responsavel pela documentacao do projeto
+Agora.Docs/ @TheSirLeaf
