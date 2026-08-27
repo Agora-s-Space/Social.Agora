@@ -1,0 +1,43 @@
+{
+	"nodes":[
+		{"id":"center","type":"text","text":"# REDE SOCIAL DESKTOP (C#)\nLevantamento de requisitos + modelagem\n[[Home]]","x":-180,"y":-80,"width":360,"height":160,"color":"6"},
+		{"id":"h_req","type":"text","text":"## 01 · REQUISITOS","x":-700,"y":-420,"width":260,"height":80,"color":"1"},
+		{"id":"f_rf","type":"file","file":"01 Requisitos/Requisitos Funcionais.md","x":-620,"y":-280,"width":280,"height":220},
+		{"id":"f_rnf","type":"file","file":"01 Requisitos/Requisitos Não Funcionais.md","x":-940,"y":-20,"width":280,"height":220},
+		{"id":"f_uc","type":"file","file":"01 Requisitos/Casos de Uso.md","x":-620,"y":-20,"width":280,"height":220},
+		{"id":"h_mod","type":"text","text":"## 02 · MODELAGEM","x":440,"y":-420,"width":260,"height":80,"color":"4"},
+		{"id":"f_dom","type":"file","file":"02 Modelagem/Modelo de Domínio.md","x":200,"y":-280,"width":280,"height":240},
+		{"id":"f_er","type":"file","file":"02 Modelagem/Modelo de Dados (ER).md","x":520,"y":-280,"width":280,"height":240},
+		{"id":"f_arq","type":"file","file":"02 Modelagem/Arquitetura do Sistema.md","x":840,"y":-280,"width":280,"height":240},
+		{"id":"f_est","type":"file","file":"02 Modelagem/Máquinas de Estado.md","x":200,"y":0,"width":280,"height":220},
+		{"id":"f_flux","type":"file","file":"02 Modelagem/Fluxos Principais.md","x":520,"y":0,"width":280,"height":220},
+		{"id":"h_dec","type":"text","text":"## 03 · DECISÕES (ADR)","x":-700,"y":320,"width":260,"height":80,"color":"3"},
+		{"id":"f_adr1","type":"file","file":"03 Decisões/ADR-001 Stack Tecnológica.md","x":-780,"y":460,"width":340,"height":220},
+		{"id":"t_adr2","type":"text","text":"**ADR-002 (pendente)**\nImplantação:\nlocal-first × cliente-servidor","x":-400,"y":460,"width":240,"height":140},
+		{"id":"h_ges","type":"text","text":"## 04 · GESTÃO","x":440,"y":320,"width":260,"height":80,"color":"5"},
+		{"id":"f_road","type":"file","file":"04 Gestão/Roadmap.md","x":200,"y":460,"width":280,"height":220},
+		{"id":"f_back","type":"file","file":"04 Gestão/Backlog do Produto.md","x":520,"y":460,"width":280,"height":220},
+		{"id":"f_glo","type":"file","file":"04 Gestão/Glossário.md","x":840,"y":460,"width":240,"height":220},
+		{"id":"f_visao","type":"file","file":"01 Requisitos/Visão do Produto.md","x":-940,"y":-280,"width":280,"height":220}
+	],
+	"edges":[
+		{"id":"e1","fromNode":"center","fromSide":"top","toNode":"h_req","toSide":"bottom"},
+		{"id":"e2","fromNode":"center","fromSide":"top","toNode":"h_mod","toSide":"bottom"},
+		{"id":"e3","fromNode":"center","fromSide":"bottom","toNode":"h_dec","toSide":"top"},
+		{"id":"e4","fromNode":"center","fromSide":"bottom","toNode":"h_ges","toSide":"top"},
+		{"id":"e5","fromNode":"h_req","fromSide":"bottom","toNode":"f_visao","toSide":"top"},
+		{"id":"e6","fromNode":"h_req","fromSide":"bottom","toNode":"f_rf","toSide":"top"},
+		{"id":"e7","fromNode":"h_req","fromSide":"bottom","toNode":"f_rnf","toSide":"top"},
+		{"id":"e8","fromNode":"h_req","fromSide":"bottom","toNode":"f_uc","toSide":"top"},
+		{"id":"e9","fromNode":"h_mod","fromSide":"bottom","toNode":"f_dom","toSide":"top"},
+		{"id":"e10","fromNode":"h_mod","fromSide":"bottom","toNode":"f_er","toSide":"top"},
+		{"id":"e11","fromNode":"h_mod","fromSide":"bottom","toNode":"f_arq","toSide":"left"},
+		{"id":"e12","fromNode":"h_mod","fromSide":"bottom","toNode":"f_est","toSide":"top"},
+		{"id":"e13","fromNode":"h_mod","fromSide":"bottom","toNode":"f_flux","toSide":"top"},
+		{"id":"e14","fromNode":"h_dec","fromSide":"bottom","toNode":"f_adr1","toSide":"top"},
+		{"id":"e15","fromNode":"h_dec","fromSide":"bottom","toNode":"t_adr2","toSide":"top"},
+		{"id":"e16","fromNode":"h_ges","fromSide":"bottom","toNode":"f_road","toSide":"top"},
+		{"id":"e17","fromNode":"h_ges","fromSide":"bottom","toNode":"f_back","toSide":"top"},
+		{"id":"e18","fromNode":"h_ges","fromSide":"bottom","toNode":"f_glo","toSide":"left"}
+	]
+}
