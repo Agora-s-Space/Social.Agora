@@ -41,6 +41,7 @@ Positivas · Negativas · Neutras — e o que monitorar.
 - [[03 Decisões/ADR-003 Persistência|ADR-003 — Persistência (ORM)]] — `aceita`
 - [[03 Decisões/ADR-004 Ambientes|ADR-004 — Ambientes (dev/staging/prod)]] — `aceita`
 - [[03 Decisões/ADR-005 API do Servidor|ADR-005 — Design da API do Servidor]] — `aceita`
+- [[03 Decisões/ADR-006 Observabilidade|ADR-006 — Observabilidade: Métricas da API]] — `proposta`
 
 ## Propostas pendentes
 - [[03 Decisões/Propostas Pendentes|Propostas Pendentes]] — decisões aguardando escolha

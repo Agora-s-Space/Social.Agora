@@ -61,7 +61,7 @@ gantt
 - **Social:** RF-007, RF-008, RF-009
 - **UI/Experiência:** RF-031
 - **Descoberta:** RF-010, RF-017
-- **Infra/Entrega:** ambientes (ADR-004), CI/CD, backup, observabilidade, empacotamento (B-36..B-41) + skeleton da API com auth JWT/OpenAPI (B-42) — ver [[04 Gestão/Operações e Deploy|Operações e Deploy]]
+- **Infra/Entrega:** ambientes ([[03 Decisões/ADR-004 Ambientes|ADR-004]]), CI/CD, backup, observabilidade ([[03 Decisões/ADR-006 Observabilidade|ADR-006]]), empacotamento (B-36..B-41) + skeleton da API com auth JWT/OpenAPI (B-42) — ver [[04 Gestão/Operações e Deploy|Operações e Deploy]]
 - Detalhes → [[04 Gestão/Definição do MVP|Definição do MVP]]
 
 ### Fase 2 — Social+ (jan–abr/2027)

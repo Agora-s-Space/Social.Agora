@@ -14,11 +14,11 @@ atualizado: 2026-08-27
 
 Decidido em [[03 Decisões/ADR-004 Ambientes|ADR-004]]:
 
-| Ambiente | Finalidade | Onde roda | Banco |
-|---|---|---|---|
-| **dev** | Desenvolvimento local de cada dev | Máquina local | SQLite |
-| **staging** | Validação pré-release | VPS | Npgsql/SqlServer |
-| **produção** | Uso dos usuários (20 betas) | VPS | Npgsql/SqlServer |
+| Ambiente     | Finalidade                        | Onde roda     | Banco            |
+| ------------ | --------------------------------- | ------------- | ---------------- |
+| **dev**      | Desenvolvimento local de cada dev | Máquina local | Npgsql/SqlServer |
+| **staging**  | Validação pré-release             | VPS           | Npgsql/SqlServer |
+| **produção** | Uso dos usuários (20 betas)       | VPS           | Npgsql/SqlServer |
 
 > [!warning] Regras
 > - Nunca usar dados reais em staging
@@ -46,12 +46,12 @@ Referência: [[04 Gestão/Backlog do Produto#B-09|B-09 CI]] · [[04 Gestão/Back
 
 ## 4. Monitoramento e observabilidade
 
-| Área | Ferramenta proposta | Status |
-|---|---|---|
-| Logs estruturados | Serilog (RNF-16) | documentado |
-| Métricas de API | Prometheus/Grafana (ou ASP.NET metrics) | proposto |
-| Uptime/alertas | Health checks + alerting | proposto |
-| Crash reporting do app desktop | Sentry (opcional) | proposto |
+| Área                           | Ferramenta proposta                                                                                                  | Status                               |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| Logs estruturados              | Serilog (RNF-16)                                                                                                     | documentado                          |
+| Métricas de API                | `System.Diagnostics.Metrics` + OpenTelemetry + Prometheus/Grafana — [[03 Decisões/ADR-006 Observabilidade\|ADR-006]] | [[ADR-006 Observabilidade\|ADR-006]] |
+| Uptime/alertas                 | Health checks + alerting                                                                                             | proposto                             |
+| Crash reporting do app desktop | Sentry (opcional)                                                                                                    | proposto                             |
 
 Referência: [[04 Gestão/Backlog do Produto#B-39|B-39]]
 
