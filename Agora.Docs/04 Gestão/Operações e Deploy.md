@@ -46,12 +46,12 @@ Referência: [[04 Gestão/Backlog do Produto#B-09|B-09 CI]] · [[04 Gestão/Back
 
 ## 4. Monitoramento e observabilidade
 
-| Área | Ferramenta proposta | Status |
-|---|---|---|
-| Logs estruturados | Serilog (RNF-16) | documentado |
-| Métricas de API | `System.Diagnostics.Metrics` + OpenTelemetry + Prometheus/Grafana — [[03 Decisões/ADR-006 Observabilidade|ADR-006]] | proposta |
-| Uptime/alertas | Health checks + alerting | proposto |
-| Crash reporting do app desktop | Sentry (opcional) | proposto |
+| Área                           | Ferramenta proposta                                                                                                  | Status                               |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| Logs estruturados              | Serilog (RNF-16)                                                                                                     | documentado                          |
+| Métricas de API                | `System.Diagnostics.Metrics` + OpenTelemetry + Prometheus/Grafana — [[03 Decisões/ADR-006 Observabilidade\|ADR-006]] | [[ADR-006 Observabilidade\|ADR-006]] |
+| Uptime/alertas                 | Health checks + alerting                                                                                             | proposto                             |
+| Crash reporting do app desktop | Sentry (opcional)                                                                                                    | proposto                             |
 
 Referência: [[04 Gestão/Backlog do Produto#B-39|B-39]]
 
