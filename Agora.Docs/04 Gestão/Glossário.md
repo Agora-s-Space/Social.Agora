@@ -2,7 +2,7 @@
 tags: [gestao, glossario]
 tipo: documento
 status: ativo
-atualizado: 2026-08-25
+atualizado: 2026-08-29
 ---
 
 # Glossário
@@ -33,6 +33,10 @@ atualizado: 2026-08-25
 | **Mesa** | Grupo de jogadores e narrador em uma campanha de RPG — RF-030 |
 | **Sessão** | Encontro individual dentro de uma campanha (pode ser one-shot) — RF-030 |
 | **Ficha** | Personagem de RPG com atributos, habilidades e inventário — RF-030 |
+| **SegueTag** | Relação N:N usuário-tag; base do feed por interesse — RF-019 (Fase 2) |
+| **Flair** | Badge visual de perfil (ex: "C# Dev", "Mestre D&D") — RF-020 (Fase 2) |
+| **UsuarioLivro** | Estado de leitura por usuário: `lido`/`lendo`/`queroler`, nota 0–5 e resenha — RF-027 |
+| **UsuarioJogo** | Horas jogadas, review e plataforma por usuário — RF-029 |
 | **RF / RNF / RN** | Requisito Funcional / Não Funcional / Regra de Negócio |
 | **MoSCoW** | Must/Should/Could/Won't — priorização |
 | **Local-first** | Abordagem onde dados vivem primeiro no dispositivo, sync depois |

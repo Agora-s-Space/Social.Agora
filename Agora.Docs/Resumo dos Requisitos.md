@@ -2,7 +2,7 @@
 tags: [requisitos, resumo]
 tipo: resumo
 status: ativo
-atualizado: 2026-08-25
+atualizado: 2026-08-29
 ---
 
 # Resumo dos Requisitos
@@ -151,6 +151,20 @@ Fonte detalhada: [[02 Modelagem/Modelo de Domínio]] · [[02 Modelagem/Modelo de
 | `TAG` | Classificador de conteúdo por tema/hobby | `nome` UK (RN-08), `slug` auto-gerado |
 | `POST_TAG` | Relação N:N post-tag | PK composta; máx. 5/post (RN-09) |
 
+### Entidades das Fases 2/3 (modeladas em 2026-08-29)
+
+| Entidade | Papel | Fase |
+|---|---|---|
+| `SEGUE_TAG` | Usuário segue tags (feed por interesse, RF-019) | 2 |
+| `FLAIR` / `USUARIO_FLAIR` | Badges visuais de perfil (RF-020) | 2 |
+| `PERFIL` (extensão) | Campos opcionais: stack tech, jogos/autores favoritos (RF-021) | 2 |
+| `LIVRO` / `USUARIO_LIVRO` | Catálogo global + estado de leitura/nota/resenha (RF-027) | 3 |
+| `JOGO` / `USUARIO_JOGO` | Catálogo global + horas/review/plataforma (RF-029) | 3 |
+| `REPOSITORIO` | Repositórios GitHub no perfil (RF-028) | 3 |
+| `CAMPANHA` / `MESA` / `SESSAO` / `FICHA` | Mesas e campanhas de RPG (RF-030) | 3 |
+
+Detalhes em [[02 Modelagem/Modelo de Dados (ER)|ER]] e [[02 Modelagem/Modelo de Domínio|Domínio]].
+
 > [!note] Feed
 > O **Feed** não é uma entidade persistida — é uma *consulta agregadora* que combina posts dos seguidos + próprios (RF-005). Sua implementação depende do modelo de implantação (ADR-002).
 
@@ -248,7 +262,7 @@ Fonte detalhada: [[04 Gestão/Roadmap]]
 | Requisitos não funcionais | 23 |
 | Regras de negócio | 10 |
 | Casos de uso | 10 |
-| Entidades de domínio | 9 |
+| Entidades de domínio | 21 (9 MVP + 12 F2/F3) |
 | Itens de backlog | 44 |
 | ADRs | 7 aceitas* |
 

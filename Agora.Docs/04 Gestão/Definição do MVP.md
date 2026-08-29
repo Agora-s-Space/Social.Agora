@@ -25,26 +25,26 @@ atualizado: 2026-08-27
 
 ## 2. RFs do MVP (18)
 
-| # | ID | Requisito | Módulo | UC |
-|---|---|---|---|---|
-| 1 | RF-001 | Cadastro com e-mail + senha, validando e-mail único | Conta | UC-01 |
-| 2 | RF-002 | Autenticação (login/logout) + recuperação de senha por e-mail | Conta | UC-02 |
-| 3 | RF-003 | Perfil editável: nome de exibição, @apelido único, avatar, bio | Conta | UC-03 |
-| 4 | RF-004 | Publicar posts com markdown (texto + code blocks) | Conteúdo | UC-04 |
-| 5 | RF-005 | Feed cronológico (seguidos + próprios), paginado | Conteúdo | UC-05 |
-| 6 | RF-006 | Autor edita ou exclui seus próprios posts | Conteúdo | UC-04 |
-| 7 | RF-007 | Seguir / deixar de seguir qualquer usuário | Social | UC-06 |
-| 8 | RF-008 | Curtir posts (1 curtida por usuário/post, toggle) | Social | UC-07 |
-| 9 | RF-009 | Comentar posts; exclusão pelo autor | Social | UC-07 |
-| 10 | RF-010 | Busca por usuários (@apelido/nome) e posts (palavra-chave) | Descoberta | UC-08 |
-| 11 | RF-016 | Adicionar 1–5 tags de conteúdo ao post | Conteúdo | UC-04 |
-| 12 | RF-017 | Busca por tag, filtrando feed e resultados | Descoberta | UC-08 |
-| 13 | RF-018 | Feed alternativo por tags populares (MVP); por tags seguidas (Fase 2) | Conteúdo | UC-05 |
-| 14 | RF-022 | Syntax highlighting em blocos de código | Conteúdo | UC-04 |
-| 15 | RF-023 | Campo `categoria` obrigatório nas tags | Descoberta | UC-04 |
-| 16 | RF-031 | Tela de splash com logo (letter metálica + partes azuis): flash no metal + energia cristalina | UI | UC-01 |
-| 17 | RF-032 | Excluir própria conta, anonimizando dados em ≤ 30 dias, com remoção/anonimização dos posts (LGPD) | Conta | UC-10 |
-| 18 | RF-033 | Exportar os próprios dados pessoais em formato legível (LGPD) | Conta | UC-10 |
+| #   | ID     | Requisito                                                                                         | Módulo     | UC    |
+| --- | ------ | ------------------------------------------------------------------------------------------------- | ---------- | ----- |
+| 1   | RF-001 | Cadastro com e-mail + senha, validando e-mail único                                               | Conta      | UC-01 |
+| 2   | RF-002 | Autenticação (login/logout) + recuperação de senha por e-mail                                     | Conta      | UC-02 |
+| 3   | RF-003 | Perfil editável: nome de exibição, @apelido único, avatar, bio                                    | Conta      | UC-03 |
+| 4   | RF-004 | Publicar posts com markdown (texto + code blocks)                                                 | Conteúdo   | UC-04 |
+| 5   | RF-005 | Feed cronológico (seguidos + próprios), paginado                                                  | Conteúdo   | UC-05 |
+| 6   | RF-006 | Autor edita ou exclui seus próprios posts                                                         | Conteúdo   | UC-04 |
+| 7   | RF-007 | Seguir / deixar de seguir qualquer usuário                                                        | Social     | UC-06 |
+| 8   | RF-008 | Curtir posts (1 curtida por usuário/post, toggle)                                                 | Social     | UC-07 |
+| 9   | RF-009 | Comentar posts; exclusão pelo autor                                                               | Social     | UC-07 |
+| 10  | RF-010 | Busca por usuários (@apelido/nome) e posts (palavra-chave)                                        | Descoberta | UC-08 |
+| 11  | RF-016 | Adicionar 1–5 tags de conteúdo ao post                                                            | Conteúdo   | UC-04 |
+| 12  | RF-017 | Busca por tag, filtrando feed e resultados                                                        | Descoberta | UC-08 |
+| 13  | RF-018 | Feed alternativo por tags populares (MVP); por tags seguidas (Fase 2)                             | Conteúdo   | UC-05 |
+| 14  | RF-022 | Syntax highlighting em blocos de código                                                           | Conteúdo   | UC-04 |
+| 15  | RF-023 | Campo `categoria` obrigatório nas tags                                                            | Descoberta | UC-04 |
+| 16  | RF-031 | Tela de splash com logo (letter metálica + partes azuis): flash no metal + energia cristalina     | UI         | UC-01 |
+| 17  | RF-032 | Excluir própria conta, anonimizando dados em ≤ 30 dias, com remoção/anonimização dos posts (LGPD) | Conta      | UC-10 |
+| 18  | RF-033 | Exportar os próprios dados pessoais em formato legível (LGPD)                                     | Conta      | UC-10 |
 
 ## 3. RNFs críticos para o MVP
 
