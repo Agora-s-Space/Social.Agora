@@ -9,7 +9,7 @@ atualizado: 2026-08-28
 
 > **Instituição:** UNA - Contagem
 > **Disciplina:** Garantia da Qualidade de Software  
-> **Integrantes:** Athur Marquez Diniz, Bernardo Luiz Monteverde Gonçalves, Luiz Filipe Pimenta Correa, Patrick Oliveira Rabelo de Brito
+> **Integrantes:** Arthur Marquez Diniz, Bernardo Luiz Monteverde Gonçalves, Luiz Filipe Pimenta Correa, Patrick Oliveira Rabelo de Brito
 > **Professor(a):** Daniel Henrique Matos de Paiva  
 > **Data:** 24 de agosto de 2026
 
