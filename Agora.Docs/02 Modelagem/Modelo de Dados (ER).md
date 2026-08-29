@@ -8,7 +8,7 @@ atualizado: 2026-08-25
 # Modelo de Dados (ER)
 
 > [!info] Relação com o domínio
-> Derivado de [[02 Modelagem/Modelo de Domínio]]. Nomes de tabelas em `snake_case`; PK/FK explícitas. SGBD: SQLite local (client) / PostgreSQL ou SqlServer (servidor) — definido em [[03 Decisões/ADR-003 Persistência|ADR-003]]. Inclui suporte a OAuth (RF-024, RF-025).
+> Derivado de [[02 Modelagem/Modelo de Domínio]]. Nomes de tabelas em `snake_case`; PK/FK explícitas. SGBD: **SQLite** no client (configs locais, rascunho RNF-15, cache — [[03 Decisões/ADR-003 Persistência|ADR-003]]) / **PostgreSQL via Npgsql** no servidor ([[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]]). Inclui suporte a OAuth (RF-024, RF-025).
 
 ## Diagrama
 
@@ -98,7 +98,7 @@ erDiagram
 | USUARIO | `(apelido)` | Busca por @ (RF-010) |
 | USUARIO | `(provider, provider_id)` | Login OAuth — busca por provedor (RF-024) |
 | POST | `(autor_id, status, publicado_em DESC)` | Feed e perfil |
-| POST | `GIN/conteudo` ou FTS | RF-010 busca textual ⚠️ conforme SGBD |
+| POST | `GIN/conteudo` (tsvector) | RF-010 busca textual — FTS Postgres (ADR-007) · cache local usa LIKE |
 | COMENTARIO | `(post_id, criado_em)` | Listar comentários de um post em ordem cronológica |
 | CURTIDA | já coberta pela PK composta | RN-02 |
 | SEGUIDA | `(seguido_id)` adicional | Listar seguidores |
@@ -121,6 +121,9 @@ erDiagram
 
 > [!note] Soft delete em COMENTARIO
 > No MVP, exclusão de comentário é hard delete. Se RF-015 (moderação) for implementada, adicionar coluna `status` em COMENTARIO seguindo o mesmo padrão de POST.
+
+> [!note] Entidades das Fases 2/3
+> `SEGUE_TAG`, `FLAIR`, `USUARIO_FLAIR` (Fase 2) e `LIVRO`, `JOGO`, `REPOSITORIO`, `CAMPANHA`, `MESA`, `SESSAO`, `FICHA` (Fase 3) estão como rascunho em [[VAULT/Plano - Rede Social de Nicho]] — modelar aqui quando cada fase iniciar (ver [[VAULT/Checklist - Correções do Plano]]).
 
 ## Migrações
 - Ferramenta candidata: **EF Core Migrations** ([[03 Decisões/ADR-003 Persistência|ADR-003]])

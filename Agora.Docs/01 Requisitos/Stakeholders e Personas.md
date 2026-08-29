@@ -2,10 +2,21 @@
 tags: [requisitos, stakeholders]
 tipo: documento
 status: rascunho
-atualizado: 2026-08-25
+atualizado: 2026-08-28
 ---
 
 # Stakeholders e Personas
+
+## Nichos de público
+
+> [!info] Anéis de público-alvo
+> | Anel | Nichos |
+> |---|---|
+> | **Primário** (foco do produto) | Jogadores, jogadores de RPG de mesa, leitores, programadores |
+> | **Secundário** (possível) | Musicistas e apreciadores de música, cinéfilos e hobbies similares |
+> | **Distante** (ainda plausível) | Outros hobbies (ex.: ciclismo e afins) |
+>
+> Nichos primários conduzem as funcionalidades profundas (syntax highlighting p/ programadores, tags de sistema/tema p/ RPG, gênero/autor p/ leitores). Secundários e distantes são atendidos por recursos genéricos (tags, markdown, feed), sem features dedicadas no MVP.
 
 ## Stakeholders
 
@@ -51,10 +62,9 @@ atualizado: 2026-08-25
 | RF-008/009 Curtir/comentar | ✔ | ✔ | ✔ |
 | RF-010 Busca | ✔✔ | ✔ | ✔ |
 | RF-024 OAuth GitHub | ✔✔ | | |
-| RF-027 Biblioteca livros | | | ✔✔ |
-| RF-028 Repos GitHub | ✔✔ | | |
-| RF-029 Jogos jogados | | ✔✔ | |
-| RF-030 Mesas RPG | | ✔✔ | |
+
+> [!note] Features de nicho (F2/F3, fora do MVP)
+> RF-027 (biblioteca de livros), RF-028 (repos GitHub), RF-029 (jogos jogados) e RF-030 (mesas RPG) são features profundas de nicho de **Fase 2/3** — ainda **não modeladas** no ER/Domínio. Serão detalhadas quando cada fase for planejada (ver [[VAULT/Checklist - Correções do Plano#F.2|F.2]]).
 
 ## Links
 - [[01 Requisitos/Requisitos Funcionais|RF]] · [[01 Requisitos/Casos de Uso|Casos de Uso]]

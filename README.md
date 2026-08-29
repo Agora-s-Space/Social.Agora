@@ -14,6 +14,7 @@ O MVP (Fase 1) terá:
 - seguir usuários, curtidas com toggle e comentários;
 - busca por usuários, posts e tags;
 - tags categorizadas para organizar e descobrir conteúdo;
+- exclusão de conta e exportação de dados (LGPD);
 - splash screen animada e empacotamento do aplicativo.
 
 ## Stack definida
@@ -23,7 +24,7 @@ O MVP (Fase 1) terá:
 - **Arquitetura de apresentação:** MVVM com CommunityToolkit.Mvvm
 - **Servidor:** ASP.NET Core Web API
 - **Autenticação:** JWT Bearer
-- **Persistência:** Entity Framework Core 10, com SQLite no cliente e PostgreSQL ou SQL Server no servidor
+- **Persistência:** Entity Framework Core 10, com SQLite no cliente (configs, rascunho e cache) e **PostgreSQL (Npgsql)** no servidor
 - **Implantação:** cliente-servidor, com ambientes separados de desenvolvimento, staging e produção
 
 Arquitetura prevista: `UI -> Aplicação -> Domínio <- Infra`, mantendo as dependências apontadas para o núcleo do domínio.

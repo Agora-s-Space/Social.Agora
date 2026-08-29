@@ -2,13 +2,22 @@
 tags: [requisitos, visao]
 tipo: documento
 status: rascunho
-atualizado: 2026-08-25
+atualizado: 2026-08-28
 ---
 
 # Visão do Produto
 
 ## 1. Problema
-Redes sociais populares são otimizadas para engajamento algorítmico, escondendo conteúdo e exigindo apps móveis. Usuários de hobbies nerd (programadores, gamers de RPG, leitores) não têm uma plataforma desktop **leve, rápida e cronológica** para compartilhar e descobrir conteúdo por interesse.
+Redes sociais populares são otimizadas para engajamento algorítmico, escondendo conteúdo e exigindo apps móveis. Usuários de hobbies nerd (programadores, RPG de mesa, leitores, gamers) não têm uma plataforma desktop **leve, rápida e cronológica** para compartilhar e descobrir conteúdo por interesse.
+
+> [!info] Público-alvo de nicho (escopo de pessoa)
+> | Anel | Nichos |
+> |---|---|
+> | **Primário** (foco do produto) | Jogadores, jogadores de RPG de mesa, leitores, programadores |
+> | **Secundário** (possível) | Musicistas e apreciadores de música, cinéfilos e hobbies similares |
+> | **Distante** (ainda plausível) | Outros hobbies (ex.: ciclismo e afins) |
+>
+> Detalhes em [[01 Requisitos/Stakeholders e Personas|Stakeholders e Personas]].
 
 ## 2. Solução proposta
 **Agora** (do grego: praça pública) — aplicativo **desktop nativo em C#** de rede social focado em hobbies nerd, com feed cronológico, tags de conteúdo, markdown em posts e suporte a syntax highlighting. Nome do produto: **Agora**.
@@ -16,7 +25,7 @@ Redes sociais populares são otimizadas para engajamento algorítmico, escondend
 ## 3. Objetivos (OKRs propostos)
 
 ### O1 — Entregar um MVP utilizável
-- KR1: 16 requisitos funcionais do MVP concluídos até o fim da Fase 1 ([[04 Gestão/Roadmap|Roadmap]])
+- KR1: 18 requisitos funcionais do MVP concluídos até o fim da Fase 1 ([[04 Gestão/Roadmap|Roadmap]])
 - KR2: Feed carrega em ≤ 2 s (P95) com dados reais
 - KR3: Zero bugs críticos abertos no lançamento interno
 
@@ -33,6 +42,7 @@ mindmap
       Cadastro e login
       OAuth GitHub (Fase 2)
       Perfil editável
+      Exclusão/exportação de dados (RF-032/033)
     Conteúdo
       Post com Markdown
       Syntax highlighting (RF-022)
@@ -75,6 +85,8 @@ mindmap
 
 ## 6. Premissas e restrições
 - [!] **Premissa confirmada:** componente servidor desde o início — modelo cliente-servidor decidido em [[03 Decisões/ADR-002 Implantação|ADR-002]]
+- Confirmado: banco do servidor em **PostgreSQL (Npgsql)** — [[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]]; avatar no MVP via URL externa (upload de arquivos na Fase 2)
+- Confirmado: sessão desktop com refresh token **via DPAPI** — [[03 Decisões/ADR-008 Segurança de Sessão (DPAPI)|ADR-008]]
 - Restrição: equipe pequena (1–3 devs) ⚠️; prazo alvo Fase 1: ~3 meses ⚠️
 
 ## 7. Riscos iniciais

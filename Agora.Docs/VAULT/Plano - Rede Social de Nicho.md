@@ -2,7 +2,7 @@
 tags: [vault, plano, estrategia]
 tipo: documento
 status: ativo
-atualizado: 2026-08-25
+atualizado: 2026-08-28
 ---
 
 # Plano — Agora: Rede Social de Nicho (Devs/Gamers/Leitores)
@@ -46,11 +46,16 @@ A ideia é posicionar **Agora** como uma **plataforma para nerd culture**, com f
 
 ### 3.1 MVP — Fase 1 (Must)
 
-| Funcionalidade | Descrição | Novo RF? | Impacto no ER |
+| Funcionalidade | Descrição | RF (final) | Impacto no ER |
 |---|---|---|---|
-| **Markdown em posts** | Suporte a formatação básica (negrito, listas, código inline, blocos de código) | Sim — RF-016 | Não |
-| **Tags de conteúdo** | Usuário adiciona 1-5 tags ao post (ex: `csharp`, `dnd`, `fantasia`) | Sim — RF-017 | Sim — 2 tabelas |
-| **Busca por tag** | Filtrar feed e resultados por tag | Sim — RF-018 | Índice novo |
+| **Markdown em posts** | Suporte a formatação básica (negrito, listas, código inline, blocos de código) | [[01 Requisitos/Requisitos Funcionais#RF-004\|RF-004]] | Não |
+| **Syntax highlighting** | Renderização colorida de blocos de código por linguagem (fence markdown) | [[01 Requisitos/Requisitos Funcionais#RF-022\|RF-022]] | Não |
+| **Tags de conteúdo** | 1–5 tags por post, com `categoria` obrigatória | [[01 Requisitos/Requisitos Funcionais#RF-016\|RF-016]], [[01 Requisitos/Requisitos Funcionais#RF-023\|RF-023]] | Sim — TAG, POST_TAG |
+| **Busca por tag** | Filtrar feed e resultados por tag | [[01 Requisitos/Requisitos Funcionais#RF-017\|RF-017]] | Índice novo |
+| **Feed por tags populares** | Seção alternativa ao cronológico, ordenada por tags mais usadas | [[01 Requisitos/Requisitos Funcionais#RF-018\|RF-018]] | Não (query diferente) |
+
+> [!note] IDs sincronizados
+> Os números de RF desta seção conferem com [[01 Requisitos/Requisitos Funcionais]] (revisão de 2026-08-28). "Markdown" já era RF-004; tags/busca/feed populares viraram RF-016/017/018; highlighting e categoria são RF-022/023. Markdown e highlighting são **RFs Must antes já adotados** na modelagem original.
 
 **Entidades novas (Fase 1):**
 
@@ -77,12 +82,12 @@ erDiagram
 
 ### 3.2 Fase 2 (Should)
 
-| Funcionalidade | Descrição | Novo RF? | Impacto no ER |
+| Funcionalidade | Descrição | RF (final) | Impacto no ER |
 |---|---|---|---|
-| **Feed por interesse** | Seção alternativa ao cronológico, ordenada por tags que o usuário segue | Sim — RF-019 | Não (query diferente) |
-| **Seguir tags** | Usuário segue tags, não só usuários | Sim — RF-020 | Sim — 1 tabela |
-| **Flair de perfil** | Badge visual (ex: "C# Dev", "Mestre D&D", "Leitor") | Sim — RF-021 | Sim — 1 tabela |
-| **Perfil expandido** | Campos: stack tech, jogos favoritos, autores favoritos | Sim — RF-022 | Sim — extensão do PERFIL |
+| **Feed por interesse** | Seção alternativa ao cronológico, por tags que o usuário segue (requer seguir tags) | [[01 Requisitos/Requisitos Funcionais#RF-018\|RF-018]] (Fase 2) | Não (query diferente) |
+| **Seguir tags** | Usuário segue tags, não só usuários | [[01 Requisitos/Requisitos Funcionais#RF-019\|RF-019]] | Sim — SEGUE_TAG |
+| **Flair de perfil** | Badge visual (ex: "C# Dev", "Mestre D&D", "Leitor") | [[01 Requisitos/Requisitos Funcionais#RF-020\|RF-020]] | Sim — FLAIR, USUARIO_FLAIR |
+| **Perfil expandido** | Campos: stack tech, jogos favoritos, autores favoritos | [[01 Requisitos/Requisitos Funcionais#RF-021\|RF-021]] | Sim — extensão do PERFIL |
 
 **Entidades novas (Fase 2):**
 
@@ -109,6 +114,9 @@ erDiagram
     FLAIR ||--o{ USUARIO_FLAIR : "atribuída a"
 ```
 
+> [!note] Modelagem futura
+> `SEGUE_TAG`, `FLAIR` e `USUARIO_FLAIR` (assim como `LIVRO`, `JOGO`, `REPOSITORIO`, `CAMPANHA`, `MESA`, `SESSAO`, `FICHA`) ainda **não estão** no [[02 Modelagem/Modelo de Dados (ER)|ER]]/[[02 Modelagem/Modelo de Domínio|Domínio]] — devem ser modelados quando cada fase iniciar (ver [[VAULT/Checklist - Correções do Plano]]).
+
 **Feed híbrido:**
 ```
 Feed Cronológico (original) | Feed por Interesse (novo)
@@ -119,14 +127,16 @@ Feed Cronológico (original) | Feed por Interesse (novo)
 
 ### 3.3 Fase 3 (Could)
 
-| Funcionalidade | Descrição | Novo RF? | Impacto no ER |
+| Funcionalidade | Descrição | RF (final) | Impacto no ER |
 |---|---|---|---|
-| **Biblioteca de livros** | Lista lidos, want-to-read, notas, resenha no perfil | Sim — RF-027 | Sim — tabelas LIVRO, USUARIO_LIVRO |
-| **Integração GitHub** | Repositórios, projetos recentes, tech stack no perfil | Sim — RF-028 | Sim — tabela REPOSITORIO |
-| **Jogos jogados** | Lista com horas jogadas, review, plataforma | Sim — RF-029 | Sim — tabela JOGO |
-| **Mesas e campanhas RPG** | Espaço dedicado: mesa, sessão, ficha, sistema, one-shots | Sim — RF-030 | Sim — tabelas CAMPANHA, MESA, SESSAO, FICHA |
-| **Séries de posts** | Threads/tutoriais encadeados (ex: "Série: Construindo uma API em .NET") | Não (extensão de POST) | Não |
-| **Coleções** | Lists de posts salvos por tema (ex: "Meus snippets de Rust") | Não (extensão futura) | Sim — tabela COLECAO |
+| **Biblioteca de livros** | Lista lidos, want-to-read, notas, resenha no perfil | [[01 Requisitos/Requisitos Funcionais#RF-027\|RF-027]] | Sim — LIVRO, USUARIO_LIVRO |
+| **Integração GitHub** | Repositórios, projetos recentes, tech stack no perfil | [[01 Requisitos/Requisitos Funcionais#RF-028\|RF-028]] | Sim — REPOSITORIO |
+| **Jogos jogados** | Lista com horas jogadas, review, plataforma | [[01 Requisitos/Requisitos Funcionais#RF-029\|RF-029]] | Sim — JOGO |
+| **Mesas e campanhas RPG** | Espaço dedicado: mesa, sessão, ficha, sistema, one-shots | [[01 Requisitos/Requisitos Funcionais#RF-030\|RF-030]] | Sim — CAMPANHA, MESA, SESSAO, FICHA |
+| **OAuth GitHub / Google** | Login/cadastro via provedor externo + vínculo de conta | [[01 Requisitos/Requisitos Funcionais#RF-024\|RF-024]] (F2) · [[01 Requisitos/Requisitos Funcionais#RF-025\|RF-025]], [[01 Requisitos/Requisitos Funcionais#RF-026\|RF-026]] (F3) | USUARIO.provider |
+
+> [!note] Avaliadas e não adotadas
+> **Séries de posts** e **Coleções** foram avaliadas e **não entraram** no backlog de RFs — funcionalidades consideradas e descartadas (ver [[VAULT/Checklist - Correções do Plano]]).
 
 ---
 
@@ -172,27 +182,33 @@ Feed Cronológico (original) | Feed por Interesse (novo)
 
 | ID | Item | Origem | Esforço | Prioridade | Fase |
 |---|---|---|---|---|---|
-| B-17 | Markdown em posts | RF-016 | M | Must | 1 |
-| B-18 | Sistema de tags (criar/usar) | RF-017 | L | Must | 1 |
-| B-19 | Busca por tag | RF-018 | M | Must | 1 |
-| B-20 | Feed por interesse | RF-019 | XL | Should | 2 |
-| B-21 | Seguir tags | RF-020 | M | Should | 2 |
-| B-22 | Flair de perfil | RF-021 | S | Could | 2 |
-| B-23 | Perfil expandido | RF-022 | M | Could | 2 |
-| B-24 | Séries/tutoriais | RF-023 | L | Could | 3 |
-| B-25 | Coleções de posts | RF-024 | M | Could | 3 |
+| B-24 | Syntax highlighting em code blocks | RF-022 | M | Must | 1 |
+| B-25 | Tags com categoria | RF-023 | M | Must | 1 |
+| B-18 | Adicionar 1–5 tags ao post | RF-016 | L | Must | 1 |
+| B-19 | Busca por tag | RF-017 | M | Must | 1 |
+| B-20 | Feed por tags populares | RF-018 | M | Must | 1 |
+| B-21 | Seguir tags (feed personalizado) | RF-019 | M | Should | 2 |
+| B-22 | Flair de perfil (badge visual) | RF-020 | S | Should | 2 |
+| B-23 | Perfil expandido (stack, jogos, autores) | RF-021 | M | Should | 2 |
+| B-26 | OAuth GitHub | RF-024 | L | Should | 2 |
+
+> [!note] Consistência
+> IDs conferem com [[04 Gestão/Backlog do Produto]] (revisão 2026-08-28). Markdown está sob **B-03** (RF-004). Séries/Coleções não geraram B-items. LGPD entrou como B-43/B-44/B-45.
 
 ---
 
-## 6. Decisões abertas (discutir com equipe)
+## 6. Decisões de produto — resolvidas (D-1..D-5)
 
-| # | Pergunta | Opções | Recomendação |
+> [!note] Fechadas em 2026-08-28
+> Todas as decisões D-1..D-5 foram tomadas e **refletidas** em [[01 Requisitos/Requisitos Funcionais|RFs]] e [[04 Gestão/Backlog do Produto|Backlog]]. Não há mais decisões abertas deste bloco.
+
+| # | Pergunta | Decisão final | Onde consta |
 |---|---|---|---|
-| D-1 | Tags são controladas (moderadas) ou livres? | A) Livres · B) Moderadas · C) Híbrido (livres + sugestões oficiais) | C — livres com sugestões oficiais |
-| D-2 | Feed "por interesse" substitui ou complementa o cronológico? | A) Substitui · B) Aba separada · C) Seção no mesmo feed | B — aba separada, respeitando RN-07 |
-| D-3 | Markdown completo ou subset? | A) Full markdown · B) Subset (negrito, listas, código) · C) CommonMark | B — subset no MVP, full depois |
-| D-4 | Tags permitem hierarquia? (ex: `csharp` → `.net`) | A) Sim · B) Não · C) Flat com categorias | C — flat com campo `categoria` |
-| D-5 | Perfil expandido é obrigatório ou opt-in? | A) Obrigatório · B) Opt-in · C) Opcional com sugestão | B — opt-in, sem forçar |
+| D-1 | Tags controladas ou livres? | Livres; `categoria` obrigatória + sugestões por categoria | RF-023, RN-08 |
+| D-2 | Feed por interesse substitui ou complementa? | Complementa — aba separada (respecta RN-07) | RF-018, UC-05 |
+| D-3 | Markdown completo ou subset? | Subset no MVP (negrito, listas, código); full depois | RF-004 |
+| D-4 | Tags com hierarquia? | Flat com campo `categoria` | RF-023, `TAG.categoria` |
+| D-5 | Perfil expandido obrigatório ou opt-in? | Opt-in, sem forçar | RF-021 (Fase 2) |
 
 ---
 
@@ -204,17 +220,20 @@ Feed Cronológico (original) | Feed por Interesse (novo)
 | Feed por interesse fica lento | Alto | Média | Cache + índices em TAG/POST_TAG; medir RNF-01 |
 | Escopo cresce demais no MVP | Alto | Alta | Tags e markdown no MVP; resto na Fase 2 |
 | Público de nicho é pequeno demais | Médio | Baixa | Validação com betas antes de investir pesado |
+| LGPD: exclusão/anonimização mal implementada | Alto | Baixa | RF-032/RF-033 no MVP + testes (RN-04, RNF-09) |
 
 ---
 
-## 8. Próximos passos
+## 8. Próximos passos — status
 
-1. **Discussão com equipe** — validar público-alvo e profundidade
-2. **Decisões D-1 a D-5** — fechar antes de criar ADRs
-3. **Atualizar Visão do Produto** — adicionar seção de público-alvo
-4. **Atualizar Personas** — refinar ou criar personas de nicho
-5. **Criar ADR-003** — Decisão de feed (cronológico puro vs. híbrido)
-6. **Atualizar RFs/RNFs** — adicionar novos requisitos
+- [x] **Decisões D-1..D-5** — fechadas e refletidas nos RFs (seção 6)
+- [x] **RFs/RNFs atualizados** — tags, busca por tag, feed popular, highlighting, categoria, splash; LGPD entrou como RF-032/033 (16 → 18 RFs de MVP)
+- [x] **Backlog sincronizado** — IDs finais (B-18..B-26) + itens LGPD (B-43/B-44) + e-mail transacional (B-45)
+- [x] **Stack de persistência fixada** — SQLite no client (configs/rascunho/cache) + **Npgsql/PostgreSQL** no servidor ([[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]])
+- [x] **Notas de decisão de produto** — avatar (URL no MVP), busca (FTS Postgres), e-mail, criação de tags, syntax highlighting (AvaloniaEdit + Markdig)
+- [x] **Visão do Produto/Personas** — público-alvo de nicho consolidado: primário (jogadores, RPG de mesa, leitores, programadores), secundário (música, cinema), distante (ciclistas e afins)
+- [x] **ADR-006 decidida** — observabilidade **adiada, fora do MVP** (Prometheus + Grafana na Fase 2, ainda a planejar → [[04 Gestão/Backlog do Produto#B-46|B-46]])
+- [ ] **Modelar entidades Fase 2/3** no ER/Domínio (SEGUE_TAG, FLAIR, LIVRO, JOGO, CAMPANHA, …)
 
 ---
 
@@ -229,9 +248,8 @@ mindmap
       Flair de perfil
     Conteúdo
       Post com Markdown
-      Tags de conteúdo
-      Séries/Tutoriais
-      Coleções
+      Syntax highlighting
+      Tags com categoria
     Feed
       Cronológico
       Por Interesse

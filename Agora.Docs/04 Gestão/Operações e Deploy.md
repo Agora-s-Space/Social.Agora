@@ -2,7 +2,7 @@
 tags: [operacoes, deploy, infra]
 tipo: documento
 status: rascunho
-atualizado: 2026-08-27
+atualizado: 2026-08-28
 ---
 
 # Operações e Deploy
@@ -16,9 +16,12 @@ Decidido em [[03 Decisões/ADR-004 Ambientes|ADR-004]]:
 
 | Ambiente     | Finalidade                        | Onde roda     | Banco            |
 | ------------ | --------------------------------- | ------------- | ---------------- |
-| **dev**      | Desenvolvimento local de cada dev | Máquina local | Npgsql/SqlServer |
-| **staging**  | Validação pré-release             | VPS           | Npgsql/SqlServer |
-| **produção** | Uso dos usuários (20 betas)       | VPS           | Npgsql/SqlServer |
+| **dev**      | Desenvolvimento local de cada dev | Máquina local | Npgsql/PostgreSQL |
+| **staging**  | Validação pré-release             | VPS           | Npgsql/PostgreSQL |
+| **produção** | Uso dos usuários (20 betas)       | VPS           | Npgsql/PostgreSQL |
+
+> [!note] Banco
+> Provedor do servidor: **PostgreSQL via Npgsql** ([[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]]). SQL Server fora do escopo. O cliente usa SQLite para configs, rascunho (RNF-15) e cache ([[03 Decisões/ADR-003 Persistência|ADR-003]]).
 
 > [!warning] Regras
 > - Nunca usar dados reais em staging

@@ -38,6 +38,9 @@ Excluido --> [*]
 | Arquivado | só no perfil do autor | ❌ |
 | Excluído | ❌ (soft delete) | ❌ |
 
+> [!note] Arquivado
+> O estado `Arquivado` existe no domínio, mas **não há RF/UC/UI de arquivamento no MVP** — a transição fica reservada para uso futuro. No MVP o autor só edita/exclui (RN-01, RF-006).
+
 ## Sessão de usuário
 
 ```plantuml

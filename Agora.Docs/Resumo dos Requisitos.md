@@ -40,6 +40,8 @@ Fonte detalhada: [[01 Requisitos/Requisitos Funcionais]]
 | RF-022 | Syntax highlighting em blocos de código (detecção via fence markdown) | Conteúdo | RNF-17 | UC-04 |
 | RF-023 | O sistema deve exigir campo `categoria` obrigatório nas tags (linguagem/tema/genero/sistema) | Descoberta | RN-08 | UC-04 |
 | RF-031 | Tela de splash com logo (letter metálica + partes azuis): flash no metal + energia cristalina | UI | RNF-18 | UC-01 |
+| RF-032 | Excluir conta com anonimização em ≤ 30 dias; posts removidos/anonimizados por escolha do usuário | Conta | [[01 Requisitos/Regras de Negócio\|RN-04]] | UC-10 |
+| RF-033 | Exportar dados pessoais em formato legível (LGPD) | Conta | RNF-09 | UC-10 |
 
 ### Fases futuras
 
@@ -104,11 +106,11 @@ Fonte detalhada: [[01 Requisitos/Regras de Negócio]]
 | RN-01 | Somente o autor edita/exclui o próprio post/comentário | RF-006, RF-009 |
 | RN-02 | Máx. 1 curtida por usuário/post; curtir de novo desfaz (toggle) | RF-008 |
 | RN-03 | E-mail e @apelido únicos no sistema | RF-001, RF-003 |
-| RN-04 | Exclusão de conta anonimiza dados pessoais em ≤ 30 dias; posts podem ser removidos ou anonimizados por escolha do usuário | RNF-09 |
+| RN-04 | Exclusão de conta anonimiza dados pessoais em ≤ 30 dias; posts podem ser removidos ou anonimizados por escolha do usuário | RNF-09, RF-032 |
 | RN-05 | Um usuário não pode seguir a si mesmo | RF-007 |
 | RN-06 | Posts limitados a 5.000 caracteres (configurável) — flexibilizado para code blocks | RF-004, RF-022 |
 | RN-07 | Feed ordena por data de publicação desc.; sem promoção algorítmica | RF-005 |
-| RN-08 | Tags: nomes únicos, slug auto-gerado | RF-016 |
+| RN-08 | Tags: nomes únicos, slug auto-gerado | RF-016, RF-023 |
 | RN-09 | Máximo de 5 tags por post | RF-016 |
 | RN-10 | Conta criada via OAuth não possui senha local; login exclusivo pelo provedor | RF-024, RF-025 |
 
@@ -129,6 +131,7 @@ Fonte detalhada: [[01 Requisitos/Casos de Uso]]
 | UC-07 | Interagir com post | Usuário | Curtir (toggle), comentar, excluir comentário | RF-008, RF-009 |
 | UC-08 | Buscar | Usuário | Resultados separados: usuários / posts / tags | RF-010, RF-017 |
 | UC-09 | Autenticar via OAuth | Visitante | Cadastro/login via GitHub/Google; fluxo OAuth com callback | RF-024, RF-025 |
+| UC-10 | Gerenciar dados da conta | Usuário | Excluir conta (remover/anonimizar posts) e exportar dados | RF-032, RF-033 |
 
 ---
 
@@ -161,9 +164,14 @@ Fonte detalhada: [[03 Decisões/ADR Template]]
 |---|---|:-:|---|
 | ADR-001 | Stack Tecnológica (UI e runtime) | aceita ✅ | Avalonia UI + .NET 10 LTS + MVVM (CommunityToolkit) |
 | ADR-002 | Implantação (local-first × cliente-servidor) | aceita ✅ | Cliente-servidor desde o início; cache local p/ rascunho (RNF-15) |
-| ADR-003 | Persistência (ORM) | aceita ✅ | EF Core 10 — SQLite client, Npgsql/SqlServer server |
+| ADR-003 | Persistência (ORM) | aceita ✅ | EF Core 10 — SQLite client (configs/rascunho/cache); Npgsql server (ADR-007) |
 | ADR-004 | Ambientes (dev/staging/prod) | aceita ✅ | 3 ambientes isolados; dev local, staging e prod no VPS |
 | ADR-005 | Design da API do Servidor | aceita ✅ | REST (ASP.NET Core Web API) + JWT Bearer |
+| ADR-007 | Banco do Servidor | aceita ✅ | PostgreSQL (Npgsql); SQLite fica no client (configs/rascunho/cache) |
+| ADR-008 | Segurança de sessão (desktop) | aceita ✅ | Refresh token via DPAPI (escopo CurrentUser); access token só em memória |
+
+> [!note] ADR-006
+> [[03 Decisões/ADR-006 Observabilidade|ADR-006]] (Observabilidade) está registrada como **adiada / fora do MVP** — Prometheus+Grafana na Fase 2 ([[VAULT/Checklist - Correções do Plano|checklist]]).
 
 ---
 
@@ -197,6 +205,10 @@ Fonte detalhada: [[04 Gestão/Backlog do Produto]]
 | B-40 | Empacotamento MSIX (installer + sideload; habilitar opção Microsoft Store) | RNF-23 | M | Must | todo |
 | B-41 | Documentação de suporte (runbook, rollback, troubleshooting) | — | S | Must | todo |
 | B-42 | Skeleton da API do servidor: ASP.NET Core Web API + auth JWT (access/refresh) + OpenAPI | RNF-07, ADR-005 | M | Must | todo |
+| B-43 | Exclusão de conta (remover/anonimizar posts) | RF-032, RN-04 | M | Must | todo |
+| B-44 | Exportação de dados pessoais (LGPD) | RF-033, RNF-09 | S | Must | todo |
+| B-45 | E-mail transacional p/ recuperação de senha | RF-002 | S | Must | todo |
+| B-46 | Dashboards + alertas Prometheus/Grafana | RNF-22, ADR-006 | M | Fase 2 | backlog |
 | B-11 | Notificações in-app (curtida, comentário, seguidor) | RF-011 | M | Should | backlog |
 | B-12 | Upload de imagem em posts | RF-012 | M | Should | backlog |
 | B-13 | Mensagens diretas 1:1 | RF-013 | XL | Should | backlog |
@@ -222,8 +234,8 @@ Fonte detalhada: [[04 Gestão/Roadmap]]
 
 | Marco | Fase | Critério de saída | Janela estimada ⚠️ |
 |---|:-:|---|---|
-| M0 | 0 | Modelagem aprovada; ADRs 001/002/003/004/005 aceitos | ago–set 2026 |
-| M1 | 1 | RF-001..010, RF-016..018, RF-022..023, RF-031 entregues; RNF-01/03/17/18 medidos OK; ambientes + CI/CD prontos | out–dez 2026 |
+| M0 | 0 | Modelagem aprovada; ADRs 001/002/003/004/005/007 aceitos | ago–set 2026 |
+| M1 | 1 | RF-001..010, RF-016..018, RF-022..023, RF-031..033 entregues; RNF-01/03/17/18 medidos OK; ambientes + CI/CD prontos | out–dez 2026 |
 | M2 | 2–3 | Beta externo com 20 usuários ativos (OKR O2) | jan–mar 2027 |
 
 ---
@@ -232,13 +244,15 @@ Fonte detalhada: [[04 Gestão/Roadmap]]
 
 | Métrica | Valor |
 |---|:-:|
-| Requisitos funcionais documentados | 31 (16 no MVP) |
+| Requisitos funcionais documentados | 33 (18 no MVP) |
 | Requisitos não funcionais | 23 |
 | Regras de negócio | 10 |
-| Casos de uso | 9 |
+| Casos de uso | 10 |
 | Entidades de domínio | 9 |
-| Itens de backlog | 40 |
-| ADRs | 5 aceitos |
+| Itens de backlog | 44 |
+| ADRs | 7 aceitas* |
+
+> *ADR-008 (segurança de sessão) incluída. ADR-006 é registrada como **adiada/fora do MVP** e não conta entre as aceitas.
 
 > [!question] Decisões abertas que impactam os requisitos
-> Arquitetura crítica resolvida (5 ADRs aceitas). Há **1 proposta aberta**: [[03 Decisões/Propostas Pendentes#P-001|P-001 — Microsoft Store]] (distribuição, Fase 2/3), sem impacto no MVP.
+> Arquitetura crítica resolvida (**7 ADRs aceitas** + ADR-006 adiada). **[[03 Decisões/Propostas Pendentes|Propostas em aberto]]:** P-001 (Microsoft Store, Fase 2/3). **ADR-006** (observabilidade) **adiada, fora do MVP** — Prometheus + Grafana na Fase 2 via [[04 Gestão/Backlog do Produto#B-46|B-46]]. O conjunto que compõe o MVP está estável.

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "03 Decisões/ADR-003 Persistência.md",
+                "file": "03 Decisões/ADR-006 Observabilidade.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ADR-003 Persistência"
+              "title": "ADR-006 Observabilidade"
             }
           },
           {
@@ -36,31 +36,17 @@
             }
           },
           {
-            "id": "c44a91ff50cf8ca6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "VAULT/Checklists.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Checklists"
-            }
-          },
-          {
             "id": "375fb7cbbd285180",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01 Requisitos/Visão do Produto.md",
-                "mode": "preview",
+                "file": "02 Modelagem/Wireframes.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Visão do Produto"
+              "title": "Wireframes"
             }
           },
           {
@@ -78,7 +64,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -112,7 +98,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "empacot",
+                "query": "rf-006",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -245,35 +231,35 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "f95f83cdd4537b49",
+  "active": "375fb7cbbd285180",
   "lastOpenFiles": [
-    "03 Decisões/ADR-005 API do Servidor.md",
-    "03 Decisões/Propostas Pendentes.md",
-    "03 Decisões/ADR-004 Ambientes.md",
-    "04 Gestão/Backlog do Produto.md",
-    "02 Modelagem/API e Servidor.md",
-    "04 Gestão/Operações e Deploy.md",
-    "04 Gestão/Definição do MVP.md",
-    "01 Requisitos/Requisitos Funcionais.md",
-    "02 Modelagem/Wireframes.md",
+    "03 Decisões/ADR-008 Segurança de Sessão (DPAPI).md",
     "Home.md",
-    "02 Modelagem/Modelo de Dados (ER).md",
-    "02 Modelagem/Modelo de Domínio.md",
-    "03 Decisões/ADR-003 Persistência.md",
+    "04 Gestão/Operações e Deploy.md",
     "04 Gestão/Roadmap.md",
-    "Resumo dos Requisitos.md",
-    "01 Requisitos/Stakeholders e Personas.md",
+    "VAULT/Checklist - Correções do Plano.md",
+    "02 Modelagem/Wireframes.md",
+    "VAULT/Checklists.md",
+    "04 Gestão/Definição do MVP.md",
+    "04 Gestão/Backlog do Produto.md",
     "01 Requisitos/Visão do Produto.md",
-    "02 Modelagem/Fluxos Principais.md",
-    "01 Requisitos/Casos de Uso.md",
+    "03 Decisões/ADR-007 Banco do Servidor (Npgsql).md",
+    "03 Decisões/Propostas Pendentes.md",
+    "03 Decisões/ADR-003 Persistência.md",
+    "01 Requisitos/Requisitos Funcionais.md",
+    "01 Requisitos/Stakeholders e Personas.md",
+    "02 Modelagem/API e Servidor.md",
+    "03 Decisões/ADR-006 Observabilidade.md",
+    "01 Requisitos/Requisitos Não Funcionais.md",
+    "04 Gestão/Glossário.md",
+    "Canvas/Mapa do Projeto.canvas",
+    "VAULT/Plano - Rede Social de Nicho.md",
     "03 Decisões/ADR-001 Stack Tecnológica.md",
     "03 Decisões/ADR Template.md",
-    "03 Decisões/ADR-002 Implantação.md",
-    "01 Requisitos/Regras de Negócio.md",
+    "02 Modelagem/Modelo de Dados (ER).md",
+    "02 Modelagem/Modelo de Domínio.md",
     "02 Modelagem/Máquinas de Estado.md",
-    "01 Requisitos/Requisitos Não Funcionais.md",
-    "02 Modelagem/Arquitetura do Sistema.md",
-    "Canvas/Mapa do Projeto.canvas",
+    "02 Modelagem/Fluxos Principais.md",
     "VAULT",
     "Canvas",
     "04 Gestão",

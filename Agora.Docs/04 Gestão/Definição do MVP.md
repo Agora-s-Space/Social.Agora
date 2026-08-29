@@ -23,7 +23,7 @@ atualizado: 2026-08-27
 - [[03 Decisões/ADR-004 Ambientes|ADR-004]]: Ambientes dev/staging/prod
 - [[03 Decisões/ADR-005 API do Servidor|ADR-005]]: API REST (ASP.NET Core) + JWT
 
-## 2. RFs do MVP (16)
+## 2. RFs do MVP (18)
 
 | # | ID | Requisito | Módulo | UC |
 |---|---|---|---|---|
@@ -43,6 +43,8 @@ atualizado: 2026-08-27
 | 14 | RF-022 | Syntax highlighting em blocos de código | Conteúdo | UC-04 |
 | 15 | RF-023 | Campo `categoria` obrigatório nas tags | Descoberta | UC-04 |
 | 16 | RF-031 | Tela de splash com logo (letter metálica + partes azuis): flash no metal + energia cristalina | UI | UC-01 |
+| 17 | RF-032 | Excluir própria conta, anonimizando dados em ≤ 30 dias, com remoção/anonimização dos posts (LGPD) | Conta | UC-10 |
+| 18 | RF-033 | Exportar os próprios dados pessoais em formato legível (LGPD) | Conta | UC-10 |
 
 ## 3. RNFs críticos para o MVP
 
@@ -53,6 +55,7 @@ atualizado: 2026-08-27
 | RNF-03 | Tempo de resposta do servidor | ≤ 200 ms (P95) |
 | RNF-06 | Hash de senha | bcrypt/argon2 |
 | RNF-08 | Proteção contra força bruta | Limitação de tentativas |
+| RNF-09 | LGPD: consentimento, exportação e exclusão de dados | Anonimização ≤ 30 dias; exportação legível (RF-032/033) |
 | RNF-10 | Portabilidade | Windows primeiro, sem bloquear Linux/macOS |
 | RNF-11 | Suporte LTS | .NET 10 até nov/2028 |
 | RNF-12 | Arquitetura camadas | 4 camadas, testabilidade |
@@ -80,7 +83,7 @@ atualizado: 2026-08-27
 | RN-08 | Tags: nomes únicos, slug auto-gerado |
 | RN-09 | Máx. 5 tags por post |
 
-## 5. Backlog do MVP (23 itens)
+## 5. Backlog do MVP (26 itens)
 
 | ID | Item | Esforço | Depende de |
 |---|---|:-:|---|
@@ -107,6 +110,9 @@ atualizado: 2026-08-27
 | B-40 | Empacotamento MSIX (installer + sideload; habilita opção Store) | M | B-01 |
 | B-41 | Documentação de suporte (runbook, rollback) | S | B-36 |
 | B-42 | Skeleton da API: ASP.NET Core Web API + auth JWT + OpenAPI | M | B-10 |
+| B-43 | Exclusão de conta (remover/anonimizar posts) | M | B-01 |
+| B-44 | Exportação de dados pessoais | S | B-01 |
+| B-45 | E-mail transacional (recuperação de senha) | S | B-01 |
 
 ## 6. Diagrama de dependências
 
@@ -134,6 +140,9 @@ flowchart TD
     B25 --> B18[B-18 Tags no post]
     B18 --> B19[B-19 Busca tag]
     B18 --> B20[B-20 Feed tags]
+    B01 --> B43[B-43 Excluir conta]
+    B01 --> B44[B-44 Exportar dados]
+    B01 --> B45[B-45 E-mail tx]
 ```
 
 ## 7. Critérios de aceitação do MVP
@@ -153,6 +162,8 @@ flowchart TD
 | Busca | Buscar por @, nome, palavra-chave, tag |
 | Tags | Adicionar 1–5 tags; buscar por tag |
 | Performance | Feed ≤ 2 s (P95); highlighting ≤ 100 ms |
+| Excluir conta | Excluir conta escolhendo remover/anonimizar posts; dados anonimizados ≤ 30 dias |
+| Exportar dados | Solicitar exportação e receber arquivo legível |
 | CI | Build + testes passam no push |
 | API autenticada | Login retorna JWT; requests autenticados funcionam; OpenAPI disponível |
 
@@ -174,6 +185,8 @@ flowchart TD
 | Repos GitHub | Could | Fase 3 |
 | Jogos jogados | Could | Fase 3 |
 | Mesas/campanhas RPG | Could | Fase 3 |
+| Séries de posts | — | Demanda futura (funcionalidade descartada) |
+| Coleções de posts | — | Demanda futura (funcionalidade descartada) |
 
 ---
 

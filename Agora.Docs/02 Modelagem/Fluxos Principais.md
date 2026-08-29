@@ -43,7 +43,7 @@ sequenceDiagram
     participant DB as Repositório local (cache)
     participant SRV as Servidor/API
 
-    U->>VM: digita texto (≤500 - RN-06)
+    U->>VM: digita texto (≤5.000 - RN-06)
     VM->>DB: autosave rascunho (RNF-15)
     U->>VM: clica "Publicar"
     VM->>APP: Publicar(postId, conteudo)
@@ -96,7 +96,7 @@ sequenceDiagram
     participant DB as Repositório local (cache)
     participant SRV as Servidor/API
 
-    U->>VM: digita texto (≤500 - RN-06)
+    U->>VM: digita texto (≤5.000 - RN-06)
     U->>VM: seleciona 1–5 tags (RF-016)
     VM->>DB: autosave rascunho (RNF-15)
     U->>VM: clica "Publicar"

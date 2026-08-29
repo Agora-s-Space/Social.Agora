@@ -2,11 +2,14 @@
 tags: [decisoes, adr]
 tipo: adr
 numero: ADR-006
-status: proposta
+status: adiada
 data: 2026-08-27
 ---
 
 # ADR-006 — Observabilidade: Métricas da API
+
+> [!important] Fora do MVP
+> **Decisão da equipe (2026-08-28):** Prometheus + Grafana **serão implementados eventualmente, mas não fazem parte do MVP** — adiada para a **Fase 2** (ainda a planejar). No MVP fica: logs estruturados (Serilog) + health checks + métricas **expostas** no formato Prometheus (via OpenTelemetry) sem backend de coleta (ver [[04 Gestão/Backlog do Produto#B-39|B-39]]). Dashboards/alertas entram como [[04 Gestão/Backlog do Produto#B-46|B-46]].
 
 ## Contexto
 - A API do Agora ([[03 Decisões/ADR-005 API do Servidor|ADR-005]]) é uma ASP.NET Core Web API rodando em VPS nos ambientes staging e produção ([[03 Decisões/ADR-004 Ambientes|ADR-004]])
@@ -29,7 +32,7 @@ Métrica não é uma ferramenta só: tem **instrumentação** (gerar os números
 ## Decisão
 Instrumentar a API com `System.Diagnostics.Metrics` (métricas nativas do ASP.NET Core + meters próprios de negócio), expor via **OpenTelemetry** e operar **Prometheus + Grafana** no VPS de staging/produção para coleta, dashboards e alertas.
 
-*Status: proposta — aguardando aceite.*
+*Status: adiada — fora do MVP; aceite e detalhamento de escopo quando a Fase 2 for planejada (B-46).*
 
 ## Justificativa
 - [[01 Requisitos/Requisitos Não Funcionais#RNF-22|RNF-22]]/[[04 Gestão/Backlog do Produto#B-39|B-39]]: Prometheus + Grafana entregam métricas, visualização e alertas numa stack só

@@ -25,6 +25,7 @@ rectangle "Agora" as Sistema {
   usecase "UC-07\nInteragir com post" as UC7
   usecase "UC-08\nBuscar" as UC8
   usecase "UC-09\nAutenticar via\nOAuth" as UC9
+  usecase "UC-10\nGerenciar dados\nda conta" as UC10
 }
 
 actor "Visitante" as V
@@ -39,6 +40,7 @@ U --> UC5
 U --> UC6
 U --> UC7
 U --> UC8
+U --> UC10
 
 UC7 ..> UC4 : <<include>>
 UC5 ..> UC6 : <<extend>>
@@ -129,7 +131,7 @@ UC5 ..> UC6 : <<extend>>
 | **Ator** | Usuário autenticado |
 | **RF de origem** | [[01 Requisitos/Requisitos Funcionais#RF-008\|RF-008]], [[01 Requisitos/Requisitos Funcionais#RF-009\|RF-009]] |
 | **Pré-condição** | Usuário logado; post `Publicado` ou `Editado` visível |
-| **Fluxo principal** | 1. **Curtir:** Usuário clica curtir → toggle aplica RN-02 · 2. **Comentar:** Usuário digita texto → comenta cria [[02 Modelagem/Modelo de Domínio#Comentario\|Comentario]] · 3. Interações geram notificação (RF-011) |
+| **Fluxo principal** | 1. **Curtir:** Usuário clica curtir → toggle aplica RN-02 · 2. **Comentar:** Usuário digita texto → comenta cria [[02 Modelagem/Modelo de Domínio#Comentario\|Comentario]] · 3. Interações geram notificação (RF-011 — **Fase 2**, fora do MVP) |
 | **Fluxos alternativos** | 1a. Curtir novamente → desfaz (toggle) · 2a. Excluir comentário → apenas autor (RN-01) · 3a. Excluir post → apenas autor (RN-01) |
 | **Exceções** | Sem conexão → erro amigável |
 | **Pós-condição** | [[02 Modelagem/Modelo de Domínio#Curtida\|Curtida]] ou [[02 Modelagem/Modelo de Domínio#Comentario\|Comentario]] persistido |
@@ -158,6 +160,18 @@ UC5 ..> UC6 : <<extend>>
 | **Exceções** | Usuário recusa autorização → volta para tela de login · Erro na API do GitHub → mensagem "Tente novamente" · Rede indisponível → erro amigável |
 | **Pós-condição** | Sessão ativa; conta com provider="github" ou provider local vinculada |
 
+## UC-10 — Gerenciar dados da conta (exclusão/exportação — LGPD)
+
+| Campo | Descrição |
+|---|---|
+| **Ator** | Usuário autenticado |
+| **RF de origem** | [[01 Requisitos/Requisitos Funcionais#RF-032\|RF-032]], [[01 Requisitos/Requisitos Funcionais#RF-033\|RF-033]] |
+| **Pré-condição** | Usuário logado |
+| **Fluxo principal** | 1. Usuário abre "Conta e dados" · 2. **Exportar:** solicita download dos dados pessoais em formato legível (RF-033, RNF-09) · 3. **Excluir:** confirma exclusão da conta (RF-032) · 4. Escolhe entre **remover** ou **manter anônimos** os posts (RN-04) · 5. Sistema agenda anonimização/remoção em até 30 dias |
+| **Fluxos alternativos** | 3a. Usuário desiste antes da confirmação → nada muda |
+| **Exceções** | Sem conexão → erro amigável e estado preservado |
+| **Pós-condição** | Dados exportados entregues; conta (ou dados pessoais) anonimizada no prazo (RNF-09) |
+
 ## Verificações de consistência
 
 ### UC → RF (rastreabilidade)
@@ -173,16 +187,17 @@ UC5 ..> UC6 : <<extend>>
 | UC-07 | RF-008, RF-009 | ✅ |
 | UC-08 | RF-010, RF-017 | ✅ |
 | UC-09 | RF-024, RF-025 | ✅ |
+| UC-10 | RF-032, RF-033 | ✅ |
 
 ### Cobertura
 
 | Métrica | Valor |
 |---|:-:|
-| UCs com ator identificado | 9/9 ✅ |
-| UCs em formato tabela | 9/9 ✅ |
-| UCs com pré/pós-condição | 9/9 ✅ |
-| UCs com fluxo numerado | 9/9 ✅ |
-| **Total UCs** | **9** |
+| UCs com ator identificado | 10/10 ✅ |
+| UCs em formato tabela | 10/10 ✅ |
+| UCs com pré/pós-condição | 10/10 ✅ |
+| UCs com fluxo numerado | 10/10 ✅ |
+| **Total UCs** | **10** |
 
 ---
 Links: [[01 Requisitos/Requisitos Funcionais|RF]] · [[02 Modelagem/Fluxos Principais|Sequências]]

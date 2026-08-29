@@ -18,6 +18,16 @@ atualizado: 2026-08-27
 | RF-002 | O sistema deve permitir autenticação (login/logout) e recuperação de senha por e-mail | Must | [[01 Requisitos/Casos de Uso#UC-02 — Autenticar\|UC-02]] |
 | RF-003 | O sistema deve manter perfil editável com: nome de exibição, @apelido único, avatar, bio | Must | [[01 Requisitos/Casos de Uso#UC-03 — Gerenciar perfil\|UC-03]] |
 
+> [!note] Avatar no MVP
+> No MVP o avatar é informado por **URL externa** (`avatar_url`). Upload de arquivos de imagem entra na Fase 2 junto com RF-012 (mídia em posts).
+
+## Módulo: Privacidade e LGPD
+
+| ID | Requisito | Prioridade | Caso de uso |
+|---|---|---|:-:|---|
+| RF-032 | O sistema deve permitir ao usuário excluir a própria conta, com anonimização dos dados pessoais em até 30 dias e escolha entre remover ou manter anônimos os seus posts ([[01 Requisitos/Regras de Negócio\|RN-04]]) | Must | [[01 Requisitos/Casos de Uso#UC-10 — Gerenciar dados da conta\|UC-10]] |
+| RF-033 | O sistema deve permitir ao usuário exportar os próprios dados pessoais em formato legível (conformidade [[01 Requisitos/Requisitos Não Funcionais#RNF-09\|RNF-09]]/LGPD) | Must | [[01 Requisitos/Casos de Uso#UC-10 — Gerenciar dados da conta\|UC-10]] |
+
 ## Módulo: Publicações e Feed
 
 | ID | Requisito | Prioridade | Caso de uso |
@@ -30,6 +40,9 @@ atualizado: 2026-08-27
 | RF-018 | O sistema deve exibir seção alternativa no feed: no MVP, ordenada por tags mais populares; na Fase 2, por tags que o usuário segue (requer RF-019) | Must | [[01 Requisitos/Casos de Uso#UC-05 — Visualizar feed\|UC-05]] |
 | RF-022 | O sistema deve renderizar blocos de código com syntax highlighting, detectando a linguagem a partir da tag do fence markdown (ex: ` ```csharp `) | Must | [[01 Requisitos/Casos de Uso#UC-04 — Publicar post\|UC-04]] |
 | RF-023 | O sistema deve exigir campo `categoria` obrigatório nas tags (`linguagem`, `tema`, `genero`, `sistema`) para alimentar filtros e sugestões | Must | [[01 Requisitos/Casos de Uso#UC-04 — Publicar post\|UC-04]] |
+
+> [!note] Bibliotecas (Fase 1)
+> Editor/compositor: **AvaloniaEdit** (confirmado — syntax highlighting). Renderização do markdown no feed: **Markdig** como parser padrão (é a base de praticamente todas as opções no ecossistema Avalonia); candidate renderer: `LiveMarkdown.Avalonia` (open-source, Apache 2.0, destaque via TextMateSharp) ou `Avalonia.Controls.Markdown` (oficial, mas nível Pro/Enterprise — pago). ⚠️ Validar no spike: desempenho (RNF-17 ≤ 100 ms) e fidelidade de renderização.
 
 ## Módulo: Autenticação Avançada
 
@@ -122,6 +135,8 @@ flowchart LR
 | RF-025 | UC-09 | ✅ |
 | RF-026 | UC-09 | ✅ |
 | RF-031 | UC-01 | ✅ |
+| RF-032 | UC-10 | ✅ |
+| RF-033 | UC-10 | ✅ |
 
 ### RN → RF (impactados)
 
@@ -140,10 +155,10 @@ flowchart LR
 
 | Métrica | Valor |
 |---|:-:|
-| RFs Must (MVP) | 16 |
+| RFs Must (MVP) | 18 |
 | RFs Should (Fase 2) | 7 |
 | RFs Could (Fase 3) | 8 |
-| **Total RFs** | **31** |
+| **Total RFs** | **33** |
 
 ---
 

@@ -136,7 +136,7 @@ end note
 |---|---|---|
 | [[#Usuario\|Usuario]] | Conta, credenciais, estado ativo/inativo, provedor OAuth | [[01 Requisitos/Regras de Negócio\|RN-03]] (unicidade), [[01 Requisitos/Regras de Negócio\|RN-10]] (OAuth sem senha) |
 | [[#Perfil\|Perfil]] | Dados de exibição (1:1 com Usuario) | — |
-| [[#Post\|Post]] | Publicação de texto; máquina de estados em [[02 Modelagem/Máquinas de Estado]] | [[01 Requisitos/Regras de Negócio\|RN-01]] (autoria), [[01 Requisitos/Regras de Negócio\|RN-06]] (500 chars) |
+| [[#Post\|Post]] | Publicação de texto; máquina de estados em [[02 Modelagem/Máquinas de Estado]] | [[01 Requisitos/Regras de Negócio\|RN-01]] (autoria), [[01 Requisitos/Regras de Negócio\|RN-06]] (5.000 chars) |
 | [[#Comentario\|Comentario]] | Resposta a um Post | [[01 Requisitos/Regras de Negócio\|RN-01]] |
 | [[#Curtida\|Curtida]] | Marcação positiva única por usuário/post | [[01 Requisitos/Regras de Negócio\|RN-02]] (toggle) |
 | [[#Seguida\|Seguida]] | Relação direcionada seguidor → seguido | [[01 Requisitos/Regras de Negócio\|RN-05]] (auto-seguimento) |
