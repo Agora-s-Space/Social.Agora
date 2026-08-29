@@ -2,7 +2,7 @@
 tags: [moc, home]
 tipo: moc
 status: ativo
-atualizado: 2026-08-25
+atualizado: 2026-08-28
 ---
 
 # 🏠 Home — Agora
@@ -43,7 +43,9 @@ atualizado: 2026-08-25
 - [[03 Decisões/ADR-003 Persistência|ADR-003 — Persistência (ORM)]] — `aceita`
 - [[03 Decisões/ADR-004 Ambientes|ADR-004 — Ambientes (dev/staging/prod)]] — `aceita`
 - [[03 Decisões/ADR-005 API do Servidor|ADR-005 — Design da API do Servidor]] — `aceita`
-- [[03 Decisões/ADR-006 Observabilidade|ADR-006 — Observabilidade: Métricas da API]] — `proposta`
+- [[03 Decisões/ADR-006 Observabilidade|ADR-006 — Observabilidade: Métricas da API]] — `adiada` (fora do MVP; Fase 2)
+- [[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007 — Banco do Servidor (PostgreSQL/Npgsql)]] — `aceita`
+- [[03 Decisões/ADR-008 Segurança de Sessão (DPAPI)|ADR-008 — Segurança de Sessão (DPAPI)]] — `aceita`
 - [[03 Decisões/Propostas Pendentes|Propostas Pendentes]] — decisões aguardando escolha
 
 ### 4. Gestão
@@ -56,6 +58,7 @@ atualizado: 2026-08-25
 ### 5. VAULT (utilitários)
 - [[AGENTS.md|AGENTS.md]] — **instruções para agentes de IA** (fonte única de verdade, na raiz)
 - [[VAULT/Checklists|Checklists de revisão]]
+- [[VAULT/Checklist - Correções do Plano|Checklist — Correções do Plano]]
 - [[VAULT/Template - Nova Nota|Template — Nova Nota]]
 - [[VAULT/Cheatsheet Mermaid|Cheatsheet Mermaid]]
 
@@ -69,7 +72,10 @@ atualizado: 2026-08-25
 > 3. ✅ Persistência decidida: [[03 Decisões/ADR-003 Persistência|ADR-003]] — EF Core 10
 > 4. ✅ Ambientes decididos: [[03 Decisões/ADR-004 Ambientes|ADR-004]] — dev/staging/prod
 > 5. ✅ Design da API decidido: [[03 Decisões/ADR-005 API do Servidor|ADR-005]] — REST + JWT
-> 6. Iniciar Fase 1 (código)
+> 6. ✅ Banco do servidor fixado: [[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]] — PostgreSQL (Npgsql); SQLite no client
+> 7. ✅ LGPD no MVP: [[01 Requisitos/Requisitos Funcionais#RF-032|RF-032]] (excluir conta) + [[01 Requisitos/Requisitos Funcionais#RF-033|RF-033]] (exportar dados)
+> 8. ✅ Segurança de sessão no desktop decidida: [[03 Decisões/ADR-008 Segurança de Sessão (DPAPI)|ADR-008]] — refresh token via DPAPI
+> 9. Iniciar Fase 1 (código)
 
 ## Convenções do vault
 - **Regras completas em [[AGENTS.md]]** — leia antes de criar/editar notas

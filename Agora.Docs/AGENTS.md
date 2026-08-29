@@ -12,7 +12,7 @@ atualizado: 2026-08-27
 
 ## 1. Contexto do projeto
 - Produto: **Agora** — rede social de hobbies nerd, app desktop em **C# (.NET)** — [[01 Requisitos/Visão do Produto]]
-- Stack decidida (ADR-001, status *aceita*): **Avalonia UI + .NET 10 LTS + MVVM (CommunityToolkit.Mvvm) + EF Core 10 (ADR-003, *aceita*)**
+- Stack decidida (ADR-001, status *aceita*): **Avalonia UI + .NET 10 LTS + MVVM (CommunityToolkit.Mvvm) + EF Core 10 (ADR-003, *aceita*)**; banco do servidor em **PostgreSQL/Npgsql** (ADR-007, *aceita*); SQLite no client (configs/rascunho/cache)
 - Arquitetura: 4 camadas — UI → Aplicação → Domínio ← Infra (dependência aponta p/ dentro) — detalhes em [[02 Modelagem/Arquitetura do Sistema]]
 - Fase atual: **Fase 0 (Foundation)** — levantamento de requisitos e modelagem; sem código ainda
 - Documentação em **PT-BR**; código/identificadores futuros em inglês; entidades de domínio usam nomes em PT (ex: `USUARIO`, `POST`, `CURTIDA`)
@@ -82,9 +82,12 @@ dotnet test
 - Nenhuma ferramenta de lint/formatter configurada — RNF-14 exige CI verde (B-09 no backlog)
 - Testes alvo: ≥ 60% cobertura no núcleo de domínio (RNF-13, ⚠️ estimativa)
 - ADR-002 (implantação) **aceita**: cliente-servidor — servidor desde Fase 1, cache local para rascunho (RNF-15)
-- ADR-003 (persistência) **aceita**: EF Core 10 — SQLite client, Npgsql/SqlServer server
+- ADR-003 (persistência) **aceita**: EF Core 10 — SQLite client (configs locais, rascunho RNF-15, cache) · Npgsql server ([[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]])
+- ADR-007 (banco do servidor) **aceita**: PostgreSQL via Npgsql; SQL Server fora do escopo; FTS para RF-010/017
 - ADR-004 (ambientes) **aceita**: dev / staging / produção — 3 ambientes isolados (config por ambiente); detalhes em [[04 Gestão/Operações e Deploy|Operações e Deploy]]
 - ADR-005 (design da API) **aceita**: REST (ASP.NET Core Web API) + JWT Bearer — contrato em [[02 Modelagem/API e Servidor|API e Servidor]]
+- ADR-006 (observabilidade) **adiada**: fora do MVP; Prometheus+Grafana na Fase 2 (B-46)
+- ADR-008 (segurança de sessão) **aceita**: refresh token via DPAPI (escopo CurrentUser) em `%LOCALAPPDATA%`; access token só em memória — detalhes em [[03 Decisões/ADR-008 Segurança de Sessão (DPAPI)]]
 
 ## 7. Referências rápidas
 - [[VAULT/Checklists|Checklists de revisão]]

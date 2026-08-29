@@ -17,7 +17,7 @@ atualizado: 2026-08-27
 | Framework | ASP.NET Core Web API (.NET 10) |
 | Estilo | REST + JSON + Swagger/OpenAPI |
 | Autenticação | JWT Bearer (access + refresh token) |
-| Persistência | EF Core 10 ([[03 Decisões/ADR-003 Persistência|ADR-003]]) |
+| Persistência | EF Core 10 — servidor em **Npgsql/PostgreSQL** ([[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]]); client em SQLite (configs/rascunho/cache) |
 | Deploy | 3 ambientes ([[03 Decisões/ADR-004 Ambientes|ADR-004]]) |
 | TLS | Obrigatório (RNF-07) |
 
@@ -29,6 +29,9 @@ atualizado: 2026-08-27
 - **Refresh token** (longa duração) para renovar sem relogar; revogável
 - Logout: invalida refresh token; access token expira naturalmente
 - Autorização por claims: `id`, `provider`, papéis futuros
+
+> [!note] Persistência do refresh token no client (desktop)
+> O refresh token é guardado **criptografado via DPAPI** (escopo `CurrentUser`) em `%LOCALAPPDATA%\Agora\secrets.dat`; o access token fica **somente em memória** — [[03 Decisões/ADR-008 Segurança de Sessão (DPAPI)|ADR-008]].
 
 ## 3. Contratos de endpoints (MVP)
 
@@ -45,6 +48,9 @@ atualizado: 2026-08-27
 | POST | `/auth/logout` | sim | Revoga refresh token |
 | POST | `/auth/password/reset` | não | Solicita recuperação de senha (RF-002) |
 
+> [!note] E-mail transacional (RF-002)
+> Recuperação de senha exige um canal de e-mail — **SMTP configurável por ambiente** (ADR-004). Setup entra na Fase 1 via B-45.
+
 ### Usuários e perfil
 | Método | Rota | Autenticado | Descrição |
 |---|---|---|---|
@@ -52,6 +58,9 @@ atualizado: 2026-08-27
 | PATCH | `/usuarios/me` | sim | Edita próprio perfil (nome, @, avatar, bio) |
 | GET | `/usuarios/me` | sim | Próprio perfil |
 | GET | `/usuarios?q=` | sim | Busca por @/nome (RF-010) |
+| GET | `/usuarios/sugestoes` | sim | Sugestões de usuários p/ feed vazio (UC-05) |
+| DELETE | `/usuarios/me` | sim | Excluir própria conta (RF-032, RN-04) |
+| GET | `/usuarios/me/exportar` | sim | Exporta dados pessoais (RF-033, RNF-09) |
 
 ### Seguir
 | Método | Rota | Autenticado | Descrição |
@@ -86,6 +95,7 @@ atualizado: 2026-08-27
 |---|---|---|---|
 | GET | `/tags?categoria=` | sim | Listar/buscar tags (RF-016, RF-023) |
 | GET | `/tags/populares` | sim | Tags mais usadas (feed popular, RF-018) |
+| POST | `/tags` | sim | Cria tag manualmente (RN-08) — também criada implicitamente no `POST /posts` (upsert) |
 
 > Fase 2+: `/notificacoes`, `/mensagens`, `/midias`, `/seguindo-tags` (RF-011/012/013/019)
 
@@ -94,6 +104,7 @@ atualizado: 2026-08-27
 - Feed usa **cursor/token** (não offset) para consistência sob novos posts
 - Ordenação cronológica desc. (RN-07), sem algoritmo
 - Feed montado via join de posts dos seguidos + próprios; filtrável por tag
+- Busca textual de posts (RF-010/RF-017) via **FTS do PostgreSQL** (`tsvector` + índice GIN); cache local usa `LIKE` (escopo pequeno)
 - Resposta paginada: `{ data: [...], nextCursor: "..." }`
 
 ## 5. Segurança da API

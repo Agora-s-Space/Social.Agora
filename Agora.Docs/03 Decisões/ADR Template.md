@@ -12,7 +12,7 @@ atualizado: 2026-08-24
 tags: [decisoes, adr]
 tipo: adr
 numero: ADR-XXX
-status: proposta | aceita | substituída por [[ADR-YYY]] | rejeitada
+status: proposta | aceita | adiada | substituída por [[ADR-YYY]] | rejeitada
 data: AAAA-MM-DD
 ---
 
@@ -41,7 +41,9 @@ Positivas · Negativas · Neutras — e o que monitorar.
 - [[03 Decisões/ADR-003 Persistência|ADR-003 — Persistência (ORM)]] — `aceita`
 - [[03 Decisões/ADR-004 Ambientes|ADR-004 — Ambientes (dev/staging/prod)]] — `aceita`
 - [[03 Decisões/ADR-005 API do Servidor|ADR-005 — Design da API do Servidor]] — `aceita`
-- [[03 Decisões/ADR-006 Observabilidade|ADR-006 — Observabilidade: Métricas da API]] — `proposta`
+- [[03 Decisões/ADR-006 Observabilidade|ADR-006 — Observabilidade: Métricas da API]] — `adiada`
+- [[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007 — Banco do Servidor (PostgreSQL/Npgsql)]] — `aceita`
+- [[03 Decisões/ADR-008 Segurança de Sessão (DPAPI)|ADR-008 — Segurança de Sessão (DPAPI)]] — `aceita`
 
 ## Propostas pendentes
 - [[03 Decisões/Propostas Pendentes|Propostas Pendentes]] — decisões aguardando escolha

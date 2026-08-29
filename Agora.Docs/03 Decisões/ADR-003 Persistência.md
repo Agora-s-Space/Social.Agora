@@ -4,10 +4,13 @@ tipo: adr
 numero: ADR-003
 data: 2026-08-25
 status: aceita
-atualizado: 2026-08-25
+atualizado: 2026-08-28
 ---
 
 # ADR-003 — Persistência (ORM)
+
+> [!note] Parcialmente substituída
+> A escolha do ORM (**EF Core 10**) permanece. O provedor do banco do **servidor** foi fixado em **Npgsql/PostgreSQL** — ver [[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]].
 
 ## Contexto
 Com ADR-002 (cliente-servidor) decidido, o app desktop precisa de uma camada de persistência para: rascunho local (RNF-15), cache de feed, e comunicação com a API do servidor.
@@ -27,7 +30,7 @@ Com ADR-002 (cliente-servidor) decidido, o app desktop precisa de uma camada de 
 ## Justificativa
 1. Migrações nativas — o [[02 Modelagem/Modelo de Dados (ER)|ER]] define 9 tabelas com FKs e indexes; EF Core Migrations resolve com versionamento
 2. LINQ elimina queries manuais para CRUD — reduz boilerplate significativo
-3. `Microsoft.EntityFrameworkCore.Sqlite` para o client (rascunho local, RNF-15); `Npgsql` ou `SqlServer` para o servidor
+3. `Microsoft.EntityFrameworkCore.Sqlite` para o client (configs locais, rascunho RNF-15 e cache de feed); `Npgsql` para o servidor ([[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]])
 4. Integração nativa com ASP.NET Core — o servidor usa o mesmo ORM que o client
 5. Comunidade enorme; documentação oficial da Microsoft; fácil encontrar ajuda
 6. Padrão repositório ([[02 Modelagem/Arquitetura do Sistema|Arquitetura]]) encaixa naturalmente com `DbSet<T>`
@@ -43,5 +46,6 @@ Com ADR-002 (cliente-servidor) decidido, o app desktop precisa de uma camada de 
 ## Referências
 - [[03 Decisões/ADR-001 Stack Tecnológica|ADR-001]] — stack UI e runtime
 - [[03 Decisões/ADR-002 Implantação|ADR-002]] — modelo cliente-servidor
+- [[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]] — provedor do banco do servidor
 - [[02 Modelagem/Arquitetura do Sistema]] — diagrama de componentes
 - [[02 Modelagem/Modelo de Dados (ER)|ER]] — schema relacional

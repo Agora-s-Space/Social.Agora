@@ -36,10 +36,13 @@ atualizado: 2026-08-25
 | B-36 | Política de ambientes dev/staging/prod (config por ambiente) | RNF-19, ADR-004 | M | B-10 | todo |
 | B-37 | Pipeline CD (deploy automático staging; prod via aprovação) | RNF-20 | M | B-09 | todo |
 | B-38 | Backup + restore do banco de produção | RNF-21 | M | B-36 | todo |
-| B-39 | Observabilidade: logs, métricas, health checks, alertas | RNF-16, RNF-22 | M | B-36 | todo |
+| B-39 | Observabilidade (MVP): logs estruturados (Serilog) + health checks + métricas expostas em formato Prometheus (OTLP) | RNF-16, RNF-22 | M | B-36 | todo |
 | B-40 | Empacotamento MSIX (installer + sideload; habilitar opção Microsoft Store) | RNF-23 | M | B-01 | todo |
 | B-41 | Documentação de suporte (runbook, rollback, troubleshooting) | — | S | B-36 | todo |
 | B-42 | Skeleton da API do servidor: ASP.NET Core Web API + auth JWT (access/refresh) + OpenAPI | RNF-07, ADR-005 | M | B-10 | todo |
+| B-43 | Exclusão de conta (remover ou anonimizar posts) | RF-032, RN-04 | M | B-01 | todo |
+| B-44 | Exportação de dados pessoais (LGPD) | RF-033, RNF-09 | S | B-01 | todo |
+| B-45 | E-mail transacional p/ recuperação de senha (SMTP) | RF-002 | S | B-01 | todo |
 
 ## Should have (Fase 2)
 
@@ -52,6 +55,7 @@ atualizado: 2026-08-25
 | B-22 | Flair de perfil (badge visual) | RF-020 | S | B-02 | backlog |
 | B-23 | Perfil expandido (stack, jogos, autores) | RF-021 | M | B-02 | backlog |
 | B-26 | Login/cadastro OAuth via GitHub | RF-024 | L | B-01 | backlog |
+| B-46 | Dashboards + alertas Prometheus/Grafana (coleta + visualização) | RNF-22, ADR-006 | M | B-39 | backlog |
 
 ## Could have (Fase 3)
 
@@ -72,3 +76,6 @@ atualizado: 2026-08-25
 2. Critérios do RF/RNF atendidos
 3. Documentação atualizada neste vault
 4. CI verde (RNF-14)
+
+> [!note] Funcionalidades consideradas e descartadas
+> **Séries de posts** e **Coleções** (rascunho de [[VAULT/Plano - Rede Social de Nicho]]) foram avaliadas e **não entraram** no backlog — ver [[VAULT/Checklist - Correções do Plano]].

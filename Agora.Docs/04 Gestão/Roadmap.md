@@ -37,8 +37,8 @@ gantt
 
 | Marco | Critério de saída | Data alvo |
 |---|---|---|
-| M0 — Modelagem aprovada | Vault revisado; ADRs 001/002/003/004/005 aceitos | set/2026 |
-| M1 — MVP funcional | 16 RFs + 17 RNFs críticos entregues | dez/2026 |
+| M0 — Modelagem aprovada | Vault revisado; ADRs 001/002/003/004/005/007 aceitos | set/2026 |
+| M1 — MVP funcional | 18 RFs + 18 RNFs críticos entregues | dez/2026 |
 | M2 — Beta externo | 20 usuários ativos (OKR O2) | jan/2027 |
 | M3 — Fase 2 completa | Notificações, mídia, DMs, seguir tags, OAuth, flair | abr/2027 |
 | M4 — Fase 3 completa | Livros, GitHub, jogos, RPG | jul/2027 |
@@ -57,6 +57,7 @@ gantt
 
 ### Fase 1 — MVP (set–dez/2026)
 - **Conta/Perfil/Auth:** RF-001, RF-002, RF-003
+- **Privacidade/LGPD:** RF-032 (excluir conta), RF-033 (exportar dados)
 - **Posts/Conteúdo:** RF-004, RF-005, RF-006, RF-016, RF-018, RF-022, RF-023
 - **Social:** RF-007, RF-008, RF-009
 - **UI/Experiência:** RF-031

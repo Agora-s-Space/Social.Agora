@@ -69,7 +69,7 @@ atualizado: 2026-08-25
 | RNF-19 | Múltiplos ambientes (dev / staging / produção) isolados | 3 ambientes ([[03 Decisões/ADR-004 Ambientes\|ADR-004]]) |
 | RNF-20 | Deploy automatizado com pipeline (CI/CD) | Deploy p/ staging automático; prod via aprovação |
 | RNF-21 | Backup e restauração do banco de produção | Backup diário; restore testado |
-| RNF-22 | Observabilidade: logs, métricas, health checks, alertas | Logs estruturados; alerta em falha |
+| RNF-22 | Observabilidade: logs, métricas, health checks, alertas | Logs estruturados (Serilog) + health checks no MVP; métricas expostas em formato Prometheus (OTLP); dashboards/alertas (Prometheus + Grafana) na Fase 2 — [[03 Decisões/ADR-006 Observabilidade|ADR-006]] |
 | RNF-23 | Empacotamento/distribuição do app desktop — formato **MSIX** (compatível com sideload e possível publicação na Microsoft Store) | Installer MSIX + identidade de pacote; atualização via Store (opcional) |
 
 ## UI / Experiência
