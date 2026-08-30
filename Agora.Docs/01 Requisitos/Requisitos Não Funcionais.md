@@ -64,11 +64,11 @@ atualizado: 2026-08-30
 
 ## Manutenibilidade e qualidade
 
-| ID | Requisito | Meta |
-|---|---|---|
+| ID     | Requisito                                                                                               | Meta                                                                                     |
+| ------ | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | RNF-12 | Código em camadas ([[02 Modelagem/Arquitetura do Sistema\|Arquitetura]]): UI, Aplicação, Domínio, Infra | **0 violações de dependência** entre camadas — verificado por teste de arquitetura no CI |
-| RNF-13 | Cobertura de testes ≥ 60% no núcleo de domínio ⚠️ | ≥ 60% no núcleo de domínio ⚠️ |
-| RNF-14 | CI executando build + testes a cada push | Build + testes **≤ 10 min ⚠️** |
+| RNF-13 | Cobertura de testes ≥ 60% no núcleo de domínio ⚠️                                                       | ≥ 60% no núcleo de domínio ⚠️                                                            |
+| RNF-14 | CI executando build + testes a cada push                                                                | Build + testes **≤ 10 min ⚠️**                                                           |
 
 ## Confiabilidade e operação
 

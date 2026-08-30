@@ -2,7 +2,7 @@
 tags: [moc, home]
 tipo: moc
 status: ativo
-atualizado: 2026-08-28
+atualizado: 2026-08-30
 ---
 
 # 🏠 Home — Agora
@@ -66,6 +66,9 @@ atualizado: 2026-08-28
 - [[VAULT/Checklist - Correções do Plano|Checklist — Correções do Plano]]
 - [[VAULT/Template - Nova Nota|Template — Nova Nota]]
 - [[VAULT/Cheatsheet Mermaid|Cheatsheet Mermaid]]
+
+### 6. Entregas
+- [[Documentos/Documento de Especificação|Documento de Especificação]] — relatório técnico (exportação Word/pandoc)
 
 ### Extras
 - [[Canvas/Mapa do Projeto.canvas|Mapa do Projeto (Canvas)]]

@@ -2,7 +2,7 @@
 tags: [vault, agentes, instrucoes]
 tipo: instrucoes-agentes
 status: ativo
-atualizado: 2026-08-27
+atualizado: 2026-08-30
 ---
 
 # AGENTS.md — Instruções para Agentes de IA
@@ -29,6 +29,7 @@ atualizado: 2026-08-27
 | `02 Modelagem/` | Domínio, ER, arquitetura, estados, fluxos, wireframes, API | Mudança estrutural no sistema |
 | `03 Decisões/` | ADRs + template | Toda decisão técnica relevante |
 | `04 Gestão/` | Roadmap, backlog, glossário, definição do MVP, operações | Planejamento/priorização |
+| `Documentos/` | Entregas e relatórios (ex.: Documento de Especificação → exportação Word/pandoc) | Entrega da disciplina |
 | `Canvas/` | Mapas visuais | Opcional |
 | `VAULT/` | Utilitários: templates, checklists, cheatsheets, plano de nicho | Manutenção do próprio processo |
 

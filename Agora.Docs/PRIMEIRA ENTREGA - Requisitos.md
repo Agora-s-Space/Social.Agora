@@ -17,8 +17,8 @@ Estrutura Obrigatória:
  1. Capa e Sumário: Identificação da instituição, disciplina, integrantes e índice estruturado.
  2. Visão Geral do Sistema: Escopo, objetivo do produto e público-alvo.
  3. Matriz de Requisitos: 
-   - Tabela contendo: ID, Tipo (RF/RNF), Descrição, Prioridade (Alta/Média/Baixa) e Critério de Aceite.
-1. Modelagem de Dados e Arquitetura:
+    - Tabela contendo: ID, Tipo (RF/RNF), Descrição, Prioridade (Alta/Média/Baixa) e Critério de Aceite.
+4. Modelagem de Dados e Arquitetura:
    - Esquema do banco de dados (tabelas/coleções e relacionamentos).
    - Diagrama de Classes indicando atributos, métodos e relacionamentos principais.
 5. Estratégia de Versionamento e Qualidade:
