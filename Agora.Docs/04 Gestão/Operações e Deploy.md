@@ -2,7 +2,7 @@
 tags: [operacoes, deploy, infra]
 tipo: documento
 status: rascunho
-atualizado: 2026-08-28
+atualizado: 2026-08-30
 ---
 
 # Operações e Deploy
@@ -125,7 +125,23 @@ Referência: [[04 Gestão/Backlog do Produto#B-40|B-40]]
 | CI build+testes (RNF-14) | documentado |
 | Analyzers .NET (linters) | proposto |
 | Formatação de código | proposto |
-| Code review | a definir |
+| Code review | documentado ([[04 Gestão/Operações e Deploy#9. Estratégia de ramificação e revisão\|seção 9]]) |
+
+## 9. Estratégia de ramificação e revisão
+
+> [!info] Modelo
+> **GitHub Flow simplificado** — resposta ao tópico "Estratégia de Repositório e CI/CD" do enunciado ([[PRIMEIRA ENTREGA - Requisitos]]): `main` + branches curtas de feature/docs; sem `develop`; CD a partir da branch principal ([[03 Decisões/ADR-004 Ambientes|ADR-004]]).
+
+| Item | Decisão |
+|---|---|
+| Controle de versão | Git — repositório GitHub: `https://github.com/Agora-s-Space/Social.Agora.git` |
+| Branch principal | `main` (protegida — sem push direto) |
+| Branches de trabalho | Curtas e descritivas: `feat/...`, `docs/...`, `chore/...`, `fix/...` |
+| Convenção de commit | **Conventional Commits** — `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:` ⚠️ proposta a validar na Fase 1 |
+| Code review | PR com **≥ 1 aprovação** obrigatória (CODEOWNERS cobre `Agora.Docs/`); abrir PR para `main` |
+| Critérios mínimos de merge | PR aberto p/ `main` com ≥ 1 aprovação · **CI verde** (build + testes — RNF-14) · sem conflitos · commit padronizado (Conventional Commits) |
+
+Referência fluxo de promoção: [[04 Gestão/Operações e Deploy#2. Pipeline (CI/CD)|Pipeline (CI/CD)]]
 
 ---
 

@@ -131,11 +131,11 @@ erDiagram
 
 > O diagrama de classes completo (22 classes, PlantUML) está em [[02 Modelagem/Modelo de Domínio#Diagrama de classes]] — já inclui as entidades das Fases 2/3.
 
-## 5. Estratégia de Repositório e CI/CD — ⚠️ Parcial (estrutura definida; implementação na Fase 1)
+## 5. Estratégia de Repositório e CI/CD — Pronto (estrutura e políticas definidas; implementação na Fase 1)
 
 - **Controle de versão:** Git — repositório remoto **GitHub**: `https://github.com/Agora-s-Space/Social.Agora.git` (origin configurada).
-- **Estratégia de ramificação:** Git simplificado com `main` + branches de feature/docs (ex.: `docs/modelagem-mer-der`, `chore/gitignore-codeowners`) — **próximo do GitHub Flow**. Presente no fluxo de promoção dev → staging → produção ([[03 Decisões/ADR-004 Ambientes|ADR-004]]).
-- **Code review:** `.github/CODEOWNERS` define dono de `Agora.Docs/` (`@TheSirLeaf`) → **aprovação obrigatória de PRs** nas áreas cobertas. Política geral documentada como **"a definir"** ([[04 Gestão/Operações e Deploy#8. Padrões de código]]) — lacuna para fechar na Fase 1.
+- **Estratégia de ramificação, convenção de commit e critérios de merge:** GitHub Flow simplificado com `main` + branches curtas (`feat/`, `docs/`, `chore/`, `fix/`); commits seguem **Conventional Commits** ⚠️; merge exige PR ≥ 1 aprovação + CI verde + sem conflitos — detalhado em [[04 Gestão/Operações e Deploy#9. Estratégia de ramificação e revisão|Operações e Deploy §9]], coerente com o fluxo de promoção dev → staging → produção ([[03 Decisões/ADR-004 Ambientes|ADR-004]]).
+- **Code review:** `.github/CODEOWNERS` define dono de `Agora.Docs/` (`@TheSirLeaf`) → **aprovação obrigatória de PRs** nas áreas cobertas, política consolidada junto à estratégia de ramificação ([[04 Gestão/Operações e Deploy#9. Estratégia de ramificação e revisão|Operações e Deploy §9]]).
 - **CI/CD** (documentado em [[04 Gestão/Operações e Deploy#2. Pipeline (CI/CD)]]): CI com build + testes a cada push (RNF-14, B-09) via **GitHub Actions**; deploy automático → staging; produção via aprovação (RNF-20, B-37), **via Docker Compose — ADR-010**; migrations via EF Core (ADR-003).
 
 | Etapa | Onde | Ferramenta | Responsável |
