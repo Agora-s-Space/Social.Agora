@@ -52,21 +52,21 @@ atualizado: 2026-08-30
 
 | ID | Requisito | Meta |
 |---|---|---|
-| RNF-09 | Conformidade LGPD: consentimento, exportação e exclusão de dados do usuário ([[01 Requisitos/Regras de Negócio|RN-04]]) | Solicitações (exportar/excluir) atendidas em **≤ 15 dias** (LGPD art. 19) |
-| RNF-26 | Alinhamento com princípios GDPR (minimização de dados, limitação de armazenamento, accountability, notificação de violação) como boas práticas — GDPR não aplicável hoje (ver [[01 Requisitos/LGPD e Privacidade#1. Leis aplicáveis|LGPD e Privacidade]]) | Registro de consentimento (data/versão) no cadastro; retenção: anonimizar dados ≤ 30 d · backups ≤ 30 d; notificação de violação ≤ 72 h da ciência ⚠️ |
+| RNF-09 | Conformidade LGPD: consentimento, exportação e exclusão de dados do usuário ([[01 Requisitos/Regras de Negócio\|RN-04]]) | Solicitações (exportar/excluir) atendidas em **≤ 15 dias** (LGPD art. 19) |
+| RNF-26 | Alinhamento com princípios GDPR (minimização de dados, limitação de armazenamento, accountability, notificação de violação) como boas práticas — GDPR não aplicável hoje (ver [[01 Requisitos/LGPD e Privacidade#1. Leis aplicáveis\|LGPD e Privacidade]]) | Registro de consentimento (data/versão) no cadastro; retenção: anonimizar dados ≤ 30 d · backups ≤ 30 d; notificação de violação ≤ 72 h da ciência ⚠️ |
 
 ## Portabilidade e compatibilidade
 
 | ID | Requisito | Meta |
 |---|---|---|
-| RNF-10 | Windows 10+ como alvo primário; arquitetura não pode impedir Linux/macOS futuros ([[03 Decisões/ADR-001 Stack Tecnológica|ADR-001]]) | — (restrição arquitetural) |
+| RNF-10 | Windows 10+ como alvo primário; arquitetura não pode impedir Linux/macOS futuros ([[03 Decisões/ADR-001 Stack Tecnológica\|ADR-001]]) | — (restrição arquitetural) |
 | RNF-11 | .NET LTS (10+) como runtime | **.NET 10 LTS**; suporte garantido até **nov/2028** |
 
 ## Manutenibilidade e qualidade
 
 | ID | Requisito | Meta |
 |---|---|---|
-| RNF-12 | Código em camadas ([[02 Modelagem/Arquitetura do Sistema|Arquitetura]]): UI, Aplicação, Domínio, Infra | **0 violações de dependência** entre camadas — verificado por teste de arquitetura no CI |
+| RNF-12 | Código em camadas ([[02 Modelagem/Arquitetura do Sistema\|Arquitetura]]): UI, Aplicação, Domínio, Infra | **0 violações de dependência** entre camadas — verificado por teste de arquitetura no CI |
 | RNF-13 | Cobertura de testes ≥ 60% no núcleo de domínio ⚠️ | ≥ 60% no núcleo de domínio ⚠️ |
 | RNF-14 | CI executando build + testes a cada push | Build + testes **≤ 10 min ⚠️** |
 

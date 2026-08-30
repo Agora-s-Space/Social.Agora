@@ -4,7 +4,7 @@ tipo: adr
 numero: ADR-008
 data: 2026-08-28
 status: aceita
-atualizado: 2026-08-28
+atualizado: 2026-08-30
 ---
 
 # ADR-008 — Armazenamento do refresh token no desktop (DPAPI)
@@ -42,6 +42,7 @@ O app usa auth JWT com access + refresh token ([[03 Decisões/ADR-005 API do Ser
 - ➕ Access token apenas em memória (revogado por expiração/[[#logout]])
 - ➖ Chave presa ao perfil do Windows (sem portabilidade entre máquinas — aceitável p/ MVP)
 - 👁 Credential Manager fica como **evolução futura**, caso surja multi-conta/roaming
+- 👁 **DPAPI é exclusivo do Windows** — se o port para Linux/macOS (RNF-10) avançar, reavaliar a proteção local do refresh token (ex.: libsecret/Keychain/equivalente não-Windows)
 
 ## Referências
 

@@ -57,6 +57,7 @@ atualizado: 2026-08-28
 - [[04 Gestão/Backlog do Produto|Backlog do Produto]]
 - [[04 Gestão/Glossário|Glossário]]
 - [[04 Gestão/Operações e Deploy|Operações e Deploy]]
+- [[04 Gestão/Custos e Licenças|Custos e Licenças]]
 - [[04 Gestão/Verificação da Primeira Entrega|Verificação da Primeira Entrega]] — apoio à apresentação
 
 ### 5. VAULT (utilitários)

@@ -17,8 +17,8 @@ atualizado: 2026-08-27
 | Framework | ASP.NET Core Web API (.NET 10) |
 | Estilo | REST + JSON + Swagger/OpenAPI |
 | Autenticação | JWT Bearer (access + refresh token) |
-| Persistência | EF Core 10 — servidor em **Npgsql/PostgreSQL** ([[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]]); client em SQLite (configs/rascunho/cache) |
-| Deploy | 3 ambientes ([[03 Decisões/ADR-004 Ambientes|ADR-004]]) |
+| Persistência | EF Core 10 — servidor em **Npgsql/PostgreSQL** ([[03 Decisões/ADR-007 Banco do Servidor (Npgsql)\|ADR-007]]); client em SQLite (configs/rascunho/cache) |
+| Deploy | 3 ambientes ([[03 Decisões/ADR-004 Ambientes\|ADR-004]]) |
 | TLS | Obrigatório (RNF-07) |
 
 ## 2. Autenticação e autorização

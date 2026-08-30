@@ -16,7 +16,7 @@ atualizado: 2026-08-30
 |---|---|---|
 | **LGPD** (BR) | ✅ Sim — hoje | Público-alvo brasileiro (UNA-Contagem, betas internos); dados processados para oferta do serviço |
 | **GDPR/RGPD** (UE) | ⚠️ Não hoje | Não há estabelecimento nem oferta de serviço a titulares na UE; sem monitoramento de comportamento na UE (GDPR art. 2/3) |
-| Princípios GDPR | ✅ Adotados como boas práticas | Minimização, limitação de armazenamento, accountability e privacidade *by design* — ver [[01 Requisitos/Requisitos Não Funcionais#RNF-26|RNF-26]] |
+| Princípios GDPR | ✅ Adotados como boas práticas | Minimização, limitação de armazenamento, accountability e privacidade *by design* — ver [[01 Requisitos/Requisitos Não Funcionais#RNF-26\|RNF-26]] |
 
 > [!note] Reavaliação
 > Se o produto for ofertado a usuários na UE no futuro, dispara nova análise de GDPR (escopo de mercado, transferência internacional e DPO) — registrar antes da expansão.
@@ -31,7 +31,7 @@ atualizado: 2026-08-30
 | Bio, avatar (URL) | `PERFIL.bio`, `avatar_url` | Perfil público | Consentimento (I) |
 | Provider OAuth + ID | `USUARIO.provider`, `provider_id` | Login via GitHub/Google (Fase 2/3) | Execução de contrato (V) |
 | Posts, comentários, curtidas, seguidas | `POST`, `COMENTARIO`, `CURTIDA`, `SEGUIDA` | Funcionalidade social | Execução de contrato (V) |
-| Consentimento (aceite da política) | `CONSENTIMENTO` ([[02 Modelagem/Modelo de Dados (ER)|ER]]) | Registro de conformidade | Obrigação legal (II) |
+| Consentimento (aceite da política) | `CONSENTIMENTO` ([[02 Modelagem/Modelo de Dados (ER)\|ER]]) | Registro de conformidade | Obrigação legal (II) |
 
 ## 3. Retenção e limitação de armazenamento
 
@@ -52,7 +52,7 @@ Política definida em [[01 Requisitos/Regras de Negócio#RN-11|RN-11]]:
 | Direito | Como é atendido |
 |---|---|
 | Acesso | Perfil completo via API própria (GET `/usuarios/me`) |
-| Portabilidade | Exportação em formato legível ([[01 Requisitos/Requisitos Funcionais#RF-033|RF-033]] — GET `/usuarios/me/exportar`) |
+| Portabilidade | Exportação em formato legível ([[01 Requisitos/Requisitos Funcionais#RF-033\|RF-033]] — GET `/usuarios/me/exportar`) |
 | Correção | Edição de perfil (RF-003) |
 | Eliminação/esquecimento | Exclusão de conta (RF-032) |
 | Revogação de consentimento | UC-10 (revogar aceite) |

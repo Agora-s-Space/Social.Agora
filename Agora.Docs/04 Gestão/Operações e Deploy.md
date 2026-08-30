@@ -25,6 +25,8 @@ Decidido em [[03 Decisões/ADR-004 Ambientes|ADR-004]]:
 
 > [!info] Sistema operacional e execução ([[03 Decisões/ADR-010 Sistema Operacional da VPS (Linux)|ADR-010]])
 > VPS com **Linux (Ubuntu LTS 24.04) + Docker Compose**. App (Kestrel) e **PostgreSQL** rodam como containers; staging e produção usam o mesmo padrão no provedor do Brasil ([[03 Decisões/ADR-009 Residência dos Dados (BR)|ADR-009]]). Operações comuns (restart, logs, backup) via `docker compose`, tudo declarado em código e acionado pelo pipeline (B-37).
+>
+> ⚠️ Lembrete (Fase 1, B-37): pinar o **major do PostgreSQL** no compose (ex.: `postgres:16`) nos 3 ambientes — evitar drift de versão.
 
 > [!warning] Regras
 > - Nunca usar dados reais em staging
@@ -69,26 +71,30 @@ Referência: [[04 Gestão/Backlog do Produto#B-39|B-39]]
 ## 5. Empacotamento e distribuição
 
 > [!info] Formato
-> **MSIX** (RNF-23) — funciona para sideload (betas) e habilita uma eventual publicação na **Microsoft Store**.
+> **MSIX** (RNF-23) — funciona para sideload (betas) e habilita uma eventual publicação na **Microsoft Store**. Ferramentas de empacotamento (MSIX Packaging Tools, SDK) e o formato são **gratuitos**.
 
 | Item | Status |
 |---|---|
 | Installer do app desktop (Windows) | **MSIX** |
-| Assinatura de código | certificado p/ assinatura do pacote |
+| Assinatura de código | **self-signed ok p/ betas (gratuito)** · OV/Artifact Signing só p/ distribuição pública fora da Store (opcional, pago) |
 | Atualização | via Store (se publicada) ou sideload |
-| Entrega aos 20 betas | sideload (via link/arquivo MSIX) |
+| Entrega aos 20 betas | sideload (via link/arquivo MSIX) — **gratuito** |
 | Publicação na Microsoft Store | **opcional / futuro** |
 
 > [!note] Microsoft Store — considerações para avaliar
 > - Requer pacote **MSIX** com identidade de pacote (package identity)
-> - Conta de desenvolvedor **Partner Center** (taxa única ~US$ 19)
-> - **Assinatura de código** com certificado (a Store assina; sideload exige self/enterprise)
+> - Conta de desenvolvedor **Partner Center** — **gratuita** (sem taxa de registro desde 2025, Individual e Company)
+> - **Assinatura de código**: a **Store assina de graça**; sideload a betas usa **self-signed** (gratuito) — sem exigir certificado de CA
 > - Cumprimento das **políticas** da Store: conteúdo, privacidade/LGPD (RNF-09), requisito de login próprio, etc.
 > - A Store gerencia **atualizações** automáticas dos usuários
 > - Sem necessidade de .NET runtime na máquina se empacotado **self-contained** (ou usar framework-dependent + instalar runtime)
 > - Requer declaração de capacidades (permissões) via manifest do pacote
 >
+> ⚠️ Lembrete (Fase 1, B-40): distribuição sideload aos 20 betas com cert self-signed → cada beta confia no `.cer` uma vez (ou Dev Mode); documento deve atualizar. **Sem custo.**
+>
 > *Decisão de publicar na Store não tomada ainda — segue como opção de distribuição (ver [[04 Gestão/Backlog do Produto#B-40\|B-40]]).*
+>
+> Custos completos (licenças, VPS, assinatura, Store): [[04 Gestão/Custos e Licenças|Custos e Licenças]].
 
 Referência: [[04 Gestão/Backlog do Produto#B-40|B-40]]
 
