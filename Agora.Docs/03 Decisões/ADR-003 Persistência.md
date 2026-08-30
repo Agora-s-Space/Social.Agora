@@ -5,6 +5,7 @@ numero: ADR-003
 data: 2026-08-25
 status: aceita
 atualizado: 2026-08-28
+publish: true
 ---
 
 # ADR-003 — Persistência (ORM)

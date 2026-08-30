@@ -5,6 +5,7 @@ numero: ADR-002
 data: 2026-08-25
 status: aceita
 atualizado: 2026-08-25
+publish: true
 ---
 
 # ADR-002 — Modelo de Implantação

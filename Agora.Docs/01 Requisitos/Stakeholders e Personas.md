@@ -3,6 +3,7 @@ tags: [requisitos, stakeholders]
 tipo: documento
 status: rascunho
 atualizado: 2026-08-28
+publish: true
 ---
 
 # Stakeholders e Personas

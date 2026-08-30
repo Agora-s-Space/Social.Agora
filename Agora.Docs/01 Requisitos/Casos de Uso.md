@@ -3,6 +3,7 @@ tags: [requisitos, casos-de-uso]
 tipo: documento
 status: rascunho
 atualizado: 2026-08-25
+publish: true
 ---
 
 # Casos de Uso

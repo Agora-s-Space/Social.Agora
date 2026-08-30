@@ -3,6 +3,7 @@ tags: [modelagem, arquitetura]
 tipo: documento
 status: rascunho
 atualizado: 2026-08-25
+publish: true
 ---
 
 # Arquitetura do Sistema

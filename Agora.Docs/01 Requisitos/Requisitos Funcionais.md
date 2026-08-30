@@ -3,6 +3,7 @@ tags: [requisitos, rf]
 tipo: documento
 status: rascunho
 atualizado: 2026-08-27
+publish: true
 ---
 
 # Requisitos Funcionais (RF)

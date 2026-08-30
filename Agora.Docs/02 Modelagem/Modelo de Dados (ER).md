@@ -3,6 +3,7 @@ tags: [modelagem, banco-de-dados, er]
 tipo: documento
 status: rascunho
 atualizado: 2026-08-30
+publish: true
 ---
 
 # Modelo de Dados (ER)

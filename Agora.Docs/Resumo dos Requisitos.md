@@ -3,6 +3,7 @@ tags: [requisitos, resumo]
 tipo: resumo
 status: ativo
 atualizado: 2026-08-30
+publish: true
 ---
 
 # Resumo dos Requisitos

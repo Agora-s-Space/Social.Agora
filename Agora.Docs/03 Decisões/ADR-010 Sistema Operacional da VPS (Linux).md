@@ -5,6 +5,7 @@ numero: ADR-010
 data: 2026-08-30
 status: aceita
 atualizado: 2026-08-30
+publish: true
 ---
 
 # ADR-010 — Sistema Operacional da VPS (Linux + Docker Compose)

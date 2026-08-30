@@ -5,6 +5,7 @@ numero: ADR-008
 data: 2026-08-28
 status: aceita
 atualizado: 2026-08-30
+publish: true
 ---
 
 # ADR-008 — Armazenamento do refresh token no desktop (DPAPI)

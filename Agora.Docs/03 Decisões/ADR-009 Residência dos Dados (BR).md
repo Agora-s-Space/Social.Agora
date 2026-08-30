@@ -5,6 +5,7 @@ numero: ADR-009
 data: 2026-08-29
 status: aceita
 atualizado: 2026-08-29
+publish: true
 ---
 
 # ADR-009 — Residência dos dados do servidor (datacenter no Brasil)

@@ -4,6 +4,7 @@ tags: [entregas, especificacao, word]
 tipo: documento
 status: rascunho
 atualizado: 2026-08-30
+publish: true
 ---
 
 # Documento de Especificação — Agora

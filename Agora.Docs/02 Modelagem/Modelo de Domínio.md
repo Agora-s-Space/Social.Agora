@@ -3,6 +3,7 @@ tags: [modelagem, dominio, uml]
 tipo: documento
 status: rascunho
 atualizado: 2026-08-30
+publish: true
 ---
 
 # Modelo de Domínio (UML)

@@ -3,6 +3,7 @@ tags: [requisitos, rnf]
 tipo: documento
 status: rascunho
 atualizado: 2026-08-30
+publish: true
 ---
 
 # Requisitos Não Funcionais (RNF)

@@ -5,6 +5,7 @@ numero: ADR-001
 data: 2026-08-25
 status: aceita
 atualizado: 2026-08-25
+publish: true
 ---
 
 # ADR-001 — Stack Tecnológica (UI e runtime)

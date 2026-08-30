@@ -3,6 +3,7 @@ tags: [decisoes, adr]
 tipo: template
 status: ativo
 atualizado: 2026-08-24
+publish: true
 ---
 
 # ADR Template — Registro de Decisão de Arquitetura

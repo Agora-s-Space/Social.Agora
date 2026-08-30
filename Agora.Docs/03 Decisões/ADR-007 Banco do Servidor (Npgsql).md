@@ -5,6 +5,7 @@ numero: ADR-007
 data: 2026-08-28
 status: aceita
 atualizado: 2026-08-28
+publish: true
 ---
 
 # ADR-007 — Banco do servidor: PostgreSQL (Npgsql)
