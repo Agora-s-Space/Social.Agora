@@ -2,7 +2,7 @@
 tags: [gestao, mvp]
 tipo: documento
 status: rascunho
-atualizado: 2026-08-29
+atualizado: 2026-08-30
 ---
 
 # Definição do MVP (Fase 1)
@@ -126,6 +126,24 @@ atualizado: 2026-08-29
 | B-51 | Registro e revogação do consentimento (data/hora + versão da política) | S | B-50 |
 | B-52 | Política de retenção: anonimizar ≤ 30 d + backups ≤ 30 d + residência BR | S | B-38 |
 | B-53 | Runbook de notificação de violação de dados pessoais | S | B-36 |
+
+### 5.1 Modelo de dados (MER — Fase 1)
+
+> Diagrama conceitual das entidades do MVP; detalhes físicos (índices, constraints) e Fases 2/3 em [[02 Modelagem/Modelo de Dados (ER)|Modelo de Dados (ER)]].
+
+```mermaid
+erDiagram
+    USUARIO ||--|| PERFIL : "1:1"
+    USUARIO ||--o{ POST : "autor"
+    USUARIO ||--o{ COMENTARIO : "escreve"
+    USUARIO ||--o{ CURTIDA : "registra"
+    POST   ||--o{ COMENTARIO : "recebe"
+    POST   ||--o{ CURTIDA : "recebe"
+    USUARIO ||--o{ SEGUIDA : "segue"
+    USUARIO ||--o{ CONSENTIMENTO : "aceita"
+    POST   ||--o{ POST_TAG : "tem"
+    TAG    ||--o{ POST_TAG : "classifica"
+```
 
 ## 6. Diagrama de dependências
 

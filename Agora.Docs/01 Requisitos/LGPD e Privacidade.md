@@ -2,7 +2,7 @@
 tags: [privacidade, lgpd, requisitos]
 tipo: documento
 status: rascunho
-atualizado: 2026-08-29
+atualizado: 2026-08-30
 ---
 
 # LGPD e Privacidade
@@ -31,7 +31,7 @@ atualizado: 2026-08-29
 | Bio, avatar (URL) | `PERFIL.bio`, `avatar_url` | Perfil público | Consentimento (I) |
 | Provider OAuth + ID | `USUARIO.provider`, `provider_id` | Login via GitHub/Google (Fase 2/3) | Execução de contrato (V) |
 | Posts, comentários, curtidas, seguidas | `POST`, `COMENTARIO`, `CURTIDA`, `SEGUIDA` | Funcionalidade social | Execução de contrato (V) |
-| Consentimento (aceite da política) | (B-51, RF-034) | Registro de conformidade | Obrigação legal (II) |
+| Consentimento (aceite da política) | `CONSENTIMENTO` ([[02 Modelagem/Modelo de Dados (ER)|ER]]) | Registro de conformidade | Obrigação legal (II) |
 
 ## 3. Retenção e limitação de armazenamento
 
@@ -43,7 +43,7 @@ Política definida em [[01 Requisitos/Regras de Negócio#RN-11|RN-11]]:
 
 ## 4. Consentimento
 
-- Registrado no **cadastro** (aceite da Política de Privacidade + Termos de Uso) — armazena **data/hora, versão da política aceita** ([[01 Requisitos/Requisitos Funcionais#RF-034|RF-034]], B-51)
+- Registrado no **cadastro** (aceite da Política de Privacidade + Termos de Uso) — armazena **data/hora, versão da política aceita** ([[01 Requisitos/Requisitos Funcionais#RF-034|RF-034]], B-51); persistido na tabela `CONSENTIMENTO` ([[02 Modelagem/Modelo de Dados (ER)|ER]])
 - **Revogação** disponível a qualquer momento via UC-10 (gerenciar dados da conta)
 - O consentimento é base legal complementar; a base principal é execução de contrato — ver seção 2
 

@@ -2,13 +2,27 @@
 tags: [requisitos, rnf]
 tipo: documento
 status: rascunho
-atualizado: 2026-08-29
+atualizado: 2026-08-30
 ---
 
 # Requisitos Não Funcionais (RNF)
 
 > [!note] Critério SMART
 > Cada RNF tem meta mensurável. Valores marcados ⚠️ são hipóteses a validar.
+
+> [!note] Base normativa
+> Os atributos de qualidade deste documento seguem o modelo de qualidade de produto **ISO/IEC 25010:2011 (SQuaRE)** — "atributos de qualidade (ISO/IEC)", conforme enunciado da primeira entrega. A tabela abaixo mapeia as categorias usadas às características do padrão.
+
+| Categoria (nesta nota) | Característica ISO/IEC 25010 |
+|---|---|
+| Desempenho (RNF-01/02/03/25) | *Performance efficiency* |
+| Usabilidade e acessibilidade · UI/Experiência (RNF-04/05/18) | *Usability* |
+| Segurança (RNF-06/07/08) | *Security* |
+| Privacidade e conformidade (RNF-09/26) | *Security* (confidencialidade) + conformidade legal (LGPD/GDPR) |
+| Portabilidade e compatibilidade (RNF-10/11) | *Portability* + *Compatibility* |
+| Manutenibilidade e qualidade (RNF-12/13/14) | *Maintainability* |
+| Confiabilidade e operação (RNF-15/16/17) | *Reliability* (tolerância a falhas/autosave) + operação |
+| Implantação e operação (RNF-19/20/21/22/23/24) | *Reliability* (availability/recoverability) + operação/suporte |
 
 ## Desempenho
 

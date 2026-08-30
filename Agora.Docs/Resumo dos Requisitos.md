@@ -2,7 +2,7 @@
 tags: [requisitos, resumo]
 tipo: resumo
 status: ativo
-atualizado: 2026-08-29
+atualizado: 2026-08-30
 ---
 
 # Resumo dos Requisitos
@@ -69,6 +69,9 @@ Fonte detalhada: [[01 Requisitos/Requisitos Funcionais]]
 ## 2. Requisitos Não Funcionais (completo)
 
 Fonte detalhada: [[01 Requisitos/Requisitos Não Funcionais]]
+
+> [!note] Base normativa
+> Metas de qualidade seguem o modelo **ISO/IEC 25010:2011 (SQuaRE)** — "atributos de qualidade (ISO/IEC)" do enunciado da entrega.
 
 | ID | Categoria | Requisito | Meta/Critério |
 |---|---|---|---|
@@ -147,13 +150,13 @@ Fonte detalhada: [[02 Modelagem/Modelo de Domínio]] · [[02 Modelagem/Modelo de
 
 | Entidade | Papel | Chaves/constraints principais |
 |---|---|---|
-| `USUARIO` | Conta do sistema | `email` UK, `apelido` UK (RN-03), `hash_senha` nullable (RN-10), `provider`, `provider_id` |
+| `USUARIO` | Conta do sistema | `email` UK, `apelido` UK (RN-03), `hash_senha` nullable (RN-10), `provider`, `provider_id`, `exclusao_agendada_em`/`destino_posts` (RN-04) |
 | `PERFIL` | Dados exibidos (1:1 com usuário) | `usuario_id` PK/FK |
 | `POST` | Publicação de texto | `status` (rascunho/publicado/editado/arquivado/excluido), ≤5.000 chars (RN-06) |
 | `COMENTARIO` | Resposta a um post | FK `post_id`, FK `autor_id` |
 | `CURTIDA` | Marcação única (toggle) | PK composta (`usuario_id`,`post_id`) = RN-02 |
 | `SEGUIDA` | Relação direcionada seguidor→seguido | PK composta; impede RN-05 |
-| `NOTIFICACAO` | Eventos para o destinatário | `tipo`, `lida`, FK destino |
+| `CONSENTIMENTO` | Aceite/revogação de política (privacidade/termos) | `usuario_id` FK, `versao`, `aceito_em`, `revogado_em` (RF-034) |
 | `TAG` | Classificador de conteúdo por tema/hobby | `nome` UK (RN-08), `slug` auto-gerado |
 | `POST_TAG` | Relação N:N post-tag | PK composta; máx. 5/post (RN-09) |
 
@@ -161,6 +164,7 @@ Fonte detalhada: [[02 Modelagem/Modelo de Domínio]] · [[02 Modelagem/Modelo de
 
 | Entidade | Papel | Fase |
 |---|---|---|
+| `NOTIFICACAO` | Eventos para o destinatário — badge de não lidas (RF-011) | 2 |
 | `SEGUE_TAG` | Usuário segue tags (feed por interesse, RF-019) | 2 |
 | `FLAIR` / `USUARIO_FLAIR` | Badges visuais de perfil (RF-020) | 2 |
 | `PERFIL` (extensão) | Campos opcionais: stack tech, jogos/autores favoritos (RF-021) | 2 |
@@ -277,7 +281,7 @@ Fonte detalhada: [[04 Gestão/Roadmap]]
 | Requisitos não funcionais | 26 |
 | Regras de negócio | 12 |
 | Casos de uso | 10 |
-| Entidades de domínio | 21 (9 MVP + 12 F2/F3) |
+| Entidades de domínio | 22 (9 MVP + 13 F2/F3) |
 | Itens de backlog | 51 |
 | ADRs | 9 aceitas* |
 

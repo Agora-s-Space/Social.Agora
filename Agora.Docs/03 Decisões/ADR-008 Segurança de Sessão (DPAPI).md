@@ -18,12 +18,12 @@ O app usa auth JWT com access + refresh token ([[03 Decisões/ADR-005 API do Ser
 
 ## Opções consideradas
 
-| Opção | Prós | Contras |
-|---|---|---|
-| **A — DPAPI** (`ProtectedData`, escopo `CurrentUser`) + arquivo em `%LOCALAPPDATA%` | API nativa do .NET; sem dependência externa; limite generoso (arquivo, ~1 MB); padrão usado por `gh`/`gcloud`; escopo por usuário | Não portável p/ outra máquina/usuário (por design) |
-| **B — Windows Credential Manager** (`PasswordVault`) | UX integrada ao SO; sincroniza com conta MS | Teto de **2.400 bytes** por credencial; exige TFM `-windows10.0.19041` e WinRT |
-| **C — Windows Hello / TPM** | Máxima segurança (biometria/PIN) | Fricção de UX por sessão; sobrequalidade p/ MVP |
-| **D — Só SQLite (config)** | Simples | Segredo em plaintext no cache — risco p/ LGPD ([[01 Requisitos/Requisitos Não Funcionais#RNF-09|RNF-09]]) e token de sessão |
+| Opção                                                                               | Prós                                                                                                                              | Contras                                                                                                                   |
+| ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **A — DPAPI** (`ProtectedData`, escopo `CurrentUser`) + arquivo em `%LOCALAPPDATA%` | API nativa do .NET; sem dependência externa; limite generoso (arquivo, ~1 MB); padrão usado por `gh`/`gcloud`; escopo por usuário | Não portável p/ outra máquina/usuário (por design)                                                                       |
+| **B — Windows Credential Manager** (`PasswordVault`)                                | UX integrada ao SO; sincroniza com conta MS                                                                                       | Teto de **2.400 bytes** por credencial; exige TFM `-windows10.0.19041` e WinRT                                             |
+| **C — Windows Hello / TPM**                                                         | Máxima segurança (biometria/PIN)                                                                                                  | Fricção de UX por sessão; sobrequalidade p/ MVP                                                 |
+| **D — Só SQLite (config)**                                                          | Simples                                                                                                                           | Segredo em plaintext no cache — risco p/ LGPD ([[01 Requisitos/Requisitos Não Funcionais#RNF-09]]) e token de sessão |
 
 ## Decisão
 

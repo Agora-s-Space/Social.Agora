@@ -2,7 +2,7 @@
 tags: [modelagem, dominio, uml]
 tipo: documento
 status: rascunho
-atualizado: 2026-08-29
+atualizado: 2026-08-30
 ---
 
 # Modelo de Domínio (UML)
@@ -26,6 +26,8 @@ class Usuario {
   -Provider : string <<local|github|google>>
   -ProviderId : string <<nullable>>
   -Ativo : bool
+  -ExclusaoAgendadaEm : DateTime? <<nullable, RN-04>>
+  -DestinoPosts : string <<remover|anonimizar, nullable>>
   -CriadoEm : DateTime
   --
   +Publicar(conteudo, tags) : Post
@@ -41,6 +43,9 @@ class Perfil {
   -UsuarioId : Guid <<PK, FK>>
   -Bio : string
   -AvatarUrl : string
+  -StackTech : string <<nullable, Fase 2 - RF-021>>
+  -JogosFavoritos : string <<nullable, Fase 2 - RF-021>>
+  -AutoresFavoritos : string <<nullable, Fase 2 - RF-021>>
   --
   +Atualizar(bio, avatarUrl) : void
 }
@@ -94,12 +99,24 @@ class Notificacao {
   +MarcarLida() : void
 }
 
+class Consentimento {
+  -Id : Guid
+  -UsuarioId : Guid <<FK>>
+  -Politica : string <<privacidade|termos>>
+  -Versao : string
+  -AceitoEm : DateTime
+  -RevogadoEm : DateTime? <<nullable>>
+  --
+  +Registrar(politica, versao) : void
+  +Revogar() : void
+}
+
 class Tag {
   -Id : Guid
   -Nome : string <<unique>>
   -Slug : string <<auto-gerado>>
   -Categoria : string <<linguagem|tema|genero|sistema>>
-  -UsosCount : int
+  -UsosCount : int <<denormalizado - RF-018>>
 }
 
 class PostTag {
@@ -218,6 +235,7 @@ Usuario "1" *-- "0..*" Comentario : escreve
 Usuario "1" *-- "0..*" Curtida : registra
 Usuario "1" *-- "0..*" Seguida : segue
 Usuario "1" *-- "0..*" Notificacao : recebe
+Usuario "1" *-- "0..*" Consentimento : aceita
 Post "1" *-- "0..*" Comentario : recebe
 Post "1" *-- "0..*" Curtida : recebe
 Post "1" *-- "0..*" PostTag : classifica
@@ -252,29 +270,30 @@ end note
 
 ## Entidades e regras de negócio
 
-| Entidade | Responsabilidade | RN aplicável |
-|---|---|---|
-| [[#Usuario\|Usuario]] | Conta, credenciais, estado ativo/inativo, provedor OAuth | [[01 Requisitos/Regras de Negócio\|RN-03]] (unicidade), [[01 Requisitos/Regras de Negócio\|RN-10]] (OAuth sem senha) |
-| [[#Perfil\|Perfil]] | Dados de exibição (1:1 com Usuario) | — |
-| [[#Post\|Post]] | Publicação de texto; máquina de estados em [[02 Modelagem/Máquinas de Estado]] | [[01 Requisitos/Regras de Negócio\|RN-01]] (autoria), [[01 Requisitos/Regras de Negócio\|RN-06]] (5.000 chars) |
-| [[#Comentario\|Comentario]] | Resposta a um Post | [[01 Requisitos/Regras de Negócio\|RN-01]] |
-| [[#Curtida\|Curtida]] | Marcação positiva única por usuário/post | [[01 Requisitos/Regras de Negócio\|RN-02]] (toggle) |
-| [[#Seguida\|Seguida]] | Relação direcionada seguidor → seguido | [[01 Requisitos/Regras de Negócio\|RN-05]] (auto-seguimento) |
-| [[#Notificacao\|Notificacao]] | Eventos para o destinatário | [[01 Requisitos/Requisitos Funcionais\|RF-011]] |
-| [[#Tag\|Tag]] | Classificador de conteúdo por tema/hobby | [[01 Requisitos/Regras de Negócio\|RN-08]] (nomes únicos), [[01 Requisitos/Regras de Negócio\|RN-09]] (máx. 5/post) |
-| [[#PostTag\|PostTag]] | Relação N:N post-tag | — |
-| [[#SegueTag\|SegueTag]] | Relação N:N usuário-tag (feed por interesse) | [[01 Requisitos/Requisitos Funcionais\|RF-019]] |
-| [[#Flair\|Flair]] | Badge visual de perfil (ex: "C# Dev", "Mestre D&D") | [[01 Requisitos/Requisitos Funcionais\|RF-020]] |
-| [[#UsuarioFlair\|UsuarioFlair]] | Relação N:N usuário-flair | — |
-| [[#Livro\|Livro]] | Catálogo global de livros | [[01 Requisitos/Requisitos Funcionais\|RF-027]] |
-| [[#UsuarioLivro\|UsuarioLivro]] | Estado de leitura por usuário (lido/lendo/queroler + nota/resenha) | [[01 Requisitos/Requisitos Funcionais\|RF-027]] |
-| [[#Jogo\|Jogo]] | Catálogo global de jogos | [[01 Requisitos/Requisitos Funcionais\|RF-029]] |
-| [[#UsuarioJogo\|UsuarioJogo]] | Horas jogadas, review e plataforma por usuário | [[01 Requisitos/Requisitos Funcionais\|RF-029]] |
-| [[#Repositorio\|Repositorio]] | Repositório GitHub vinculado ao perfil | [[01 Requisitos/Requisitos Funcionais\|RF-028]] |
-| [[#Campanha\|Campanha]] | Narrativa RPG com sistema; dono é o narrador | [[01 Requisitos/Requisitos Funcionais\|RF-030]] |
-| [[#Mesa\|Mesa]] | Grupo de jogadores de uma campanha | [[01 Requisitos/Requisitos Funcionais\|RF-030]] |
-| [[#Sessao\|Sessao]] | Encontro de uma mesa; pode ser one-shot | [[01 Requisitos/Requisitos Funcionais\|RF-030]] |
-| [[#Ficha\|Ficha]] | Personagem de um jogador em uma campanha | [[01 Requisitos/Requisitos Funcionais\|RF-030]] |
+| Entidade                          | Responsabilidade                                                               | RN aplicável                                                                                                         |
+| --------------------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| [[#Usuario\|Usuario]]             | Conta, credenciais, estado ativo/inativo, provedor OAuth                       | [[01 Requisitos/Regras de Negócio\|RN-03]] (unicidade), [[01 Requisitos/Regras de Negócio\|RN-10]] (OAuth sem senha) |
+| [[#Perfil\|Perfil]]               | Dados de exibição (1:1 com Usuario)                                            | —                                                                                                                    |
+| [[#Post\|Post]]                   | Publicação de texto; máquina de estados em [[02 Modelagem/Máquinas de Estado]] | [[01 Requisitos/Regras de Negócio\|RN-01]] (autoria), [[01 Requisitos/Regras de Negócio\|RN-06]] (5.000 chars)       |
+| [[#Comentario\|Comentario]]       | Resposta a um Post                                                             | [[01 Requisitos/Regras de Negócio\|RN-01]]                                                                           |
+| [[#Curtida\|Curtida]]             | Marcação positiva única por usuário/post                                       | [[01 Requisitos/Regras de Negócio\|RN-02]] (toggle)                                                                  |
+| [[#Seguida\|Seguida]]             | Relação direcionada seguidor → seguido                                         | [[01 Requisitos/Regras de Negócio\|RN-05]] (auto-seguimento)                                                         |
+| [[#Notificacao\|Notificacao]] | Eventos para o destinatário (Fase 2 — RF-011) | [[01 Requisitos/Requisitos Funcionais\|RF-011]] |
+| [[#Consentimento\|Consentimento]] | Registro de aceite/revogação de privacidade×termos (data/versão)               | [[01 Requisitos/Requisitos Funcionais\|RF-034]]                                                                      |
+| [[#Tag\|Tag]]                     | Classificador de conteúdo por tema/hobby                                       | [[01 Requisitos/Regras de Negócio\|RN-08]] (nomes únicos), [[01 Requisitos/Regras de Negócio\|RN-09]] (máx. 5/post)  |
+| [[#PostTag\|PostTag]]             | Relação N:N post-tag                                                           | —                                                                                                                    |
+| [[#SegueTag\|SegueTag]]           | Relação N:N usuário-tag (feed por interesse)                                   | [[01 Requisitos/Requisitos Funcionais\|RF-019]]                                                                      |
+| [[#Flair\|Flair]]                 | Badge visual de perfil (ex: "C# Dev", "Mestre D&D")                            | [[01 Requisitos/Requisitos Funcionais\|RF-020]]                                                                      |
+| [[#UsuarioFlair\|UsuarioFlair]]   | Relação N:N usuário-flair                                                      | —                                                                                                                    |
+| [[#Livro\|Livro]]                 | Catálogo global de livros                                                      | [[01 Requisitos/Requisitos Funcionais\|RF-027]]                                                                      |
+| [[#UsuarioLivro\|UsuarioLivro]]   | Estado de leitura por usuário (lido/lendo/queroler + nota/resenha)             | [[01 Requisitos/Requisitos Funcionais\|RF-027]]                                                                      |
+| [[#Jogo\|Jogo]]                   | Catálogo global de jogos                                                       | [[01 Requisitos/Requisitos Funcionais\|RF-029]]                                                                      |
+| [[#UsuarioJogo\|UsuarioJogo]]     | Horas jogadas, review e plataforma por usuário                                 | [[01 Requisitos/Requisitos Funcionais\|RF-029]]                                                                      |
+| [[#Repositorio\|Repositorio]]     | Repositório GitHub vinculado ao perfil                                         | [[01 Requisitos/Requisitos Funcionais\|RF-028]]                                                                      |
+| [[#Campanha\|Campanha]]           | Narrativa RPG com sistema; dono é o narrador                                   | [[01 Requisitos/Requisitos Funcionais\|RF-030]]                                                                      |
+| [[#Mesa\|Mesa]]                   | Grupo de jogadores de uma campanha                                             | [[01 Requisitos/Requisitos Funcionais\|RF-030]]                                                                      |
+| [[#Sessao\|Sessao]]               | Encontro de uma mesa; pode ser one-shot                                        | [[01 Requisitos/Requisitos Funcionais\|RF-030]]                                                                      |
+| [[#Ficha\|Ficha]]                 | Personagem de um jogador em uma campanha                                       | [[01 Requisitos/Requisitos Funcionais\|RF-030]]                                                                      |
 
 ## Detalhes das entidades
 
@@ -283,10 +302,12 @@ end note
 - **Constraints:** `Email` único, `Apelido` único (RN-03)
 - **Provider:** `local` | `github` | `google` — contas OAuth têm `HashSenha` nulo (RN-10)
 - **Estados:** `Ativo` / `Inativo` (exclusão anonimiza dados em 30 dias — RN-04)
+- **Exclusão (RF-032):** `ExclusaoAgendadaEm` agenda a anonimização em ≤ 30 d; `DestinoPosts` (`remover`/`anonimizar`) decide o destino dos posts
 
 ### Perfil
 - **Relação 1:1** com Usuario (chave `UsuarioId` FK)
 - Contém apenas dados de exibição: bio e URL do avatar
+- **Fase 2 (RF-021):** campos opcionais (opt-in) `StackTech`, `JogosFavoritos`, `AutoresFavoritos`
 
 ### Post
 - **Estados:** Rascunho → Publicado → Editado / Arquivado / Excluído (detalhes em [[02 Modelagem/Máquinas de Estado]])
@@ -307,14 +328,19 @@ end note
 - Direcionada: seguidor ≠ seguido
 
 ### Notificacao
+- **Fase 2 (RF-011)** — gerada por interações MVP (curtida/comentário/seguidor), consumida na Fase 2 (badge/lista)
 - Tipos: `curtida`, `comentario`, `seguidor`
 - `Lida` controla badge de não lidas
+
+### Consentimento
+- Registro de aceite da Política de Privacidade/Termos: `Politica`, `Versao` e `AceitoEm` (RF-034)
+- `RevogadoEm` nullable: usuário pode revogar o consentimento a qualquer momento (RF-034)
 
 ### Tag
 - `Nome` único no sistema (RN-08)
 - `Slug` auto-gerado a partir do nome
 - `Categoria`: `linguagem` | `tema` | `genero` | `sistema`
-- `UsosCount` mantém contagem de posts com a tag
+- `UsosCount` mantém contagem de posts com a tag (denormalizado — sustenta feed popular RF-018)
 
 ### PostTag
 - PK composta: (`PostId`, `TagId`)

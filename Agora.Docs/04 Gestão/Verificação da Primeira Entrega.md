@@ -2,7 +2,7 @@
 tags: [gestao, verificacao, entrega]
 tipo: documento
 status: rascunho
-atualizado: 2026-08-29
+atualizado: 2026-08-30
 ---
 
 # Verificação da Primeira Entrega
@@ -45,7 +45,6 @@ atualizado: 2026-08-29
 
 - **26 RNFs** no total; **21 críticos para o MVP** (tabela abaixo), todos com **metas mensuráveis** (critério SMART) em [[01 Requisitos/Requisitos Não Funcionais]].
 - Cada meta indica a **ferramenta/mecanismo de validação** que a sustenta (coluna "Como sustentamos").
-- **Lacunas (⚠️):** nenhuma meta pendente — todas as categorias do enunciado (tempo de resposta, SLA, throughput, LGPD) cobertas.
 
 ### RNFs críticos do MVP (21)
 
@@ -75,15 +74,17 @@ atualizado: 2026-08-29
 
 ### Cobertura das categorias do enunciado
 
-| Categoria | Exemplos de meta |
-|---|---|
-| Desempenho | Feed ≤ 2 s (P95) · inicialização ≤ 3 s · feedback ≤ 200 ms · **throughput ≥ 50 req/s (RNF-25)** |
-| Disponibilidade | SLA ≥ 99,5% uptime mensal da produção (RNF-24) · manutenção programada excluída |
-| Usabilidade/Acessibilidade | 100% ações via teclado · contraste WCAG AA ≥ 4.5:1 |
-| Segurança | Hash adaptativo (RNF-06) · TLS 1.2+ (RNF-07) · bloqueio força bruta (RNF-08) |
-| Privacidade | LGPD: consentimento, exportação, exclusão (RNF-09) · princípios GDPR (RNF-26) |
-| Manutenibilidade | Cobertura de testes ≥ 60% no domínio (RNF-13) · CI a cada push (RNF-14) |
-| Operação | 3 ambientes (RNF-19) · deploy staging automático + prod via aprovação (RNF-20) |
+> Categorias alinhadas ao modelo de qualidade **ISO/IEC 25010:2011 (SQuaRE)** — "atributos de qualidade (ISO/IEC)" do enunciado.
+
+| Categoria                  | Exemplos de meta                                                                                |
+| -------------------------- | ----------------------------------------------------------------------------------------------- |
+| Desempenho                 | Feed ≤ 2 s (P95) · inicialização ≤ 3 s · feedback ≤ 200 ms · **throughput ≥ 50 req/s (RNF-25)** |
+| Disponibilidade            | SLA ≥ 99,5% uptime mensal da produção (RNF-24) · manutenção programada excluída                 |
+| Usabilidade/Acessibilidade | 100% ações via teclado · contraste WCAG AA ≥ 4.5:1                                              |
+| Segurança                  | Hash adaptativo (RNF-06) · TLS 1.2+ (RNF-07) · bloqueio força bruta (RNF-08)                    |
+| Privacidade                | LGPD: consentimento, exportação, exclusão (RNF-09) · princípios GDPR (RNF-26)                   |
+| Manutenibilidade           | Cobertura de testes ≥ 60% no domínio (RNF-13) · CI a cada push (RNF-14)                         |
+| Operação                   | 3 ambientes (RNF-19) · deploy staging automático + prod via aprovação (RNF-20)                  |
 
 > [!note] Conformidade LGPD/GDPR
 > Conformidade citada no enunciado: o projeto documenta **LGPD** (RNF-09) + princípios **GDPR** (RNF-26). GDPR **não é aplicável hoje** (sem titulares/estabelecimento na UE) — justificativa e alinhamento em [[01 Requisitos/LGPD e Privacidade#1. Leis aplicáveis|LGPD e Privacidade]].
@@ -95,7 +96,7 @@ atualizado: 2026-08-29
 
 - Modelo completo em [[02 Modelagem/Modelo de Dados (ER)]]: **MER** conceitual (1.1 MVP; 1.2 Fases 2/3) + **DER** físico (índices, constraints, migrações).
 - Consistente com o [[02 Modelagem/Modelo de Domínio]] (mesmas entidades/rótulos) e com RFs/RNs (PK/FK/UK com RN-0x anotados).
-- **Diagrama (Núcleo do MVP):**
+- **Diagrama (Fase 1 — MVP):**
 
 ```mermaid
 erDiagram
@@ -106,28 +107,29 @@ erDiagram
     POST   ||--o{ COMENTARIO : "recebe"
     POST   ||--o{ CURTIDA : "recebe"
     USUARIO ||--o{ SEGUIDA : "segue"
-    USUARIO ||--o{ NOTIFICACAO : "recebe"
+    USUARIO ||--o{ CONSENTIMENTO : "aceita"
     POST   ||--o{ POST_TAG : "tem"
     TAG    ||--o{ POST_TAG : "classifica"
 ```
 
-- Fases 2/3 (SEGUE_TAG, FLAIR, LIVRO, JOGO, CAMPANHA, MESA, SESSAO, FICHA...) já modeladas na seção **MER 1.2** do mesmo documento.
+- Segue a divisão por fases do [[02 Modelagem/Modelo de Dados (ER)|ER]] (MER 1.1 = Fase 1; MER 1.2 = Fases 2/3). Fases 2/3 (NOTIFICACAO — RF-011, SEGUE_TAG, FLAIR, LIVRO, JOGO, CAMPANHA, MESA, SESSAO, FICHA...) já modeladas na seção **MER 1.2** do mesmo documento.
 
 ## 4. Arquitetura de Código e Classes — ✅ Pronto e consistente
 
 - [[02 Modelagem/Arquitetura do Sistema]]: 4 camadas (UI → Aplicação → Domínio ← Infra), dependências apontam para dentro; stack em [[03 Decisões/ADR-001 Stack Tecnológica]] (Avalonia UI + .NET 10 LTS + MVVM/CommunityToolkit, EF Core 10 — ADR-003, PostgreSQL/Npgsql — ADR-007, JWT Bearer — ADR-005).
-- [[02 Modelagem/Modelo de Domínio]]: diagrama de classes com **entidades + regras de negócio vinculadas** (RN-0x por entidade) — resumo das entidades principais do núcleo (MVP):
+- [[02 Modelagem/Modelo de Domínio]]: diagrama de classes com **entidades + regras de negócio vinculadas** (RN-0x por entidade) — resumo das entidades principais do núcleo (MVP) + Fases 2/3:
 
-| Entidade | Responsabilidade | RN/RF |
-|---|---|---|
-| Usuario | Conta, credenciais, provider OAuth | RN-03, RN-10 |
-| Perfil | Dados de exibição (1:1 Usuario) | — |
-| Post | Publicação com máquina de estados | RN-01, RN-06 |
-| Comentario / Curtida / Seguida | Interações | RN-01, RN-02, RN-05 |
-| Notificacao | Eventos para destinatário | RF-011 (Fase 2) |
-| Tag / PostTag | Classificação por tema | RN-08, RN-09 |
+| Entidade                       | Responsabilidade                                  | RN/RF               |
+| ------------------------------ | ------------------------------------------------- | ------------------- |
+| Usuario                        | Conta, credenciais, provider OAuth                | RN-03, RN-10        |
+| Perfil                         | Dados de exibição (1:1 Usuario)                   | —                   |
+| Post                           | Publicação com máquina de estados                 | RN-01, RN-06        |
+| Comentario / Curtida / Seguida | Interações                                        | RN-01, RN-02, RN-05 |
+| Notificacao                    | Eventos para destinatário                         | RF-011 (Fase 2)     |
+| Consentimento                  | Aceite/revogação de política (privacidade/termos) | RF-034              |
+| Tag / PostTag                  | Classificação por tema                            | RN-08, RN-09        |
 
-> O diagrama de classes completo (21 classes, PlantUML) está em [[02 Modelagem/Modelo de Domínio#Diagrama de classes]] — já inclui as entidades das Fases 2/3.
+> O diagrama de classes completo (22 classes, PlantUML) está em [[02 Modelagem/Modelo de Domínio#Diagrama de classes]] — já inclui as entidades das Fases 2/3.
 
 ## 5. Estratégia de Repositório e CI/CD — ⚠️ Parcial (estrutura definida; implementação na Fase 1)
 
