@@ -60,7 +60,7 @@ Referência: [[04 Gestão/Backlog do Produto#B-09|B-09 CI]] · [[04 Gestão/Back
 | Área                           | Ferramenta proposta                                                                                                  | Status                               |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | Logs estruturados              | Serilog (RNF-16)                                                                                                     | documentado                          |
-| Métricas de API                | `System.Diagnostics.Metrics` + OpenTelemetry + Prometheus/Grafana — [[03 Decisões/ADR-006 Observabilidade\|ADR-006]] | [[ADR-006 Observabilidade\|ADR-006]] |
+| Métricas de API                | `System.Diagnostics.Metrics` + OpenTelemetry + Prometheus/Grafana (Fase 2) — [[03 Decisões/ADR-006 Observabilidade\|ADR-006]]; rodam como **containers do compose** no VPS ([[03 Decisões/ADR-010 Sistema Operacional da VPS (Linux)\|ADR-010]], B-46) | [[ADR-006 Observabilidade\|ADR-006]] |
 | Uptime/alertas                 | Health checks + alerting                                                                                             | proposto                             |
 | Crash reporting do app desktop | Sentry (opcional)                                                                                                    | proposto                             |
 

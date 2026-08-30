@@ -33,10 +33,10 @@ atualizado: 2026-08-29
 | B-20 | Feed por tags populares (seção alternativa) | RF-018 | M | B-18 | todo |
 | B-34 | Tela de splash: logo letter metálica (flash) + partes azuis (energia cristalina) | RF-031, RNF-18 | S | B-10 | todo |
 | B-35 | Wireframes de todas as telas | — | M | — | todo |
-| B-36 | Política de ambientes dev/staging/prod (config por ambiente) | RNF-19, ADR-004 | M | B-10 | todo |
-| B-37 | Pipeline CD (deploy automático staging; prod via aprovação) | RNF-20 | M | B-09 | todo |
-| B-38 | Backup + restore do banco de produção | RNF-21 | M | B-36 | todo |
-| B-39 | Observabilidade (MVP): logs estruturados (Serilog) + health checks + métricas expostas em formato Prometheus (OTLP) | RNF-16, RNF-22 | M | B-36 | todo |
+| B-36 | Política de ambientes dev/staging/prod (config por ambiente) | RNF-19, ADR-004, ADR-010 | M | B-10 | todo |
+| B-37 | Pipeline CD (deploy automático staging; prod via aprovação) | RNF-20, ADR-010 | M | B-09 | todo |
+| B-38 | Backup + restore do banco de produção | RNF-21, ADR-009, ADR-010 | M | B-36 | todo |
+| B-39 | Observabilidade (MVP): logs estruturados (Serilog) + health checks + métricas expostas em formato Prometheus (OTLP) | RNF-16, RNF-22, ADR-010 | M | B-36 | todo |
 | B-40 | Empacotamento MSIX (installer + sideload; habilitar opção Microsoft Store) | RNF-23 | M | B-01 | todo |
 | B-41 | Documentação de suporte (runbook, rollback, troubleshooting) | — | S | B-36 | todo |
 | B-42 | Skeleton da API do servidor: ASP.NET Core Web API + auth JWT (access/refresh) + OpenAPI | RNF-07, ADR-005 | M | B-10 | todo |

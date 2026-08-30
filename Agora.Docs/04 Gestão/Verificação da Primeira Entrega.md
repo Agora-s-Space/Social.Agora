@@ -134,13 +134,13 @@ erDiagram
 - **Controle de versão:** Git — repositório remoto **GitHub**: `https://github.com/Agora-s-Space/Social.Agora.git` (origin configurada).
 - **Estratégia de ramificação:** Git simplificado com `main` + branches de feature/docs (ex.: `docs/modelagem-mer-der`, `chore/gitignore-codeowners`) — **próximo do GitHub Flow**. Presente no fluxo de promoção dev → staging → produção ([[03 Decisões/ADR-004 Ambientes|ADR-004]]).
 - **Code review:** `.github/CODEOWNERS` define dono de `Agora.Docs/` (`@TheSirLeaf`) → **aprovação obrigatória de PRs** nas áreas cobertas. Política geral documentada como **"a definir"** ([[04 Gestão/Operações e Deploy#8. Padrões de código]]) — lacuna para fechar na Fase 1.
-- **CI/CD** (documentado em [[04 Gestão/Operações e Deploy#2. Pipeline (CI/CD)]]): CI com build + testes a cada push (RNF-14, B-09) via **GitHub Actions**; deploy automático → staging; produção via aprovação (RNF-20, B-37); migrations via EF Core (ADR-003).
+- **CI/CD** (documentado em [[04 Gestão/Operações e Deploy#2. Pipeline (CI/CD)]]): CI com build + testes a cada push (RNF-14, B-09) via **GitHub Actions**; deploy automático → staging; produção via aprovação (RNF-20, B-37), **via Docker Compose — ADR-010**; migrations via EF Core (ADR-003).
 
 | Etapa | Onde | Ferramenta | Responsável |
 |---|---|---|---|
 | Build + testes | CI (a cada push — RNF-14) | GitHub Actions | CI |
-| Deploy automático → staging | CI/CD | GitHub Actions | CI |
-| Deploy → produção | CD (manual/aprovado) | GitHub Actions | Dev |
+| Deploy automático → staging | CI/CD | GitHub Actions (docker compose) | CI |
+| Deploy → produção | CD (manual/aprovado) | GitHub Actions (docker compose) | Dev |
 | Migrations de banco | Deploy | EF Core Migrations (ADR-003) | CD |
 
 > ⚠️ **Pendência:** não há GitHub Actions/Workflows ainda (projeto em Fase 0, sem código) — o pipeline será configurado na Fase 1 junto ao primeiro código .NET.

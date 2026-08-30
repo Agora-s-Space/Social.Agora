@@ -44,9 +44,13 @@ atualizado: 2026-08-29
 | **MVVM** | Padrão UI (Model-View-ViewModel) típico em WPF/Avalonia |
 | **EF Core** | ORM do .NET para persistência |
 | **Ambiente** | Instância isolada (dev/staging/prod) com config e dados próprios ([[03 Decisões/ADR-004 Ambientes\|ADR-004]]) |
+| **Docker** | Plataforma de containers; base de execução do servidor junto com Compose ([[03 Decisões/ADR-010 Sistema Operacional da VPS (Linux)\|ADR-010]]) |
+| **Container** | Unidade empacotada de app + dependências; app (Kestrel) e PostgreSQL rodam em containers no VPS (ADR-010) |
+| **Ubuntu LTS** | Distribuição Linux escolhida para o host da VPS (24.04, suporte de longo prazo) — ADR-010 |
 | **CI/CD** | Integração e entrega contínuas: build/testes automáticos + deploy automático |
 | **Staging** | Ambiente de validação pré-produção, espelhando produção |
 | **Deploy** | Publicação de uma versão numa instância (dev/staging/prod) |
+| **SSH** | Protocolo de acesso seguro ao host da VPS (Linux) — administração mínima do servidor (ADR-010) |
 | **Backup** | Cópia periódica do banco para recuperação (RNF-21) |
 | **SLA de disponibilidade** | Meta de uptime do serviço: **≥ 99,5% ao mês na produção**, excluindo janelas de manutenção programadas ([[04 Gestão/SLA de Disponibilidade\|RNF-24/SLA]]) |
 | **Throughput** | Taxa de requisições por segundo sustentada pelo servidor: **≥ 50 req/s**, sem degradar RNF-01/03 (RNF-25) |
