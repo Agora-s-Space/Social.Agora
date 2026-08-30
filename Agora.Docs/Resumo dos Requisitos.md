@@ -42,6 +42,7 @@ Fonte detalhada: [[01 Requisitos/Requisitos Funcionais]]
 | RF-031 | Tela de splash com logo (letter metálica + partes azuis): flash no metal + energia cristalina | UI | RNF-18 | UC-01 |
 | RF-032 | Excluir conta com anonimização em ≤ 30 dias; posts removidos/anonimizados por escolha do usuário | Conta | [[01 Requisitos/Regras de Negócio\|RN-04]] | UC-10 |
 | RF-033 | Exportar dados pessoais em formato legível (LGPD) | Conta | RNF-09 | UC-10 |
+| RF-034 | Registrar aceite da Política de Privacidade/Termos (data + versão) e revogar consentimento | Conta | [[01 Requisitos/Regras de Negócio\|RN-04]], RNF-26 | UC-10 |
 
 ### Fases futuras
 
@@ -76,15 +77,15 @@ Fonte detalhada: [[01 Requisitos/Requisitos Não Funcionais]]
 | RNF-03 | Desempenho | Feedback visual de ações (curtir/comentar/seguir) | ≤ 200 ms |
 | RNF-04 | Usabilidade | Navegação completa via teclado — 100% das ações acessíveis sem mouse | Tab/Enter/setas |
 | RNF-05 | Usabilidade/A11y | Contraste WCAG AA (ratio ≥ 4.5:1) + temas claro/escuro | Auditoria visual |
-| RNF-06 | Segurança | Senhas com hash adaptativo | bcrypt/PBKDF2/Argon2 |
+| RNF-06 | Segurança | Senhas com hash adaptativo, nunca em texto puro | bcrypt cost ≥ 10 (OWASP) |
 | RNF-07 | Segurança | Comunicação cliente-servidor cifrada | TLS 1.2+ |
-| RNF-08 | Segurança | Proteção contra força bruta no login | Limitação de tentativas |
-| RNF-09 | Privacidade | Conformidade LGPD (consentimento, exportação, exclusão) | Ver RN-04 |
+| RNF-08 | Segurança | Proteção contra força bruta no login | ≤ 5 tentativas falhas → bloqueio ≥ 15 min |
+| RNF-09 | Privacidade | Conformidade LGPD (consentimento, exportação, exclusão) | Solicitações ≤ 15 dias (art. 19)
 | RNF-10 | Portabilidade | Windows 10+ primário, sem bloquear Linux/macOS | Decisão em [[03 Decisões/ADR-001 Stack Tecnológica\|ADR-001]] |
-| RNF-11 | Portabilidade | Runtime .NET LTS | .NET 10+ |
-| RNF-12 | Manutenibilidade | Código em camadas (UI → Aplicação → Domínio ← Infra) | Dependência aponta p/ dentro |
+| RNF-11 | Portabilidade | Runtime .NET LTS | .NET 10 LTS até nov/2028 |
+| RNF-12 | Manutenibilidade | Código em camadas (UI → Aplicação → Domínio ← Infra) | 0 violações de dependência (teste de arquitetura no CI) |
 | RNF-13 | Qualidade | Cobertura de testes no núcleo de domínio | ≥ 60% ⚠️ |
-| RNF-14 | Qualidade | CI com build + testes a cada push | Pipeline verde obrigatório |
+| RNF-14 | Qualidade | CI com build + testes a cada push | Build + testes ≤ 10 min ⚠️ |
 | RNF-15 | Confiabilidade | Falha de rede não perde rascunho em edição | Autosave local |
 | RNF-16 | Operação | Logs estruturados sem dados sensíveis | Padrão de logging |
 | RNF-17 | Desempenho | Renderização de syntax highlighting em blocos de código | ≤ 100 ms (P95, bloco ≤ 50 linhas) |
@@ -94,6 +95,9 @@ Fonte detalhada: [[01 Requisitos/Requisitos Não Funcionais]]
 | RNF-21 | Operação | Backup e restauração do banco de produção | Backup diário; restore testado |
 | RNF-22 | Operação | Observabilidade: logs, métricas, health checks, alertas | Logs estruturados; alerta em falha |
 | RNF-23 | Entrega | Empacotamento do app desktop em **MSIX** (sideload; opção futura Microsoft Store) | Installer + atualização possível |
+| RNF-24 | Operação | SLA de disponibilidade do servidor — uptime mensal da **produção** | ≥ 99,5%/mês; exclui janelas de manutenção programadas · [[04 Gestão/SLA de Disponibilidade\|SLA]] |
+| RNF-25 | Desempenho | Throughput do servidor — taxa de req/s sustentada | ≥ 50 req/s; sem degradar RNF-01/03 · teste de carga no CI |
+| RNF-26 | Privacidade | Alinhamento com princípios GDPR (minimização, limitação de armazenamento, accountability, notificação de violação) — GDPR não aplicável hoje ([[01 Requisitos/LGPD e Privacidade\|LGPD e Privacidade]]) | Consentimento registrado (data/versão); retenção ≤ 30 d (dados/backups); notificação ≤ 72 h ⚠️ |
 
 ---
 
@@ -113,6 +117,8 @@ Fonte detalhada: [[01 Requisitos/Regras de Negócio]]
 | RN-08 | Tags: nomes únicos, slug auto-gerado | RF-016, RF-023 |
 | RN-09 | Máximo de 5 tags por post | RF-016 |
 | RN-10 | Conta criada via OAuth não possui senha local; login exclusivo pelo provedor | RF-024, RF-025 |
+| RN-11 | Retenção: dados anonimizados ≤ 30 d; backups ≤ 30 d; servidor em datacenter BR | RNF-09, RNF-26, RF-032 |
+| RN-12 | Violação de dados pessoais → notificar ANPD/titulares (LGPD art. 48) ≤ 72 h + registro interno | RNF-26 |
 
 ---
 
@@ -131,7 +137,7 @@ Fonte detalhada: [[01 Requisitos/Casos de Uso]]
 | UC-07 | Interagir com post | Usuário | Curtir (toggle), comentar, excluir comentário | RF-008, RF-009 |
 | UC-08 | Buscar | Usuário | Resultados separados: usuários / posts / tags | RF-010, RF-017 |
 | UC-09 | Autenticar via OAuth | Visitante | Cadastro/login via GitHub/Google; fluxo OAuth com callback | RF-024, RF-025 |
-| UC-10 | Gerenciar dados da conta | Usuário | Excluir conta (remover/anonimizar posts) e exportar dados | RF-032, RF-033 |
+| UC-10 | Gerenciar dados da conta | Usuário | Excluir conta (remover/anonimizar posts), exportar dados e gerenciar consentimento | RF-032, RF-033, RF-034 |
 
 ---
 
@@ -183,6 +189,8 @@ Fonte detalhada: [[03 Decisões/ADR Template]]
 | ADR-005 | Design da API do Servidor | aceita ✅ | REST (ASP.NET Core Web API) + JWT Bearer |
 | ADR-007 | Banco do Servidor | aceita ✅ | PostgreSQL (Npgsql); SQLite fica no client (configs/rascunho/cache) |
 | ADR-008 | Segurança de sessão (desktop) | aceita ✅ | Refresh token via DPAPI (escopo CurrentUser); access token só em memória |
+| ADR-009 | Residência dos dados (datacenter no Brasil) | aceita ✅ | Servidor (banco, backups, logs) em datacenter no Brasil — conformidade LGPD |
+| ADR-010 | S.O. da VPS (Linux + Docker Compose) | aceita ✅ | Ubuntu LTS 24.04; app e PostgreSQL em containers; deploy via CI/CD |
 
 > [!note] ADR-006
 > [[03 Decisões/ADR-006 Observabilidade|ADR-006]] (Observabilidade) está registrada como **adiada / fora do MVP** — Prometheus+Grafana na Fase 2 ([[VAULT/Checklist - Correções do Plano|checklist]]).
@@ -222,6 +230,13 @@ Fonte detalhada: [[04 Gestão/Backlog do Produto]]
 | B-43 | Exclusão de conta (remover/anonimizar posts) | RF-032, RN-04 | M | Must | todo |
 | B-44 | Exportação de dados pessoais (LGPD) | RF-033, RNF-09 | S | Must | todo |
 | B-45 | E-mail transacional p/ recuperação de senha | RF-002 | S | Must | todo |
+| B-47 | Medição/verificação do SLA de disponibilidade (uptime da produção — RNF-24) | RNF-24 | S | Must | todo |
+| B-48 | Teste de carga + benchmark de throughput (≥ 50 req/s) no CI | RNF-25 | M | Must | todo |
+| B-49 | Teste de arquitetura (0 violações de dependência entre camadas — regras do RNF-12) no CI | RNF-12 | S | Must | todo |
+| B-50 | Política de Privacidade + Termos de Uso (aceite no cadastro) | RF-034, RNF-26 | S | Must | todo |
+| B-51 | Registro e revogação do consentimento (data/hora + versão da política) | RF-034, RNF-26 | S | Must | todo |
+| B-52 | Política de retenção: anonimizar ≤ 30 d + backups ≤ 30 d + residência BR | RN-11, ADR-009 | S | Must | todo |
+| B-53 | Runbook de notificação de violação de dados pessoais | RN-12, RNF-26 | S | Must | todo |
 | B-46 | Dashboards + alertas Prometheus/Grafana | RNF-22, ADR-006 | M | Fase 2 | backlog |
 | B-11 | Notificações in-app (curtida, comentário, seguidor) | RF-011 | M | Should | backlog |
 | B-12 | Upload de imagem em posts | RF-012 | M | Should | backlog |
@@ -249,7 +264,7 @@ Fonte detalhada: [[04 Gestão/Roadmap]]
 | Marco | Fase | Critério de saída | Janela estimada ⚠️ |
 |---|:-:|---|---|
 | M0 | 0 | Modelagem aprovada; ADRs 001/002/003/004/005/007 aceitos | ago–set 2026 |
-| M1 | 1 | RF-001..010, RF-016..018, RF-022..023, RF-031..033 entregues; RNF-01/03/17/18 medidos OK; ambientes + CI/CD prontos | out–dez 2026 |
+| M1 | 1 | RF-001..010, RF-016..018, RF-022..023, RF-031..034 entregues; RNF-01/03/17/18/24/25 medidos OK; ambientes + CI/CD prontos | out–dez 2026 |
 | M2 | 2–3 | Beta externo com 20 usuários ativos (OKR O2) | jan–mar 2027 |
 
 ---
@@ -258,15 +273,15 @@ Fonte detalhada: [[04 Gestão/Roadmap]]
 
 | Métrica | Valor |
 |---|:-:|
-| Requisitos funcionais documentados | 33 (18 no MVP) |
-| Requisitos não funcionais | 23 |
-| Regras de negócio | 10 |
+| Requisitos funcionais documentados | 34 (19 no MVP) |
+| Requisitos não funcionais | 26 |
+| Regras de negócio | 12 |
 | Casos de uso | 10 |
 | Entidades de domínio | 21 (9 MVP + 12 F2/F3) |
-| Itens de backlog | 44 |
-| ADRs | 7 aceitas* |
+| Itens de backlog | 51 |
+| ADRs | 9 aceitas* |
 
-> *ADR-008 (segurança de sessão) incluída. ADR-006 é registrada como **adiada/fora do MVP** e não conta entre as aceitas.
+> *ADRs 008/009/010 (segurança de sessão, residência dos dados, SO da VPS) incluídas. ADR-006 é registrada como **adiada/fora do MVP** e não conta entre as aceitas.
 
 > [!question] Decisões abertas que impactam os requisitos
-> Arquitetura crítica resolvida (**7 ADRs aceitas** + ADR-006 adiada). **[[03 Decisões/Propostas Pendentes|Propostas em aberto]]:** P-001 (Microsoft Store, Fase 2/3). **ADR-006** (observabilidade) **adiada, fora do MVP** — Prometheus + Grafana na Fase 2 via [[04 Gestão/Backlog do Produto#B-46|B-46]]. O conjunto que compõe o MVP está estável.
+> Arquitetura crítica resolvida (**9 ADRs aceitas** + ADR-006 adiada). **[[03 Decisões/Propostas Pendentes|Propostas em aberto]]:** P-001 (Microsoft Store, Fase 2/3). **ADR-006** (observabilidade) **adiada, fora do MVP** — Prometheus + Grafana na Fase 2 via [[04 Gestão/Backlog do Produto#B-46|B-46]]. O conjunto que compõe o MVP está estável.

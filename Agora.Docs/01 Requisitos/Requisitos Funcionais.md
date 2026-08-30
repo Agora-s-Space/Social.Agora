@@ -27,6 +27,7 @@ atualizado: 2026-08-27
 |---|---|---|:-:|---|
 | RF-032 | O sistema deve permitir ao usuário excluir a própria conta, com anonimização dos dados pessoais em até 30 dias e escolha entre remover ou manter anônimos os seus posts ([[01 Requisitos/Regras de Negócio\|RN-04]]) | Must | [[01 Requisitos/Casos de Uso#UC-10 — Gerenciar dados da conta\|UC-10]] |
 | RF-033 | O sistema deve permitir ao usuário exportar os próprios dados pessoais em formato legível (conformidade [[01 Requisitos/Requisitos Não Funcionais#RNF-09\|RNF-09]]/LGPD) | Must | [[01 Requisitos/Casos de Uso#UC-10 — Gerenciar dados da conta\|UC-10]] |
+| RF-034 | O sistema deve registrar o aceite da Política de Privacidade e dos Termos de Uso no cadastro e durante atualizações da política, guardando data/hora e versão aceita; o usuário deve poder revogar o consentimento a qualquer momento ([[01 Requisitos/Regras de Negócio\|RN-04]]) | Must | [[01 Requisitos/Casos de Uso#UC-10 — Gerenciar dados da conta\|UC-10]] |
 
 ## Módulo: Publicações e Feed
 
@@ -137,6 +138,7 @@ flowchart LR
 | RF-031 | UC-01 | ✅ |
 | RF-032 | UC-10 | ✅ |
 | RF-033 | UC-10 | ✅ |
+| RF-034 | UC-10 | ✅ |
 
 ### RN → RF (impactados)
 
@@ -155,10 +157,10 @@ flowchart LR
 
 | Métrica | Valor |
 |---|:-:|
-| RFs Must (MVP) | 18 |
+| RFs Must (MVP) | 19 |
 | RFs Should (Fase 2) | 7 |
 | RFs Could (Fase 3) | 8 |
-| **Total RFs** | **33** |
+| **Total RFs** | **34** |
 
 ---
 

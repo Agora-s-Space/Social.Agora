@@ -160,17 +160,17 @@ UC5 ..> UC6 : <<extend>>
 | **Exceções** | Usuário recusa autorização → volta para tela de login · Erro na API do GitHub → mensagem "Tente novamente" · Rede indisponível → erro amigável |
 | **Pós-condição** | Sessão ativa; conta com provider="github" ou provider local vinculada |
 
-## UC-10 — Gerenciar dados da conta (exclusão/exportação — LGPD)
+## UC-10 — Gerenciar dados da conta (exclusão/exportação/consentimento — LGPD)
 
 | Campo | Descrição |
 |---|---|
 | **Ator** | Usuário autenticado |
-| **RF de origem** | [[01 Requisitos/Requisitos Funcionais#RF-032\|RF-032]], [[01 Requisitos/Requisitos Funcionais#RF-033\|RF-033]] |
+| **RF de origem** | [[01 Requisitos/Requisitos Funcionais#RF-032\|RF-032]], [[01 Requisitos/Requisitos Funcionais#RF-033\|RF-033]], [[01 Requisitos/Requisitos Funcionais#RF-034\|RF-034]] |
 | **Pré-condição** | Usuário logado |
 | **Fluxo principal** | 1. Usuário abre "Conta e dados" · 2. **Exportar:** solicita download dos dados pessoais em formato legível (RF-033, RNF-09) · 3. **Excluir:** confirma exclusão da conta (RF-032) · 4. Escolhe entre **remover** ou **manter anônimos** os posts (RN-04) · 5. Sistema agenda anonimização/remoção em até 30 dias |
-| **Fluxos alternativos** | 3a. Usuário desiste antes da confirmação → nada muda |
+| **Fluxos alternativos** | 3a. Usuário desiste antes da confirmação → nada muda · 6a. **Consentimento:** usuário visualiza aceite atual (data/versão) e pode revogar (RF-034) |
 | **Exceções** | Sem conexão → erro amigável e estado preservado |
-| **Pós-condição** | Dados exportados entregues; conta (ou dados pessoais) anonimizada no prazo (RNF-09) |
+| **Pós-condição** | Dados exportados entregues; conta (ou dados pessoais) anonimizada no prazo (RNF-09); consentimento registrado/revogado (RF-034) |
 
 ## Verificações de consistência
 
@@ -187,7 +187,7 @@ UC5 ..> UC6 : <<extend>>
 | UC-07 | RF-008, RF-009 | ✅ |
 | UC-08 | RF-010, RF-017 | ✅ |
 | UC-09 | RF-024, RF-025 | ✅ |
-| UC-10 | RF-032, RF-033 | ✅ |
+| UC-10 | RF-032, RF-033, RF-034 | ✅ |
 
 ### Cobertura
 

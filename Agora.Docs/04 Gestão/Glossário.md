@@ -48,6 +48,11 @@ atualizado: 2026-08-29
 | **Staging** | Ambiente de validação pré-produção, espelhando produção |
 | **Deploy** | Publicação de uma versão numa instância (dev/staging/prod) |
 | **Backup** | Cópia periódica do banco para recuperação (RNF-21) |
+| **SLA de disponibilidade** | Meta de uptime do serviço: **≥ 99,5% ao mês na produção**, excluindo janelas de manutenção programadas ([[04 Gestão/SLA de Disponibilidade\|RNF-24/SLA]]) |
+| **Throughput** | Taxa de requisições por segundo sustentada pelo servidor: **≥ 50 req/s**, sem degradar RNF-01/03 (RNF-25) |
+| **Teste de carga** | Benchmark automatizado no CI que mede throughput/latência (ex.: NBomber ⚠️) — B-48 |
+| **Uptime** | Tempo em que o servidor de produção fica disponível; base do SLA (RNF-24) |
+| **Janela de manutenção** | Período programado e comunicado de indisponibilidade que **não** conta contra a SLA (RNF-24) |
 | **Observabilidade** | Capacidade de monitorar logs, métricas, health checks e alertas (RNF-22) |
 | **Installer** | Pacote de instalação do app desktop (RNF-23) |
 | **MSIX** | Formato de empacotamento Windows moderno; suporta sideload e publicação na Microsoft Store (RNF-23) |
@@ -58,4 +63,8 @@ atualizado: 2026-08-29
 | **Endpoint** | Rota específica da API (ex: `POST /posts`) |
 | **JWT** | Token JSON assinado para autenticação stateless (access/refresh token) |
 | **LGPD** | Lei Geral de Proteção de Dados (BR) — base de RNF-09/RN-04 |
+| **GDPR** | Regulamento Geral de Proteção de Dados (UE) — não aplicável ao Agora hoje, mas princípios adotados como boas práticas (RNF-26) |
+| **Consentimento** | Registro do aceite da Política de Privacidade/Termos com data, hora e versão — revogável (RF-034, B-51) |
+| **Retenção de dados** | Período de guarda de dados pessoais: anonimizados em ≤ 30 d; backups retidos ≤ 30 d (RN-11) |
+| **Notificação de violação** | Comunicação de incidente de dados pessoais à ANPD e titulares (LGPD art. 48) — alvo ≤ 72 h (RN-12, B-53) |
 | **Soft delete** | Exclusão lógica (`ativo=false` ou `status=excluido`) sem apagar linha |

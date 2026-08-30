@@ -44,6 +44,8 @@ Positivas · Negativas · Neutras — e o que monitorar.
 - [[03 Decisões/ADR-006 Observabilidade|ADR-006 — Observabilidade: Métricas da API]] — `adiada`
 - [[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007 — Banco do Servidor (PostgreSQL/Npgsql)]] — `aceita`
 - [[03 Decisões/ADR-008 Segurança de Sessão (DPAPI)|ADR-008 — Segurança de Sessão (DPAPI)]] — `aceita`
+- [[03 Decisões/ADR-009 Residência dos Dados (BR)|ADR-009 — Residência dos Dados (datacenter no Brasil)]] — `aceita`
+- [[03 Decisões/ADR-010 Sistema Operacional da VPS (Linux)|ADR-010 — S.O. da VPS (Linux + Docker Compose)]] — `aceita`
 
 ## Propostas pendentes
 - [[03 Decisões/Propostas Pendentes|Propostas Pendentes]] — decisões aguardando escolha

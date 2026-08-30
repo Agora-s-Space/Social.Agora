@@ -88,6 +88,8 @@ dotnet test
 - ADR-005 (design da API) **aceita**: REST (ASP.NET Core Web API) + JWT Bearer — contrato em [[02 Modelagem/API e Servidor|API e Servidor]]
 - ADR-006 (observabilidade) **adiada**: fora do MVP; Prometheus+Grafana na Fase 2 (B-46)
 - ADR-008 (segurança de sessão) **aceita**: refresh token via DPAPI (escopo CurrentUser) em `%LOCALAPPDATA%`; access token só em memória — detalhes em [[03 Decisões/ADR-008 Segurança de Sessão (DPAPI)]]
+- ADR-009 (residência dos dados) **aceita**: servidor (banco, backups, logs) em datacenter **no Brasil** — conformidade LGPD e menor latência p/ público BR — detalhes em [[03 Decisões/ADR-009 Residência dos Dados (BR)]]
+- ADR-010 (SO da VPS) **aceita**: **Linux (Ubuntu LTS 24.04) + Docker Compose** — app e PostgreSQL em containers, administração via SSH/CI-CD — detalhes em [[03 Decisões/ADR-010 Sistema Operacional da VPS (Linux)]]
 
 ## 7. Referências rápidas
 - [[VAULT/Checklists|Checklists de revisão]]

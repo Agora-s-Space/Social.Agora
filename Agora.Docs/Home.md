@@ -26,6 +26,7 @@ atualizado: 2026-08-28
 - [[01 Requisitos/Requisitos Não Funcionais|Requisitos Não Funcionais (RNF)]]
 - [[01 Requisitos/Regras de Negócio|Regras de Negócio (RN)]]
 - [[01 Requisitos/Casos de Uso|Casos de Uso]]
+- [[01 Requisitos/LGPD e Privacidade|LGPD e Privacidade]] — leis aplicáveis, retenção, consentimento, violação
 
 ### 2. Modelagem
 - [[02 Modelagem/Modelo de Domínio|Modelo de Domínio (UML)]]
@@ -46,6 +47,8 @@ atualizado: 2026-08-28
 - [[03 Decisões/ADR-006 Observabilidade|ADR-006 — Observabilidade: Métricas da API]] — `adiada` (fora do MVP; Fase 2)
 - [[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007 — Banco do Servidor (PostgreSQL/Npgsql)]] — `aceita`
 - [[03 Decisões/ADR-008 Segurança de Sessão (DPAPI)|ADR-008 — Segurança de Sessão (DPAPI)]] — `aceita`
+- [[03 Decisões/ADR-009 Residência dos Dados (BR)|ADR-009 — Residência dos Dados (datacenter no Brasil)]] — `aceita`
+- [[03 Decisões/ADR-010 Sistema Operacional da VPS (Linux)|ADR-010 — S.O. da VPS (Linux + Docker Compose)]] — `aceita`
 - [[03 Decisões/Propostas Pendentes|Propostas Pendentes]] — decisões aguardando escolha
 
 ### 4. Gestão
@@ -54,6 +57,7 @@ atualizado: 2026-08-28
 - [[04 Gestão/Backlog do Produto|Backlog do Produto]]
 - [[04 Gestão/Glossário|Glossário]]
 - [[04 Gestão/Operações e Deploy|Operações e Deploy]]
+- [[04 Gestão/Verificação da Primeira Entrega|Verificação da Primeira Entrega]] — apoio à apresentação
 
 ### 5. VAULT (utilitários)
 - [[AGENTS.md|AGENTS.md]] — **instruções para agentes de IA** (fonte única de verdade, na raiz)
@@ -73,9 +77,11 @@ atualizado: 2026-08-28
 > 4. ✅ Ambientes decididos: [[03 Decisões/ADR-004 Ambientes|ADR-004]] — dev/staging/prod
 > 5. ✅ Design da API decidido: [[03 Decisões/ADR-005 API do Servidor|ADR-005]] — REST + JWT
 > 6. ✅ Banco do servidor fixado: [[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]] — PostgreSQL (Npgsql); SQLite no client
-> 7. ✅ LGPD no MVP: [[01 Requisitos/Requisitos Funcionais#RF-032|RF-032]] (excluir conta) + [[01 Requisitos/Requisitos Funcionais#RF-033|RF-033]] (exportar dados)
+> 7. ✅ LGPD no MVP: [[01 Requisitos/Requisitos Funcionais#RF-032|RF-032]] (excluir conta) + [[01 Requisitos/Requisitos Funcionais#RF-033|RF-033]] (exportar dados) + [[01 Requisitos/Requisitos Funcionais#RF-034|RF-034]] (consentimento) — política completa em [[01 Requisitos/LGPD e Privacidade|LGPD e Privacidade]]
 > 8. ✅ Segurança de sessão no desktop decidida: [[03 Decisões/ADR-008 Segurança de Sessão (DPAPI)|ADR-008]] — refresh token via DPAPI
-> 9. Iniciar Fase 1 (código)
+> 9. ✅ Residência dos dados decidida: [[03 Decisões/ADR-009 Residência dos Dados (BR)|ADR-009]] — datacenter no Brasil
+> 10. ✅ S.O. da VPS decidido: [[03 Decisões/ADR-010 Sistema Operacional da VPS (Linux)|ADR-010]] — Linux (Ubuntu LTS) + Docker Compose
+> 11. Iniciar Fase 1 (código)
 
 ## Convenções do vault
 - **Regras completas em [[AGENTS.md]]** — leia antes de criar/editar notas

@@ -2,7 +2,7 @@
 tags: [gestao, backlog]
 tipo: documento
 status: ativo
-atualizado: 2026-08-25
+atualizado: 2026-08-29
 ---
 
 # Backlog do Produto
@@ -43,6 +43,13 @@ atualizado: 2026-08-25
 | B-43 | Exclusão de conta (remover ou anonimizar posts) | RF-032, RN-04 | M | B-01 | todo |
 | B-44 | Exportação de dados pessoais (LGPD) | RF-033, RNF-09 | S | B-01 | todo |
 | B-45 | E-mail transacional p/ recuperação de senha (SMTP) | RF-002 | S | B-01 | todo |
+| B-47 | Medição/verificação do SLA de disponibilidade (uptime da produção — RNF-24) | RNF-24 | S | B-39 | todo |
+| B-48 | Teste de carga + benchmark de throughput (≥ 50 req/s) no CI | RNF-25 | M | B-09, B-42 | todo |
+| B-49 | Teste de arquitetura (0 violações de dependência entre camadas — regras do RNF-12) no CI | RNF-12 | S | B-09, B-42 | todo |
+| B-50 | Política de Privacidade + Termos de Uso (aceite no cadastro) | RF-034, RNF-26 | S | B-01 | todo |
+| B-51 | Registro e revogação do consentimento (data/hora + versão da política) | RF-034, RNF-26 | S | B-50 | todo |
+| B-52 | Política de retenção: anonimizar dados ≤ 30 d + backups ≤ 30 d + residência em datacenter BR | RN-11, ADR-009 | S | B-38 | todo |
+| B-53 | Runbook de notificação de violação de dados pessoais (LGPD art. 48) | RN-12, RNF-26 | S | B-36 | todo |
 
 ## Should have (Fase 2)
 
