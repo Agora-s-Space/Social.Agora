@@ -12,14 +12,14 @@ atualizado: 2026-08-30
 
 ### 1.1 Identificação
 
-| Campo | Dado |
-|---|---|
-| **Instituição** | UNA - Contagem |
-| **Disciplina** | Garantia da Qualidade de Software |
-| **Integrantes** | Arthur Marquez Diniz, Bernardo Luiz Monteverde Gonçalves, Luiz Filipe Pimenta Correa, Patrick Oliveira Rabelo de Brito |
-| **Professor(a)** | Daniel Henrique Matos de Paiva |
-| **Produto** | Agora — rede social desktop de hobbies nerd (C# / .NET) |
-| **Documento** | Documento de Especificação (relatório técnico — Engenharia e Garantia de Software) |
+| Campo            | Dado                                                                                                                   |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **Instituição**  | UNA - Contagem                                                                                                         |
+| **Disciplina**   | Garantia da Qualidade de Software                                                                                      |
+| **Integrantes**  | Arthur Marques Diniz, Bernardo Luiz Monteverde Gonçalves, Luiz Filipe Pimenta Correa, Patrick Oliveira Rabelo de Brito |
+| **Professor(a)** | Daniel Henrique Matos de Paiva                                                                                         |
+| **Produto**      | Agora — rede social desktop de hobbies nerd (C# / .NET)                                                                |
+| **Documento**    | Documento de Especificação (relatório técnico — Engenharia e Garantia de Software)                                     |
 
 ### 1.2 Sumário (índice estruturado)
 
