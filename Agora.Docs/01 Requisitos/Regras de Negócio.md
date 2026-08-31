@@ -3,6 +3,7 @@ tags: [requisitos, regras]
 tipo: documento
 status: rascunho
 atualizado: 2026-08-25
+publish: true
 ---
 
 # Regras de Negócio (RN)
@@ -19,6 +20,8 @@ atualizado: 2026-08-25
 | RN-08 | Tags são de uso livre; nomes únicos; slug auto-gerado | RF-016, RF-023 |
 | RN-09 | Máximo de 5 tags por post                                                                                                               | RF-016         |
 | RN-10 | Conta criada via OAuth não possui senha local; login é exclusivo pelo provedor                                                           | RF-024, RF-025 |
+| RN-11 | Retenção e limitação de armazenamento: dados pessoais anonimizados em ≤ 30 dias após exclusão da conta; backups do banco de produção retidos ≤ 30 dias; dados do servidor residem em datacenter no Brasil | RNF-09, RNF-26, RF-032 |
+| RN-12 | Incidente de segurança com dados pessoais → notificação à ANPD e aos titulares afetados (LGPD art. 48) em prazo razoável (alvo ≤ 72 h da ciência) + registro interno do incidente | RNF-26 |
 
 ## Verificações de consistência
 
@@ -36,12 +39,14 @@ atualizado: 2026-08-25
 | RN-08 | RF-016, RF-023 | ✅ |
 | RN-09 | RF-016 | ✅ |
 | RN-10 | RF-024, RF-025 | ✅ |
+| RN-11 | RF-032, RNF-09, RNF-26 | ✅ |
+| RN-12 | RNF-26 | ✅ |
 
 ### Contadores
 
 | Métrica | Valor |
 |---|:-:|
-| **Total RNs** | **10** |
+| **Total RNs** | **12** |
 
 ```mermaid
 flowchart TD

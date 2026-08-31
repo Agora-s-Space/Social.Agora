@@ -2,7 +2,7 @@
 tags: [gestao, backlog]
 tipo: documento
 status: ativo
-atualizado: 2026-08-25
+atualizado: 2026-08-29
 ---
 
 # Backlog do Produto
@@ -33,16 +33,23 @@ atualizado: 2026-08-25
 | B-20 | Feed por tags populares (seção alternativa) | RF-018 | M | B-18 | todo |
 | B-34 | Tela de splash: logo letter metálica (flash) + partes azuis (energia cristalina) | RF-031, RNF-18 | S | B-10 | todo |
 | B-35 | Wireframes de todas as telas | — | M | — | todo |
-| B-36 | Política de ambientes dev/staging/prod (config por ambiente) | RNF-19, ADR-004 | M | B-10 | todo |
-| B-37 | Pipeline CD (deploy automático staging; prod via aprovação) | RNF-20 | M | B-09 | todo |
-| B-38 | Backup + restore do banco de produção | RNF-21 | M | B-36 | todo |
-| B-39 | Observabilidade (MVP): logs estruturados (Serilog) + health checks + métricas expostas em formato Prometheus (OTLP) | RNF-16, RNF-22 | M | B-36 | todo |
+| B-36 | Política de ambientes dev/staging/prod (config por ambiente) | RNF-19, ADR-004, ADR-010 | M | B-10 | todo |
+| B-37 | Pipeline CD (deploy automático staging; prod via aprovação) | RNF-20, ADR-010 | M | B-09 | todo |
+| B-38 | Backup + restore do banco de produção | RNF-21, ADR-009, ADR-010 | M | B-36 | todo |
+| B-39 | Observabilidade (MVP): logs estruturados (Serilog) + health checks + métricas expostas em formato Prometheus (OTLP) | RNF-16, RNF-22, ADR-010 | M | B-36 | todo |
 | B-40 | Empacotamento MSIX (installer + sideload; habilitar opção Microsoft Store) | RNF-23 | M | B-01 | todo |
 | B-41 | Documentação de suporte (runbook, rollback, troubleshooting) | — | S | B-36 | todo |
 | B-42 | Skeleton da API do servidor: ASP.NET Core Web API + auth JWT (access/refresh) + OpenAPI | RNF-07, ADR-005 | M | B-10 | todo |
 | B-43 | Exclusão de conta (remover ou anonimizar posts) | RF-032, RN-04 | M | B-01 | todo |
 | B-44 | Exportação de dados pessoais (LGPD) | RF-033, RNF-09 | S | B-01 | todo |
 | B-45 | E-mail transacional p/ recuperação de senha (SMTP) | RF-002 | S | B-01 | todo |
+| B-47 | Medição/verificação do SLA de disponibilidade (uptime da produção — RNF-24) | RNF-24 | S | B-39 | todo |
+| B-48 | Teste de carga + benchmark de throughput (≥ 50 req/s) no CI | RNF-25 | M | B-09, B-42 | todo |
+| B-49 | Teste de arquitetura (0 violações de dependência entre camadas — regras do RNF-12) no CI | RNF-12 | S | B-09, B-42 | todo |
+| B-50 | Política de Privacidade + Termos de Uso (aceite no cadastro) | RF-034, RNF-26 | S | B-01 | todo |
+| B-51 | Registro e revogação do consentimento (data/hora + versão da política) | RF-034, RNF-26 | S | B-50 | todo |
+| B-52 | Política de retenção: anonimizar dados ≤ 30 d + backups ≤ 30 d + residência em datacenter BR | RN-11, ADR-009 | S | B-38 | todo |
+| B-53 | Runbook de notificação de violação de dados pessoais (LGPD art. 48) | RN-12, RNF-26 | S | B-36 | todo |
 
 ## Should have (Fase 2)
 

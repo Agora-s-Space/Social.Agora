@@ -4,6 +4,7 @@ tipo: adr
 numero: ADR-006
 status: adiada
 data: 2026-08-27
+publish: true
 ---
 
 # ADR-006 — Observabilidade: Métricas da API

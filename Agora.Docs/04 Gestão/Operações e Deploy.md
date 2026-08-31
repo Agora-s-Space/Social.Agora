@@ -2,7 +2,7 @@
 tags: [operacoes, deploy, infra]
 tipo: documento
 status: rascunho
-atualizado: 2026-08-28
+atualizado: 2026-08-30
 ---
 
 # Operações e Deploy
@@ -22,6 +22,11 @@ Decidido em [[03 Decisões/ADR-004 Ambientes|ADR-004]]:
 
 > [!note] Banco
 > Provedor do servidor: **PostgreSQL via Npgsql** ([[03 Decisões/ADR-007 Banco do Servidor (Npgsql)|ADR-007]]). SQL Server fora do escopo. O cliente usa SQLite para configs, rascunho (RNF-15) e cache ([[03 Decisões/ADR-003 Persistência|ADR-003]]).
+
+> [!info] Sistema operacional e execução ([[03 Decisões/ADR-010 Sistema Operacional da VPS (Linux)|ADR-010]])
+> VPS com **Linux (Ubuntu LTS 24.04) + Docker Compose**. App (Kestrel) e **PostgreSQL** rodam como containers; staging e produção usam o mesmo padrão no provedor do Brasil ([[03 Decisões/ADR-009 Residência dos Dados (BR)|ADR-009]]). Operações comuns (restart, logs, backup) via `docker compose`, tudo declarado em código e acionado pelo pipeline (B-37).
+>
+> ⚠️ Lembrete (Fase 1, B-37): pinar o **major do PostgreSQL** no compose (ex.: `postgres:16`) nos 3 ambientes — evitar drift de versão.
 
 > [!warning] Regras
 > - Nunca usar dados reais em staging
@@ -47,12 +52,17 @@ Referência: [[04 Gestão/Backlog do Produto#B-09|B-09 CI]] · [[04 Gestão/Back
 > - Procedimento de restore (RTO/RPO)
 > - Referência: [[04 Gestão/Backlog do Produto#B-38|B-38]]
 
+### 3.1 Retenção e residência
+
+- **Retenção dos backups:** ≤ **30 dias** (política de retenção — [[01 Requisitos/Regras de Negócio#RN-11|RN-11]], [[04 Gestão/Backlog do Produto#B-52|B-52]])
+- **Residência:** backups armazenados em **datacenter no Brasil**, junto ao próprio servidor ([[03 Decisões/ADR-009 Residência dos Dados (BR)|ADR-009]]); offsite ainda "a definir" — manter preferência por co-location BR
+
 ## 4. Monitoramento e observabilidade
 
 | Área                           | Ferramenta proposta                                                                                                  | Status                               |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | Logs estruturados              | Serilog (RNF-16)                                                                                                     | documentado                          |
-| Métricas de API                | `System.Diagnostics.Metrics` + OpenTelemetry + Prometheus/Grafana — [[03 Decisões/ADR-006 Observabilidade\|ADR-006]] | [[ADR-006 Observabilidade\|ADR-006]] |
+| Métricas de API                | `System.Diagnostics.Metrics` + OpenTelemetry + Prometheus/Grafana (Fase 2) — [[03 Decisões/ADR-006 Observabilidade\|ADR-006]]; rodam como **containers do compose** no VPS ([[03 Decisões/ADR-010 Sistema Operacional da VPS (Linux)\|ADR-010]], B-46) | [[ADR-006 Observabilidade\|ADR-006]] |
 | Uptime/alertas                 | Health checks + alerting                                                                                             | proposto                             |
 | Crash reporting do app desktop | Sentry (opcional)                                                                                                    | proposto                             |
 
@@ -61,26 +71,30 @@ Referência: [[04 Gestão/Backlog do Produto#B-39|B-39]]
 ## 5. Empacotamento e distribuição
 
 > [!info] Formato
-> **MSIX** (RNF-23) — funciona para sideload (betas) e habilita uma eventual publicação na **Microsoft Store**.
+> **MSIX** (RNF-23) — funciona para sideload (betas) e habilita uma eventual publicação na **Microsoft Store**. Ferramentas de empacotamento (MSIX Packaging Tools, SDK) e o formato são **gratuitos**.
 
 | Item | Status |
 |---|---|
 | Installer do app desktop (Windows) | **MSIX** |
-| Assinatura de código | certificado p/ assinatura do pacote |
+| Assinatura de código | **self-signed ok p/ betas (gratuito)** · OV/Artifact Signing só p/ distribuição pública fora da Store (opcional, pago) |
 | Atualização | via Store (se publicada) ou sideload |
-| Entrega aos 20 betas | sideload (via link/arquivo MSIX) |
+| Entrega aos 20 betas | sideload (via link/arquivo MSIX) — **gratuito** |
 | Publicação na Microsoft Store | **opcional / futuro** |
 
 > [!note] Microsoft Store — considerações para avaliar
 > - Requer pacote **MSIX** com identidade de pacote (package identity)
-> - Conta de desenvolvedor **Partner Center** (taxa única ~US$ 19)
-> - **Assinatura de código** com certificado (a Store assina; sideload exige self/enterprise)
+> - Conta de desenvolvedor **Partner Center** — **gratuita** (sem taxa de registro desde 2025, Individual e Company)
+> - **Assinatura de código**: a **Store assina de graça**; sideload a betas usa **self-signed** (gratuito) — sem exigir certificado de CA
 > - Cumprimento das **políticas** da Store: conteúdo, privacidade/LGPD (RNF-09), requisito de login próprio, etc.
 > - A Store gerencia **atualizações** automáticas dos usuários
 > - Sem necessidade de .NET runtime na máquina se empacotado **self-contained** (ou usar framework-dependent + instalar runtime)
 > - Requer declaração de capacidades (permissões) via manifest do pacote
 >
+> ⚠️ Lembrete (Fase 1, B-40): distribuição sideload aos 20 betas com cert self-signed → cada beta confia no `.cer` uma vez (ou Dev Mode); documento deve atualizar. **Sem custo.**
+>
 > *Decisão de publicar na Store não tomada ainda — segue como opção de distribuição (ver [[04 Gestão/Backlog do Produto#B-40\|B-40]]).*
+>
+> Custos completos (licenças, VPS, assinatura, Store): [[04 Gestão/Custos e Licenças|Custos e Licenças]].
 
 Referência: [[04 Gestão/Backlog do Produto#B-40|B-40]]
 
@@ -93,6 +107,13 @@ Referência: [[04 Gestão/Backlog do Produto#B-40|B-40]]
 | Proteção força bruta (RNF-08) | documentado |
 | Secrets management (connection strings, keys) | a definir |
 | Patching / renovação de certificados | a definir |
+
+### 6.1 Notificação de violação de dados (LGPD art. 48)
+
+> [!todo] A definir — Runbook ([[04 Gestão/Backlog do Produto#B-53|B-53]])
+> - Escalar quando suspeitar de violação com risco a titulares
+> - Notificar **ANPD** e **titulares afetados** (alvo ≤ 72 h da ciência — [[01 Requisitos/Regras de Negócio#RN-12|RN-12]])
+> - Registrar incidente internamente (o que, quando, impacto, correção)
 
 ## 7. Documentação de suporte
 
@@ -110,7 +131,23 @@ Referência: [[04 Gestão/Backlog do Produto#B-40|B-40]]
 | CI build+testes (RNF-14) | documentado |
 | Analyzers .NET (linters) | proposto |
 | Formatação de código | proposto |
-| Code review | a definir |
+| Code review | documentado ([[04 Gestão/Operações e Deploy#9. Estratégia de ramificação e revisão\|seção 9]]) |
+
+## 9. Estratégia de ramificação e revisão
+
+> [!info] Modelo
+> **GitHub Flow simplificado** — resposta ao tópico "Estratégia de Repositório e CI/CD" do enunciado ([[PRIMEIRA ENTREGA - Requisitos]]): `main` + branches curtas de feature/docs; sem `develop`; CD a partir da branch principal ([[03 Decisões/ADR-004 Ambientes|ADR-004]]).
+
+| Item | Decisão |
+|---|---|
+| Controle de versão | Git — repositório GitHub: `https://github.com/Agora-s-Space/Social.Agora.git` |
+| Branch principal | `main` (protegida — sem push direto) |
+| Branches de trabalho | Curtas e descritivas: `feat/...`, `docs/...`, `chore/...`, `fix/...` |
+| Convenção de commit | **Conventional Commits** — `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:` ⚠️ proposta a validar na Fase 1 |
+| Code review | PR com **≥ 1 aprovação** obrigatória (CODEOWNERS cobre `Agora.Docs/`); abrir PR para `main` |
+| Critérios mínimos de merge | PR aberto p/ `main` com ≥ 1 aprovação · **CI verde** (build + testes — RNF-14) · sem conflitos · commit padronizado (Conventional Commits) |
+
+Referência fluxo de promoção: [[04 Gestão/Operações e Deploy#2. Pipeline (CI/CD)|Pipeline (CI/CD)]]
 
 ---
 

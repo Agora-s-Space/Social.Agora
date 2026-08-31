@@ -5,6 +5,7 @@ numero: ADR-004
 data: 2026-08-27
 status: aceita
 atualizado: 2026-08-27
+publish: true
 ---
 
 # ADR-004 — Ambientes: dev / staging / produção

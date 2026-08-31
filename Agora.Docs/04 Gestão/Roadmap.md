@@ -2,7 +2,7 @@
 tags: [gestao, roadmap]
 tipo: documento
 status: rascunho
-atualizado: 2026-08-27
+atualizado: 2026-08-29
 ---
 
 # Roadmap
@@ -37,8 +37,8 @@ gantt
 
 | Marco | Critério de saída | Data alvo |
 |---|---|---|
-| M0 — Modelagem aprovada | Vault revisado; ADRs 001/002/003/004/005/007 aceitos | set/2026 |
-| M1 — MVP funcional | 18 RFs + 18 RNFs críticos entregues | dez/2026 |
+| M0 — Modelagem aprovada | Vault revisado; ADRs 001/002/003/004/005/007/008/009/010 aceitos | set/2026 |
+| M1 — MVP funcional | 19 RFs + 21 RNFs críticos entregues | dez/2026 |
 | M2 — Beta externo | 20 usuários ativos (OKR O2) | jan/2027 |
 | M3 — Fase 2 completa | Notificações, mídia, DMs, seguir tags, OAuth, flair | abr/2027 |
 | M4 — Fase 3 completa | Livros, GitHub, jogos, RPG | jul/2027 |
@@ -57,12 +57,12 @@ gantt
 
 ### Fase 1 — MVP (set–dez/2026)
 - **Conta/Perfil/Auth:** RF-001, RF-002, RF-003
-- **Privacidade/LGPD:** RF-032 (excluir conta), RF-033 (exportar dados)
+- **Privacidade/LGPD:** RF-032 (excluir conta), RF-033 (exportar dados), RF-034 (consentimento) + política de privacidade, retenção e runbook de violação (B-50..B-53) + residência dos dados no Brasil ([[03 Decisões/ADR-009 Residência dos Dados (BR)|ADR-009]])
 - **Posts/Conteúdo:** RF-004, RF-005, RF-006, RF-016, RF-018, RF-022, RF-023
 - **Social:** RF-007, RF-008, RF-009
 - **UI/Experiência:** RF-031
 - **Descoberta:** RF-010, RF-017
-- **Infra/Entrega:** ambientes ([[03 Decisões/ADR-004 Ambientes|ADR-004]]), CI/CD, backup, observabilidade ([[03 Decisões/ADR-006 Observabilidade|ADR-006]]), empacotamento (B-36..B-41) + skeleton da API com auth JWT/OpenAPI (B-42) — ver [[04 Gestão/Operações e Deploy|Operações e Deploy]]
+- **Infra/Entrega:** ambientes ([[03 Decisões/ADR-004 Ambientes|ADR-004]]), SO da VPS ([[03 Decisões/ADR-010 Sistema Operacional da VPS (Linux)|ADR-010]]), CI/CD, backup, observabilidade ([[03 Decisões/ADR-006 Observabilidade|ADR-006]]), empacotamento (B-36..B-41) + skeleton da API com auth JWT/OpenAPI (B-42) + verificação do SLA de disponibilidade (B-47, RNF-24) + teste de carga/throughput (B-48, RNF-25) + teste de arquitetura de camadas (B-49, RNF-12) — ver [[04 Gestão/Operações e Deploy|Operações e Deploy]]
 - Detalhes → [[04 Gestão/Definição do MVP|Definição do MVP]]
 
 ### Fase 2 — Social+ (jan–abr/2027)

@@ -2,7 +2,7 @@
 tags: [vault, plano, estrategia]
 tipo: documento
 status: ativo
-atualizado: 2026-08-28
+atualizado: 2026-08-29
 ---
 
 # Plano — Agora: Rede Social de Nicho (Devs/Gamers/Leitores)
@@ -114,8 +114,8 @@ erDiagram
     FLAIR ||--o{ USUARIO_FLAIR : "atribuída a"
 ```
 
-> [!note] Modelagem futura
-> `SEGUE_TAG`, `FLAIR` e `USUARIO_FLAIR` (assim como `LIVRO`, `JOGO`, `REPOSITORIO`, `CAMPANHA`, `MESA`, `SESSAO`, `FICHA`) ainda **não estão** no [[02 Modelagem/Modelo de Dados (ER)|ER]]/[[02 Modelagem/Modelo de Domínio|Domínio]] — devem ser modelados quando cada fase iniciar (ver [[VAULT/Checklist - Correções do Plano]]).
+> [!note] Modelagem consolidada (2026-08-29)
+> `SEGUE_TAG`, `FLAIR` e `USUARIO_FLAIR` (assim como `LIVRO`, `USUARIO_LIVRO`, `JOGO`, `USUARIO_JOGO`, `REPOSITORIO`, `CAMPANHA`, `MESA`, `SESSAO`, `FICHA`) foram modelados no [[02 Modelagem/Modelo de Dados (ER)|ER]]/[[02 Modelagem/Modelo de Domínio|Domínio]] (ver [[VAULT/Checklist - Correções do Plano|F.2 ✅]]).
 
 **Feed híbrido:**
 ```
@@ -151,7 +151,11 @@ Feed Cronológico (original) | Feed por Interesse (novo)
 | Tabela `SEGUE_TAG` | Nova (Fase 2) | Usuário segue tags |
 | Tabela `FLAIR` | Nova (Fase 2) | Badges visuais de perfil |
 | Tabela `USUARIO_FLAIR` | Nova (Fase 2) | Relação N:N usuário-flair |
-| Extensão `PERFIL` | Alteração | Novos campos: stack, jogos, autores |
+| Extensão `PERFIL` | Alteração | Novos campos: stack, jogos, autores (opt-in, D-5) |
+| Tabela `LIVRO` / `USUARIO_LIVRO` | Nova (Fase 3) | Catálogo + estado de leitura por usuário |
+| Tabela `JOGO` / `USUARIO_JOGO` | Nova (Fase 3) | Catálogo + horas/review/plataforma |
+| Tabela `REPOSITORIO` | Nova (Fase 3) | Repositórios GitHub no perfil |
+| Tabela `CAMPANHA` / `MESA` / `SESSAO` / `FICHA` | Nova (Fase 3) | Mesas e campanhas de RPG |
 
 ### 4.2 Arquivo: Requisitos Funcionais
 
@@ -233,7 +237,7 @@ Feed Cronológico (original) | Feed por Interesse (novo)
 - [x] **Notas de decisão de produto** — avatar (URL no MVP), busca (FTS Postgres), e-mail, criação de tags, syntax highlighting (AvaloniaEdit + Markdig)
 - [x] **Visão do Produto/Personas** — público-alvo de nicho consolidado: primário (jogadores, RPG de mesa, leitores, programadores), secundário (música, cinema), distante (ciclistas e afins)
 - [x] **ADR-006 decidida** — observabilidade **adiada, fora do MVP** (Prometheus + Grafana na Fase 2, ainda a planejar → [[04 Gestão/Backlog do Produto#B-46|B-46]])
-- [ ] **Modelar entidades Fase 2/3** no ER/Domínio (SEGUE_TAG, FLAIR, LIVRO, JOGO, CAMPANHA, …)
+- [x] **Modelar entidades Fase 2/3** no ER/Domínio (SEGUE_TAG, FLAIR, LIVRO, JOGO, CAMPANHA, …) — ✅ 2026-08-29
 
 ---
 

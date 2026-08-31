@@ -2,7 +2,7 @@
 tags: [vault, checklist, plano, correcao]
 tipo: checklist
 status: ativo
-atualizado: 2026-08-28
+atualizado: 2026-08-29
 ---
 
 # Checklist — Correções do Plano
@@ -63,7 +63,7 @@ atualizado: 2026-08-28
 ## F. Pendências — decidir na Fase 1 / com a equipe 🔲
 
 - [x] **F.1** **ADR-006 (Observabilidade)** — ✅ decidido: **adiada**; Prometheus + Grafana **fora do MVP** (Fase 2 a planejar). No MVP: logs (Serilog) + health checks + métricas expostas (OTLP) em B-39 · dashboards/alertas viraram **B-46** (Fase 2)
-- [ ] **F.2** Modelar entidades F2/F3 no ER/Domínio (`SEGUE_TAG`, `FLAIR`, `LIVRO`, etc.) — **postergar** até o planejamento de cada Fase (a F2 ainda não foi planejada)
+- [x] **F.2** **Modelar entidades F2/F3 no ER/Domínio** — ✅ concluído (2026-08-29): `SEGUE_TAG`, `FLAIR`, `USUARIO_FLAIR`, extensão `PERFIL` (RF-021) e `LIVRO`, `USUARIO_LIVRO`, `JOGO`, `USUARIO_JOGO`, `REPOSITORIO`, `CAMPANHA`, `MESA`, `SESSAO`, `FICHA` modeladas em [[02 Modelagem/Modelo de Dados (ER)|ER]] e [[02 Modelagem/Modelo de Domínio|Domínio]]. Antes estava **postergada** até o planejamento de cada Fase; Fase 2 já tem Roadmap/Backlog (B-21..B-26), então a modelagem antecipada foi aprovada
 - [x] **F.3** **Carga de infra** — ✅ decidido: **infra é foco do MVP** — desenvolver bem CI/CD, ambientes, MSIX, backup e observabilidade-base (B-36..B-41) para facilitar o desenvolvimento futuro
 - [x] **F.4** Libs de editor/feed — ✅ **AvaloniaEdit confirmado** · **Markdig mantido** como parser padrão (pesquisa 2026: alternativas no ecossistema Avalonia são wrappers de Markdig — `LiveMarkdown.Avalonia` open-source (Apache 2.0) vs `Avalonia.Controls.Markdown` pago/Pro). Pendência residual: validar renderer no spike (RNF-17)
 - [ ] **F.5** Atualizar [[02 Modelagem/Wireframes|Wireframes]] com as novas telas (excluir conta, exportar dados, sugestões)

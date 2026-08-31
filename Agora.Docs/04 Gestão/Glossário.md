@@ -2,7 +2,7 @@
 tags: [gestao, glossario]
 tipo: documento
 status: ativo
-atualizado: 2026-08-25
+atualizado: 2026-08-29
 ---
 
 # Glossário
@@ -33,6 +33,10 @@ atualizado: 2026-08-25
 | **Mesa** | Grupo de jogadores e narrador em uma campanha de RPG — RF-030 |
 | **Sessão** | Encontro individual dentro de uma campanha (pode ser one-shot) — RF-030 |
 | **Ficha** | Personagem de RPG com atributos, habilidades e inventário — RF-030 |
+| **SegueTag** | Relação N:N usuário-tag; base do feed por interesse — RF-019 (Fase 2) |
+| **Flair** | Badge visual de perfil (ex: "C# Dev", "Mestre D&D") — RF-020 (Fase 2) |
+| **UsuarioLivro** | Estado de leitura por usuário: `lido`/`lendo`/`queroler`, nota 0–5 e resenha — RF-027 |
+| **UsuarioJogo** | Horas jogadas, review e plataforma por usuário — RF-029 |
 | **RF / RNF / RN** | Requisito Funcional / Não Funcional / Regra de Negócio |
 | **MoSCoW** | Must/Should/Could/Won't — priorização |
 | **Local-first** | Abordagem onde dados vivem primeiro no dispositivo, sync depois |
@@ -40,10 +44,19 @@ atualizado: 2026-08-25
 | **MVVM** | Padrão UI (Model-View-ViewModel) típico em WPF/Avalonia |
 | **EF Core** | ORM do .NET para persistência |
 | **Ambiente** | Instância isolada (dev/staging/prod) com config e dados próprios ([[03 Decisões/ADR-004 Ambientes\|ADR-004]]) |
+| **Docker** | Plataforma de containers; base de execução do servidor junto com Compose ([[03 Decisões/ADR-010 Sistema Operacional da VPS (Linux)\|ADR-010]]) |
+| **Container** | Unidade empacotada de app + dependências; app (Kestrel) e PostgreSQL rodam em containers no VPS (ADR-010) |
+| **Ubuntu LTS** | Distribuição Linux escolhida para o host da VPS (24.04, suporte de longo prazo) — ADR-010 |
 | **CI/CD** | Integração e entrega contínuas: build/testes automáticos + deploy automático |
 | **Staging** | Ambiente de validação pré-produção, espelhando produção |
 | **Deploy** | Publicação de uma versão numa instância (dev/staging/prod) |
+| **SSH** | Protocolo de acesso seguro ao host da VPS (Linux) — administração mínima do servidor (ADR-010) |
 | **Backup** | Cópia periódica do banco para recuperação (RNF-21) |
+| **SLA de disponibilidade** | Meta de uptime do serviço: **≥ 99,5% ao mês na produção**, excluindo janelas de manutenção programadas ([[04 Gestão/SLA de Disponibilidade\|RNF-24/SLA]]) |
+| **Throughput** | Taxa de requisições por segundo sustentada pelo servidor: **≥ 50 req/s**, sem degradar RNF-01/03 (RNF-25) |
+| **Teste de carga** | Benchmark automatizado no CI que mede throughput/latência (ex.: NBomber ⚠️) — B-48 |
+| **Uptime** | Tempo em que o servidor de produção fica disponível; base do SLA (RNF-24) |
+| **Janela de manutenção** | Período programado e comunicado de indisponibilidade que **não** conta contra a SLA (RNF-24) |
 | **Observabilidade** | Capacidade de monitorar logs, métricas, health checks e alertas (RNF-22) |
 | **Installer** | Pacote de instalação do app desktop (RNF-23) |
 | **MSIX** | Formato de empacotamento Windows moderno; suporta sideload e publicação na Microsoft Store (RNF-23) |
@@ -54,4 +67,8 @@ atualizado: 2026-08-25
 | **Endpoint** | Rota específica da API (ex: `POST /posts`) |
 | **JWT** | Token JSON assinado para autenticação stateless (access/refresh token) |
 | **LGPD** | Lei Geral de Proteção de Dados (BR) — base de RNF-09/RN-04 |
+| **GDPR** | Regulamento Geral de Proteção de Dados (UE) — não aplicável ao Agora hoje, mas princípios adotados como boas práticas (RNF-26) |
+| **Consentimento** | Registro do aceite da Política de Privacidade/Termos com data, hora e versão — revogável (RF-034, B-51) |
+| **Retenção de dados** | Período de guarda de dados pessoais: anonimizados em ≤ 30 d; backups retidos ≤ 30 d (RN-11) |
+| **Notificação de violação** | Comunicação de incidente de dados pessoais à ANPD e titulares (LGPD art. 48) — alvo ≤ 72 h (RN-12, B-53) |
 | **Soft delete** | Exclusão lógica (`ativo=false` ou `status=excluido`) sem apagar linha |

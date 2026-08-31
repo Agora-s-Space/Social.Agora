@@ -5,6 +5,7 @@ numero: ADR-005
 data: 2026-08-27
 status: aceita
 atualizado: 2026-08-27
+publish: true
 ---
 
 # ADR-005 — Design da API do Servidor
