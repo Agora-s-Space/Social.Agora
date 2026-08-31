@@ -41,41 +41,58 @@ mindmap
   root((Agora MVP))
     Conta
       Cadastro e login
-      OAuth GitHub (Fase 2)
       Perfil editável
-      Exclusão/exportação de dados (RF-032/033)
+      Recuperação de senha
+      Exclusão/exportação de dados
     Conteúdo
       Post com Markdown
-      Syntax highlighting (RF-022)
-      Tags de conteúdo (RF-023)
-      Excluir próprio post
+      Syntax highlighting
+      Tags de conteúdo
       Feed cronológico
       Feed por tags populares
-      Busca por tag
+      Editar/excluir próprio post
     Social
       Seguir/deixar de seguir
       Curtir
       Comentar
     Descoberta
-      Busca usuários/posts
+      Busca por usuários
+      Busca por posts
       Busca por tag
-    Geek (Fase 3)
-      Biblioteca de livros (RF-027)
-      Repos GitHub (RF-028)
-      Jogos jogados (RF-029)
-      Mesas e campanhas RPG (RF-030)
-    Infra/Entrega (Fase 1)
-      Ambientes dev/staging/prod (ADR-004)
-      CI/CD, backup, observabilidade
+    UX e entrega
+      Splash animado com logo
+      App desktop nativo
+      Ambientes dev/staging/prod
+      CI/CD, backup e observabilidade
       Empacotamento do app
-    UI
-      Splash animado com logo (RF-031)
+```
+
+```mermaid
+mindmap
+  root((Fases 2-3))
+    Social
+      Mensagens diretas
+    Conteúdo
+      Upload de mídia
+      Coleções / séries de posts
+    Privacidade e moderação
+      Contas privadas
+      Moderação avançada
+    Integração e expansão
+      OAuth GitHub
+      OAuth Google
+      Biblioteca de livros
+      Repositórios GitHub
+      Jogos jogados
+      Mesas e campanhas RPG
+    Plataforma
+      App mobile / web
 ```
 
 > [!note] Convenção
-> Mapa mental via Mermaid `mindmap`. Raiz = produto; ramos = módulos; folhas = features do MVP.
+> O primeiro mapa representa o escopo do MVP da Fase 1; o segundo reúne itens de expansão planejados para Fases 2-3. Isso separa claramente o que faz parte do produto atual do que é roadmap futuro.
 
-**Fora do escopo (agora):** mensagens diretas, upload de mídia, contas privadas, moderação avançada, app mobile/web. OAuth Google (Fase 3).
+**Escopo atual (Fase 1):** feed cronológico, posts com Markdown e tags, interações sociais básicas, busca, conta, splash e infraestrutura mínima necessária. **Fases 2-3:** mensagens diretas, upload de mídia, integrações OAuth, contas privadas, moderação, extensões de nicho e plataformas adicionais.
 
 ## 5. Diferenciais
 1. Feed **cronológico** sem algoritmo (ver persona Bruno)
