@@ -6,6 +6,7 @@ atualizado: 2026-08-29
 escopo: producao
 meta_uptime: "99,5%"
 periodo: mensal
+publish: true
 ---
 
 # SLA de Disponibilidade
