@@ -1,7 +1,7 @@
 # InstallRepo — instalação dos recursos do repositório
 
-> **Escopo deste guia:** as ferramentas necessárias para trabalhar na **documentação** deste repositório (vault no Obsidian, diagramas, exportação para Word e publicação do site).
-> O projeto está na **Fase 0 (Foundation)** — ainda não há código-fonte —, então a stack do produto (.NET, Docker, PostgreSQL) **não é instalável ainda**. Ver [seção 9](#9-o-que-ainda-não-é-instalável-fase-1).
+> **Escopo deste guia:** as ferramentas necessárias para trabalhar neste repositório — a **documentação** (vault no Obsidian, diagramas, exportação para Word, publicação do site) e a **solução .NET** (compilar, testar e levantar a API com o banco conectado).
+> As seções 1 a 8 cobrem a documentação; a [seção 9](#9-rodar-a-solução-e-conectar-ao-banco) cobre a solução e a conexão com o banco.
 >
 > **Para as regras de edição do vault** (frontmatter, IDs, diagramas, ADRs), veja [`Agora.Docs/AGENTS.md`](Agora.Docs/AGENTS.md) — é a fonte única de verdade do processo.
 
@@ -15,7 +15,7 @@
 6. [Publicar o site (Quartz) — opcional](#6-publicar-o-site-quartz--opcional)
 7. [Fluxo de trabalho Git](#7-fluxo-de-trabalho-git)
 8. [Verificar se tudo funciona](#8-verificar-se-tudo-funciona)
-9. [O que ainda não é instalável (Fase 1)](#9-o-que-ainda-não-é-instalável-fase-1)
+9. [Rodar a solução e conectar ao banco](#9-rodar-a-solução-e-conectar-ao-banco)
 10. [Referências](#10-referências)
 
 ---
@@ -26,6 +26,8 @@
 |---|---|---|---|
 | [Git](https://git-scm.com/downloads) | qualquer versão atual | clonar o repositório, criar branches, abrir PRs | **Sim** |
 | [Obsidian](https://obsidian.md/download) (desktop) | **≥ 1.13.1** | abrir o vault, ver diagramas, navegar por `[[wikilinks]]` | **Sim** |
+| [.NET SDK](https://dotnet.microsoft.com/download/dotnet/10.0) | **10.x** (LTS) | compilar, testar e rodar a solução (`Agora.Api`) | **Sim** |
+| [Neon](https://neon.tech) (conta) | plano gratuito | banco PostgreSQL gerenciado em nuvem — necessário p/ `dotnet test` | **Sim** p/ rodar os testes |
 | [Pandoc](https://pandoc.org/installing.html) | 3.x | exportar notas para `.docx` (entregas da disciplina) | Não |
 | [Node.js](https://nodejs.org) + npm | **Node 22.16.0** · npm ≥ 10.9.2 | sincronizar e buildar o site (Quartz) | Não |
 | [GitHub CLI](https://cli.github.com) (`gh`) | qualquer versão atual | configurar o secret de publicação do site | Não |
@@ -33,6 +35,8 @@
 > **Por que Obsidian ≥ 1.13.1?** É a versão mínima exigida pelo plugin PlantUML que o projeto usa (`.obsidian/plugins/obsidian-plantuml/manifest.json`). Com versão anterior, os diagramas PlantUML não carregam.
 >
 > **Por que Node 22?** O repositório do site fixa a versão em `.node-version` (`v22.16.0`) e declara `engines: node >= 22` no `package.json`.
+>
+> **Por que conta no Neon?** Os testes de integração conectam no banco de verdade — sem uma conta e uma senha configurada, `dotnet test` falha. Ver [seção 9.2](#92-conectar-ao-banco).
 
 ### Arquivos da raiz que dependem de apps externos
 
@@ -60,6 +64,10 @@ Estrutura do repositório:
 | `Agora.Docs/` | **o vault do Obsidian** — é esta pasta que você vai abrir no Obsidian |
 | `Agora.Docs/.obsidian/` | configuração do vault (versionada, inclusive os plugins) |
 | `.github/CODEOWNERS` | dono da documentação (`@TheSirLeaf`) — aprovação obrigatória de PR |
+| `Agora.slnx` | solução .NET (formato XML) com os projetos de `src/` e `tests/` |
+| `src/` | código da solução: `Agora.Api` (ASP.NET Core), `Agora.Domain`, `Agora.Infrastructure` (EF Core + Npgsql) |
+| `tests/` | `Agora.Infrastructure.Tests` — testes de integração da conexão com o banco |
+| `Directory.Packages.props` | versões centralizadas dos pacotes NuGet (toda a solução usa o mesmo número) |
 
 ---
 
@@ -255,6 +263,8 @@ Depois abra o PR no GitHub (`gh pr create --fill`) e aguarde a aprovação.
 - [ ] Um diagrama **Mermaid** renderiza (nativo) — ex.: `02 Modelagem/Modelo de Dados (ER).md`
 - [ ] Um diagrama **PlantUML** renderiza (ex.: `02 Modelagem/Modelo de Domínio.md`) — exige internet
 - [ ] `pandoc --version` responde no terminal e um export de teste gera `.docx` válido
+- [ ] `dotnet build` compila a solução sem erro
+- [ ] Com a API no ar, `curl http://localhost:5286/health` responde `{"status":"online","database":"ok"}` ([seção 9.3](#93-health-check))
 
 ### 8.2 Problemas comuns
 
@@ -267,21 +277,119 @@ Depois abra o PR no GitHub (`gh pr create --fill`) e aguarde a aprovação.
 | `[[link]]` não resolve para uma nota | nome do arquivo contém `:`, `\` ou `/` | renomear o arquivo (ver `VAULT/Template - Nova Nota.md`) |
 | Nota não aparece no site | falta `publish: true` no frontmatter | adicionar a propriedade ([seção 6.2](#62-regra-de-publicação)) |
 | `npm ci` falha no site | versão de Node/npm abaixo do exigido | usar Node 22.16.0 e npm ≥ 10.9.2 ([seção 1](#1-pré-requisitos)) |
+| A API sobe mas o `/health` responde `404` | você está na porta errada — a API usa a **5286** | usar `http://localhost:5286` (perfil `http` do `launchSettings.json`) |
+| Erro `'<profile>:Password' nao configurado` | a senha do banco não foi gravada | `dotnet user-secrets set "DatabaseCloud:Password" "<senha>" --project src\Agora.Api` ([seção 9.2](#92-conectar-ao-banco)) |
+| `dotnet test` falha com erro de conexão | os testes de integração batem no banco real — sem senha ou sem internet eles não passam | gravar a senha e checar a internet; para pular os testes de integração, filtrar pelo trait `Categoria=Integracao` |
 
 ---
 
-## 9. O que ainda não é instalável (Fase 1)
+## 9. Rodar a solução e conectar ao banco
 
-Não existe solução `.NET`, `Dockerfile`, `compose` ou código no repositório nesta fase. Os itens abaixo são **decisões de arquitetura**, não pré-requisitos atuais:
+> A solução .NET já existe no repositório (`Agora.slnx`) e já conversa com o banco. Docker, entidades, migrations e CI **ainda não** — ver [seção 9.4](#94-o-que-ainda-não-existe).
 
-| Recurso | Status | Documentação |
+### 9.1 Compilar e rodar
+
+```powershell
+dotnet build
+dotnet test
+dotnet run --project src\Agora.Api
+```
+
+Todos os projetos são `net10.0` — por isso o SDK 10 é obrigatório.
+
+| Projeto | Papel |
+|---|---|
+| `src/Agora.Api` | ASP.NET Core Web API — expõe o endpoint `/health` |
+| `src/Agora.Domain` | núcleo de domínio, sem dependências externas |
+| `src/Agora.Infrastructure` | EF Core + Npgsql: `AgoraDbContext`, opções de conexão e DI |
+| `tests/Agora.Infrastructure.Tests` | testes de integração da conexão (xUnit + Coverlet) |
+
+As versões dos pacotes ficam centralizadas em `Directory.Packages.props` — para trocar a versão de algo, edite só esse arquivo:
+
+| Pacote | Versão |
+|---|---|
+| `Npgsql` · `Npgsql.EntityFrameworkCore.PostgreSQL` | 10.0.3 |
+| `Microsoft.EntityFrameworkCore` (+ `.Design`) | 10.0.4 |
+| `Microsoft.Extensions.Configuration.*` | 10.0.12 |
+| `xunit` · `xunit.runner.visualstudio` | 2.9.3 · 3.1.4 |
+| `coverlet.collector` | 6.0.4 |
+
+### 9.2 Conectar ao banco
+
+A configuração fica em `src/Agora.Api/appsettings.json`. A chave `DatabaseProfile` escolhe qual das duas seções é usada:
+
+| Chave | Efeito |
+|---|---|
+| `DatabaseProfile: "DatabaseCloud"` | usa a seção `DatabaseCloud` — **é o padrão** |
+| `DatabaseProfile: "DatabaseLocal"` | usa a seção `DatabaseLocal` (Postgres local) |
+| `DatabaseProfile` ausente | assume `DatabaseCloud` |
+
+```json
+  "DatabaseProfile": "DatabaseCloud",
+  "DatabaseCloud": {
+    "Host": "<host do Neon>",
+    "Port": 5432,
+    "Database": "<banco>",
+    "Username": "<usuário>",
+    "Password": "",
+    "SslMode": "Require",
+    "MaximumPoolSize": 10
+  },
+  "DatabaseLocal": {
+    "Host": "localhost",
+    "Port": 5432,
+    "Database": "agora",
+    "Username": "agora",
+    "Password": "",
+    "SslMode": "Disable",
+    "MaximumPoolSize": 10
+  }
+```
+
+> ⚠️ O console do Neon entrega a conexão no formato **URI** (`postgresql://…`), e o Npgsql **não** aceita esse formato. A aplicação usa os campos discretos acima e monta a connection string no formato keyword/value — copie os valores campo a campo.
+
+A senha **nunca** é versionada. Grave a sua localmente com user-secrets:
+
+```powershell
+dotnet user-secrets set "DatabaseCloud:Password" "<sua senha>" --project src\Agora.Api
+dotnet user-secrets set "DatabaseLocal:Password" "<sua senha>" --project src\Agora.Api
+
+# conferir o que está gravado
+dotnet user-secrets list --project src\Agora.Api
+```
+
+- O valor do user-secrets **sobrescreve** o `appsettings.json`.
+- A API e o projeto de testes compartilham o mesmo `UserSecretsId`, então gravar uma vez serve para `dotnet run` **e** para `dotnet test`.
+- Sem a senha, a aplicação falha na inicialização com o erro `'<profile>:Password' nao configurado`.
+- ⚠️ Nunca commite senha, connection string ou o arquivo `secrets.json`.
+
+> **Os testes de integração conectam no banco de verdade** (não usam mock): o `CanConnect` e o `SELECT 1` batem no Postgres configurado. Sem senha e sem internet, `dotnet test` falha.
+
+### 9.3 Health check
+
+Com a API no ar, o `/health` confirma a conexão em tempo real:
+
+```powershell
+curl http://localhost:5286/health
+```
+
+| Situação | Resposta | HTTP |
 |---|---|---|
-| .NET 10 LTS (SDK) | decidido, Fase 1 | [`ADR-001`](Agora.Docs/03%20Decis%C3%B5es/ADR-001%20Stack%20Tecnol%C3%B3gica.md) |
-| EF Core 10 (SQLite no client · Npgsql no server) | decidido, Fase 1 | [`ADR-003`](Agora.Docs/03%20Decis%C3%B5es/ADR-003%20Persist%C3%AAncia.md) · [`ADR-007`](Agora.Docs/03%20Decis%C3%B5es/ADR-007%20Banco%20do%20Servidor%20%28Npgsql%29.md) |
-| PostgreSQL (servidor) | decidido, Fase 1 | [`ADR-007`](Agora.Docs/03%20Decis%C3%B5es/ADR-007%20Banco%20do%20Servidor%20%28Npgsql%29.md) |
-| Docker + Ubuntu LTS 24.04 na VPS | decidido, Fase 1 | [`ADR-010`](Agora.Docs/03%20Decis%C3%B5es/ADR-010%20Sistema%20Operacional%20da%20VPS%20%28Linux%29.md) |
+| Conectando no banco | `{"status":"online","database":"ok"}` | 200 |
+| Sem conectar | `{"status":"offline","database":"inacessivel"}` | 503 |
 
-Os comandos `dotnet build` / `dotnet test` citados no README são **placeholders** — serão habilitados quando a solução for criada.
+A porta é a **5286** (perfil `http` do `launchSettings.json`); o perfil `https` usa `https://localhost:7283` + `http://localhost:5286`. ⚠️ O README do repositório cita a porta `5000` — a porta real da API é a **5286**.
+
+### 9.4 O que ainda não existe
+
+| Recurso | Situação atual | Documentação |
+|---|---|---|
+| Docker + Ubuntu LTS 24.04 na VPS | decidido, ainda não provisionado | [`ADR-010`](Agora.Docs/03%20Decis%C3%B5es/ADR-010%20Sistema%20Operacional%20da%20VPS%20%28Linux%29.md) |
+| Entidades, schema e migrations | `AgoraDbContext` criado, **sem entidades** — migrations entram na branch de cadastro | [`ADR-003`](Agora.Docs/03%20Decis%C3%B5es/ADR-003%20Persist%C3%AAncia.md) |
+| Banco do servidor (PostgreSQL) | conectado via Npgsql em nuvem (Neon) | [`ADR-007`](Agora.Docs/03%20Decis%C3%B5es/ADR-007%20Banco%20do%20Servidor%20%28Npgsql%29.md) |
+| CI (build + testes) | **não existe** nenhum workflow no repositório | [B-09 no backlog](Agora.Docs/04%20Gest%C3%A3o/Backlog%20do%20Produto.md) · RNF-14 |
+| Cliente desktop (Avalonia) | decidido, projeto ainda não criado | [`ADR-001`](Agora.Docs/03%20Decis%C3%B5es/ADR-001%20Stack%20Tecnol%C3%B3gica.md) |
+| `global.json` / `.editorconfig` | não existem — o SDK não é pinado por arquivo | — |
 
 ---
 
