@@ -484,3 +484,7 @@ $RECYCLE.BIN/
 # Custom
 ignoreMe/
 workspace.json
+
+# Credenciais do Neon (connection string) - nunca versionar
+*.neon
+.env.local
