@@ -4,7 +4,7 @@ Rede social desktop para hobbies nerd, desenvolvida em C#. O Agora foi pensado p
 
 ## Estado do projeto
 
-O projeto está na **Fase 0 (Foundation)**: levantamento de requisitos, modelagem e decisões arquiteturais. Ainda não há código-fonte nem uma solução .NET configurada.
+O projeto está na **Fase 1 (Fechamento)**: a fundação documental está concluída e a conexão com o banco PostgreSQL em nuvem já foi implementada e validada. Ainda não há entidades nem schema — as migrations entram na branch de cadastro.
 
 O MVP (Fase 1) terá:
 
@@ -44,12 +44,60 @@ As instruções para manutenção da documentação e do repositório estão em 
 
 ## Desenvolvimento
 
-Os comandos abaixo serão habilitados quando a solução .NET for criada na Fase 1:
-
 ```powershell
 dotnet build
 dotnet test
+dotnet run --project src\Agora.Api
 ```
+
+Com a API no ar, o health check confirma o banco em tempo real:
+
+```powershell
+curl http://localhost:5000/health
+# {"status":"online","database":"ok"}
+```
+
+### Conexão com o banco
+
+A configuração fica em `src/Agora.Api/appsettings.json`, na seção `DatabaseCloud`/`DatabaseLocal`:
+
+```json
+  "DatabaseCloud": {
+    "Host": "ep-dawn-pine-b6ps76km-pooler.c-2.sa-east-1.aws.neon.tech",
+    "Port": 5432,
+    "Database": "neondb",
+    "Username": "neondb_owner",
+    "Password": "",
+    "SslMode": "Require",
+    "MaximumPoolSize": 10
+  },
+  "DatabaseLocal": {
+    "Host": "localhost",
+    "Port": 5432,
+    "Database": "agora",
+    "Username": "agora",
+    "Password": "",
+    "SslMode": "Disable",
+    "MaximumPoolSize": 10
+  }
+```
+
+A senha **não** fica versionada. Grave a sua localmente com user-secrets (o valor sobrescreve o `appsettings.json`):
+
+```powershell
+dotnet user-secrets set "DatabaseCloud:Password" "<sua senha>" --project src\Agora.Api
+dotnet user-secrets set "DatabaseLocal:Password" "<sua senha>" --project src\Agora.Api
+```
+
+O `dotnet test` lê a mesma configuração da API, então esse é o único passo necessário: os testes passam a conectar no banco de verdade. Para conferir o que está gravado:
+
+```powershell
+dotnet user-secrets list --project src\Agora.Api
+```
+
+> A senha pode ser obtida em [console.neon.tech](https://console.neon.tech), no projeto do Agora.
+>
+> Atenção: o console entrega a conexão no formato URI (`postgresql://...`). O Npgsql **não** aceita esse formato — use os campos discretos da seção `DatabaseCloud` ou `DatabaseLocal`, que a aplicação converte para o formato keyword/value.
 
 Metas importantes do MVP incluem feed com carregamento de até 2 s no P95, feedback de ações em até 200 ms, cobertura mínima de 60% no núcleo de domínio e pipeline de CI com build e testes.
 
