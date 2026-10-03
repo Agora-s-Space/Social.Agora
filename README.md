@@ -42,6 +42,8 @@ A documentação completa está em [Agora.Docs](Agora.Docs/Home.md) e foi criada
 
 As instruções para manutenção da documentação e do repositório estão em [Agora.Docs/AGENTS.md](Agora.Docs/AGENTS.md).
 
+Para instalar as ferramentas usadas na documentação (Obsidian, plugins, Pandoc, site), veja o guia [InstallRepo.md](InstallRepo.md).
+
 ## Desenvolvimento
 
 Os comandos abaixo serão habilitados quando a solução .NET for criada na Fase 1:
